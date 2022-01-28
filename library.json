@@ -27,5 +27,12 @@
     "opSchema": true,
     "opLogicChecks": true,
     "snapshotLogicChecks": true
-  }
+  },
+  "preloadedDependencies": [
+    {
+      "machineName": "H5P.SingleChoiceSet",
+      "majorVersion": "1",
+      "minorVersion": "11"
+    }
+  ]
 }

@@ -1,12 +1,10 @@
 [
   {
-    "label": "Text",
+    "name": "questions",
+    "label": "Single Choice Set",
     "importance": "high",
-    "name": "textField",
-    "type": "text",
-    "widget": "textarea",
-    "placeholder": "Hello world",
-    "default": "Hello %username",
-    "description": "Says hello to someone"
+    "type": "library",
+    "options": ["H5P.SingleChoiceSet 1.11"],
+    "description": "Enter your questions in the single choice set."
   }
 ]

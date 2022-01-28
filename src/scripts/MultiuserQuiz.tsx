@@ -15,6 +15,7 @@ export default class MultiuserQuiz {
    * @param extras Saved state, metadata, etc.
    */
   constructor(params: any, private contentId: string, extras: any = {}) {
+    console.log("params", params);
     // Create render root
     this.root = document.createElement("div");
 
