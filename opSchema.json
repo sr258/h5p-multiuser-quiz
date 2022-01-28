@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Test op schema",
+  "type": "object",
+  "properties": {
+    "create": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "pattern": "^http://sharejs\\.org/types/JSONv0$"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "votesUp": {
+              "type": "array",
+              "maxItems": 0
+            },
+            "votesDown": {
+              "type": "array",
+              "maxItems": 0
+            }
+          }
+        }
+      }
+    },
+    "op": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "p": {
+                "type": "array",
+                "prefixItems": [
+                  { "enum": ["votesUp", "votesDown"] },
+                  { "enum": [0] }
+                ],
+                "maxItems": 2,
+                "minItems": 2
+              },
+              "li": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "p": {
+                "type": "array",
+                "prefixItems": [{ "enum": ["votesUp", "votesDown"] }],
+                "maxItems": 1,
+                "minItems": 1
+              },
+              "od": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "oi": {
+                "type": "array"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

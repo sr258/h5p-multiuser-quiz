@@ -1,0 +1,35 @@
+[
+  {
+    "$or": [
+      {
+        "$defined": {
+          "$query": "$.create"
+        }
+      },
+      {
+        "$and": [
+          {
+            "$or": [
+              { "$.op[0].p": ["votesUp", 0] },
+              { "$.op[0].p": ["votesDown", 0] }
+            ]
+          },
+          {
+            "$.op[0].li": {
+              "$query": "$.context.user.id"
+            }
+          }
+        ]
+      },
+      {
+        "$and": [
+          { "$.op[0].p": ["votesDown"] },
+          { "$.op[1].p": ["votesUp"] },
+          { "$.op[0].oi": [] },
+          { "$.op[1].oi": [] },
+          { "$.context.permission": "privileged" }
+        ]
+      }
+    ]
+  }
+]
