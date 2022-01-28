@@ -15,7 +15,6 @@ export default class MultiuserQuiz {
    * @param extras Saved state, metadata, etc.
    */
   constructor(params: any, private contentId: string, extras: any = {}) {
-    console.log("params", params);
     // Create render root
     this.root = document.createElement("div");
 
@@ -62,12 +61,8 @@ export default class MultiuserQuiz {
     // later when the data from the server has arrived.
     ReactDOM.render(
       <Main
-        votesDown={0}
-        votesUp={0}
-        voteDown={this.voteDown}
-        voteUp={this.voteUp}
         isTeacher={this.userInformation.level === "privileged"}
-        clear={this.clear}
+        phase={"preparing"}
       />,
       this.root
     );
@@ -79,52 +74,48 @@ export default class MultiuserQuiz {
    * only rerenders the changed parts.
    */
   refreshData = async (data: QuizDoc): Promise<void> => {
-    console.log("Refreshing data");
+    console.log("Refreshing data", data);
     this.data = data;
     ReactDOM.render(
       <Main
-        votesDown={data.votesDown.length}
-        votesUp={data.votesUp.length}
-        voteDown={this.voteDown}
-        voteUp={this.voteUp}
         isTeacher={this.userInformation.level === "privileged"}
-        clear={this.clear}
+        phase={this.data.phase}
       />,
       this.root
     );
   };
 
-  /**
-   * Submit operation when user clicked on "vote up" button.
-   */
-  public voteUp = (): void => {
-    console.log("voting up");
-    this.connector.submitOp([
-      { p: ["votesUp", 0], li: this.userInformation.userId },
-    ]);
-  };
+  // /**
+  //  * Submit operation when user clicked on "vote up" button.
+  //  */
+  // public voteUp = (): void => {
+  //   console.log("voting up");
+  //   this.connector.submitOp([
+  //     { p: ["votesUp", 0], li: this.userInformation.userId },
+  //   ]);
+  // };
 
-  /**
-   * Submit operation when user clicked on "vote down" button.
-   */
-  public voteDown = (): void => {
-    console.log("voting down");
-    this.connector.submitOp([
-      { p: ["votesDown", 0], li: this.userInformation.userId },
-    ]);
-  };
+  // /**
+  //  * Submit operation when user clicked on "vote down" button.
+  //  */
+  // public voteDown = (): void => {
+  //   console.log("voting down");
+  //   this.connector.submitOp([
+  //     { p: ["votesDown", 0], li: this.userInformation.userId },
+  //   ]);
+  // };
 
-  /**
-   * Submit operation when user clicked on "clear button"
-   */
-  public clear = (): void => {
-    if (this.data) {
-      console.log("clearing");
-      // Clearing works by replacing the arrays with empty arrays
-      this.connector.submitOp([
-        { p: ["votesDown"], od: this.data.votesDown, oi: [] },
-        { p: ["votesUp"], od: this.data.votesUp, oi: [] },
-      ]);
-    }
-  };
+  // /**
+  //  * Submit operation when user clicked on "clear button"
+  //  */
+  // public clear = (): void => {
+  //   if (this.data) {
+  //     console.log("clearing");
+  //     // Clearing works by replacing the arrays with empty arrays
+  //     this.connector.submitOp([
+  //       { p: ["votesDown"], od: this.data.votesDown, oi: [] },
+  //       { p: ["votesUp"], od: this.data.votesUp, oi: [] },
+  //     ]);
+  //   }
+  // };
 }

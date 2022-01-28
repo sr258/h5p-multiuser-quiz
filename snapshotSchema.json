@@ -3,19 +3,35 @@
   "title": "Test shared state schema",
   "type": "object",
   "properties": {
-    "votesUp": {
+    "answers": {
       "type": "array",
       "items": {
-        "type": "string"
-      },
-      "uniqueItems": true
+        "type": "object",
+        "patternProperties": {
+          ".*": {
+            "type": "number"
+          }
+        }
+      }
     },
-    "votesDown": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "uniqueItems": true
+    "scores": {
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "type": "number"
+        }
+      }
+    },
+    "currentQuestionNumber": {
+      "type": "number"
+    },
+    "currentQuestionStart": {
+      "type": "number"
+    },
+    "phase": {
+      "type": "string",
+      "pattern": "^(preparing)|(question)|(review)|(scores)|(finalscores)$"
     }
-  }
+  },
+  "required": ["answers", "scores", "phase"]
 }

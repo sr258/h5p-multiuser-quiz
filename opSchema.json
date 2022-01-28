@@ -13,13 +13,17 @@
         "data": {
           "type": "object",
           "properties": {
-            "votesUp": {
+            "answers": {
               "type": "array",
               "maxItems": 0
             },
-            "votesDown": {
-              "type": "array",
-              "maxItems": 0
+            "scores": {
+              "type": "object",
+              "properties": {}
+            },
+            "phase": {
+              "type": "string",
+              "pattern": "^preparing$"
             }
           }
         }

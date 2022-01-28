@@ -1,3 +1,4 @@
+import { Phases } from "./types";
 import ShareDBDocument from "./ShareDBDocument";
 
 /**
@@ -8,17 +9,22 @@ export default class QuizDoc extends ShareDBDocument {
     super();
   }
   seed(): void {
-    this.votesDown = [];
-    this.votesUp = [];
+    this.answers = [];
+    this.scores = {};
+    this.phase = "preparing";
+    this.currentQuestionNumber = undefined;
+    this.currentQuestionNumber = undefined;
   }
 
-  /**
-   * A list of user ids of users who votes up.
-   */
-  public votesUp: string[] = [];
+  public answers: {
+    [userId: string]: number;
+  }[];
 
-  /**
-   * A list of user ids of users who votes down.
-   */
-  public votesDown: string[] = [];
+  public scores: {
+    [userId: string]: number;
+  };
+
+  public currentQuestionNumber?: number;
+  public currentQuestionStart?: number;
+  public phase: Phases;
 }
