@@ -88,7 +88,7 @@ export const FinalScores = ({
       <Box
         background="status-ok"
         round
-        margin={{ vertical: "medium" }}
+        margin={{ bottom: "medium" }}
         alignSelf="center"
       >
         <Text margin="large" size="4xl" color="light-1">

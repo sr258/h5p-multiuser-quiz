@@ -57,7 +57,12 @@ export const Scores = ({
   ) : (
     <Box>
       <Heading alignSelf="center">Current score</Heading>
-      <Box background="#48CFAD" round margin="large" alignSelf="center">
+      <Box
+        background="#48CFAD"
+        round
+        margin={{ left: "small", right: "small", bottom: "medium" }}
+        alignSelf="center"
+      >
         <Text margin="large" size="6xl">
           {doc.scores[context.userId]}
         </Text>
