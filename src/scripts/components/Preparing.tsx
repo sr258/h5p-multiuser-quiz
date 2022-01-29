@@ -1,4 +1,7 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLaughBeam } from "@fortawesome/free-solid-svg-icons";
+
 import { Heading, Text, Box, Button } from "grommet";
 import { IParams, IState, IContext } from "../types";
 
@@ -31,7 +34,12 @@ export const Preparing = ({
           />
         </React.Fragment>
       ) : (
-        <Text>Please wait for your teacher to start the quiz.</Text>
+        <Box align="center">
+          <Box margin="large">
+            <FontAwesomeIcon color="#FFC300" size="5x" icon={faLaughBeam} />
+          </Box>
+          <Text>Please wait for your teacher to start the quiz...</Text>
+        </Box>
       )}
     </Box>
   );

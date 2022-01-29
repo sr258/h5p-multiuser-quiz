@@ -29,7 +29,7 @@ export const Scores = ({
       <Table alignSelf="center">
         <TableHeader>
           <TableCell scope="col" border="bottom">
-            Student
+            Name
           </TableCell>
           <TableCell scope="col" border="bottom">
             Score
@@ -46,7 +46,7 @@ export const Scores = ({
             ))}
         </TableBody>
       </Table>
-      <Box direction="row" justify="between">
+      <Box direction="row" justify="between" margin={{ top: "medium" }}>
         <Text margin="medium">
           {"Question "} {doc.currentQuestionNumber + 1} /{" "}
           {params.questions.params.choices.length}
@@ -57,7 +57,7 @@ export const Scores = ({
   ) : (
     <Box>
       <Heading alignSelf="center">Current score</Heading>
-      <Box background="light-4" round margin="xlarge" alignSelf="center">
+      <Box background="#48CFAD" round margin="large" alignSelf="center">
         <Text margin="large" size="6xl">
           {doc.scores[context.userId]}
         </Text>

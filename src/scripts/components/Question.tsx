@@ -1,5 +1,5 @@
 import { preview } from "@reactpreview/config";
-import { Box, Text, Heading, Button, Grid } from "grommet";
+import { Box, Text, Heading, Button, Grid, Stack } from "grommet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircle,
@@ -18,9 +18,9 @@ import { IParams, IState, IContext } from "../types";
 
 const colors = [
   "#DA4453",
-  "#FCBB42",
-  "#3BAFDA",
-  "#8CC152",
+  "#FFCE54",
+  "#4FC1E9",
+  "#A0D468",
   "#37BC9B",
   "#D770AD",
   "#967ADC",
@@ -52,14 +52,19 @@ export const Question = ({
 
   return context.isTeacher ? (
     <Box>
-      <Heading textAlign="center">
-        <span
-          dangerouslySetInnerHTML={{
-            __html: currQuestion.question,
-          }}
-        ></span>
-      </Heading>
-      <Box>
+      <Text
+        size="3xl"
+        dangerouslySetInnerHTML={{
+          __html: currQuestion.question,
+        }}
+        textAlign="center"
+      />
+      <Grid
+        columns={{
+          count: 2,
+          size: "medium",
+        }}
+      >
         {Array.from(currQuestion.answers)
           .sort((a, b) => {
             return (
@@ -83,15 +88,25 @@ export const Question = ({
               }}
               background={{ color: colors[index] }}
             >
-              <Box direction="row" align="center">
-                <Box margin="medium">{icons[index]}</Box>
-                <Box>
-                  {<span dangerouslySetInnerHTML={{ __html: q }}></span>}
+              <Stack fill margin={{ vertical: "small" }}>
+                <Box alignSelf="start" margin="medium">
+                  {icons[index]}
                 </Box>
-              </Box>
+                <Box fill align="center" justify="center">
+                  <Box
+                    margin={{ left: "large", right: "medium" }}
+                    justify="center"
+                  >
+                    <Text
+                      textAlign="center"
+                      dangerouslySetInnerHTML={{ __html: q }}
+                    ></Text>
+                  </Box>
+                </Box>
+              </Stack>
             </Box>
           ))}
-      </Box>
+      </Grid>
       <Box direction="row" justify="between">
         <Text margin="medium">
           {"Question "} {doc.currentQuestionNumber + 1} /{" "}
@@ -143,7 +158,7 @@ export const Question = ({
                   doc.answers[doc.currentQuestionNumber][context.userId] !==
                     index
                 }
-                label={icons[index]}
+                label={<Text size="xlarge">{icons[index]}</Text>}
                 color={colors[index]}
                 primary
                 fill

@@ -7,7 +7,7 @@ export const Initializing = ({ params }: { params: IParams }) => {
       <Heading textAlign="center">{params.questions.metadata.title}</Heading>
       <Box direction="row">
         <Spinner margin="small" />
-        <Text margin="small">Connecting to server</Text>
+        <Text margin="small">Connecting to server...</Text>
       </Box>
     </Box>
   );

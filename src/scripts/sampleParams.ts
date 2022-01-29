@@ -9,7 +9,7 @@ export const sampleParams: IParams = {
           question: "<p>Frage 1</p>\n",
           answers: [
             "<p>Richtig</p>\n",
-            "<p>Falsch 1.1</p>\n",
+            "<p>Falsch 1.1 Falsch 1.1 Falsch 1.1 Falsch 1.1 Falsch 1.1 Falsch 1.1 Falsch 1.1 Falsch 1.1 Falsch 1.1</p>\n",
             "<p>Falsch 1.2</p>\n",
             "<p>Falsch 1.3</p>\n",
           ],

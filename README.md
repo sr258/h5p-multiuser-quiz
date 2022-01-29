@@ -50,3 +50,7 @@ minify the code.
 - Upload the resulting libraries.h5p file to WordPress (Make sure you've set these values in wp-config.php when you want to upload the same version again):
   - define('H5P_DEV', true);
   - define('H5P_DISABLE_AGGREGATION', true);
+
+
+
+Flattastic Pro Color Palette by

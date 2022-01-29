@@ -78,7 +78,7 @@ export const FinalScores = ({
             ))}
         </TableBody>
       </Table>
-      <Box direction="row" justify="center" margin={{ top: "large" }}>
+      <Box direction="row" justify="center" margin={{ top: "medium" }}>
         <Button margin="medium" primary label="Play again" />
       </Box>
     </Box>
@@ -91,28 +91,30 @@ export const FinalScores = ({
         margin={{ vertical: "medium" }}
         alignSelf="center"
       >
-        <Text margin="large" size="6xl" color="light-1">
+        <Text margin="large" size="4xl" color="light-1">
           {doc.scores[context.userId]}
         </Text>
       </Box>
 
       <Box
-        background="brand"
+        background="light-3"
         round
-        margin={{ vertical: "medium" }}
+        margin={{ vertical: "small" }}
         alignSelf="center"
         direction="row"
         align="center"
         justify="center"
       >
-        <Box margin={{ horizontal: "large" }}>
-          <FontAwesomeIcon
-            size="5x"
-            icon={faTrophy}
-            color={scoreIndexToColor(userScoreIndex)}
-          />
-        </Box>
-        <Text margin="large" size="6xl" color="light-1">
+        {userScoreIndex <= 2 && (
+          <Box margin={{ left: "large", right: "small" }}>
+            <FontAwesomeIcon
+              size="4x"
+              icon={faTrophy}
+              color={scoreIndexToColor(userScoreIndex)}
+            />
+          </Box>
+        )}
+        <Text margin="large" size="4xl">
           {"# "} {userScoreIndex + 1}
         </Text>
       </Box>
@@ -142,9 +144,31 @@ preview(FinalScores, {
     },
     params: sampleParams,
   },
-  student: {
+  "student-no-winner": {
     context: {
       userId: "user3",
+      isTeacher: false,
+    },
+    doc: {
+      answers: [],
+      currentQuestionOrder: [],
+      currentQuestionNumber: 0,
+      currentQuestionStart: 0,
+      phase: "finalscores",
+      scores: {
+        user1: 1000,
+        user2: 5000,
+        user3: 2500,
+        user4: 9000,
+        user5: 10000,
+      },
+    },
+    params: sampleParams,
+  },
+
+  "student-winner": {
+    context: {
+      userId: "user5",
       isTeacher: false,
     },
     doc: {
