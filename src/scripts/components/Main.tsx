@@ -5,7 +5,7 @@ import { preview } from "@reactpreview/config";
 import FinalScores from "./FinalScores";
 import { Preparing } from "./Preparing";
 import { Question } from "./Question";
-import Scores from "./Scores";
+import { Scores } from "./Scores";
 import { IParams, IState, IContext } from "../types";
 import { Initializing } from "./Initializing";
 import { sampleParams } from "../sampleParams";
@@ -32,7 +32,9 @@ export const Main = ({
           {doc.phase === "review" && (
             <Question params={params} context={context} doc={doc}></Question>
           )}
-          {doc.phase === "scores" && <Scores></Scores>}
+          {doc.phase === "scores" && (
+            <Scores params={params} context={context} doc={doc} />
+          )}
           {doc.phase === "finalscores" && <FinalScores></FinalScores>}
         </Box>
       ) : (
