@@ -19,7 +19,16 @@ export const Preparing = ({
           <Text>
             Press the "Start" button when all participants have joined.
           </Text>
-          <Button margin="medium" alignSelf="center" label="Start" />
+          <Button
+            primary
+            margin="medium"
+            alignSelf="center"
+            label={
+              <Box>
+                <Text margin="medium">Start</Text>
+              </Box>
+            }
+          />
         </React.Fragment>
       ) : (
         <Text>Please wait for your teacher to start the quiz.</Text>
