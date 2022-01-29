@@ -17,14 +17,14 @@ import { sampleParams } from "../sampleParams";
 import { IParams, IState, IContext } from "../types";
 
 const colors = [
-  "neutral-1",
-  "neutral-2",
-  "neutral-3",
-  "neutral-4",
-  "accent-1",
-  "accent-2",
-  "accent-3",
-  "accent-4",
+  "#DA4453",
+  "#FCBB42",
+  "#3BAFDA",
+  "#8CC152",
+  "#37BC9B",
+  "#D770AD",
+  "#967ADC",
+  "#AAB2BD",
 ];
 
 const icons = [

@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Grommet } from "grommet";
 import { preview } from "@reactpreview/config";
 
-import FinalScores from "./FinalScores";
+import { FinalScores } from "./FinalScores";
 import { Preparing } from "./Preparing";
 import { Question } from "./Question";
 import { Scores } from "./Scores";
@@ -35,7 +35,9 @@ export const Main = ({
           {doc.phase === "scores" && (
             <Scores params={params} context={context} doc={doc} />
           )}
-          {doc.phase === "finalscores" && <FinalScores></FinalScores>}
+          {doc.phase === "finalscores" && (
+            <FinalScores params={params} context={context} doc={doc} />
+          )}
         </Box>
       ) : (
         <Box>
