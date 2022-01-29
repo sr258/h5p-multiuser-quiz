@@ -1,10 +1,10 @@
-import { Phases } from "./types";
+import { IState, Phases } from "./types";
 import ShareDBDocument from "./ShareDBDocument";
 
 /**
  * The sample document that represents the shared state.
  */
-export default class QuizDoc extends ShareDBDocument {
+export default class QuizDoc extends ShareDBDocument implements IState {
   constructor() {
     super();
   }
@@ -12,8 +12,9 @@ export default class QuizDoc extends ShareDBDocument {
     this.answers = [];
     this.scores = {};
     this.phase = "preparing";
-    this.currentQuestionNumber = undefined;
-    this.currentQuestionNumber = undefined;
+    this.currentQuestionNumber = 0;
+    this.currentQuestionStart = 0;
+    this.currentQuestionOrder = [];
   }
 
   public answers: {
@@ -24,7 +25,9 @@ export default class QuizDoc extends ShareDBDocument {
     [userId: string]: number;
   };
 
-  public currentQuestionNumber?: number;
-  public currentQuestionStart?: number;
+  public currentQuestionNumber: number;
+  public currentQuestionStart: number;
+  public currentQuestionOrder: number[];
+
   public phase: Phases;
 }

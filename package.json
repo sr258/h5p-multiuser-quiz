@@ -26,6 +26,7 @@
     "@babel/preset-env": "^7.16.7",
     "@babel/preset-react": "^7.16.7",
     "@h5p-types/h5p-core": "^0.2.0",
+    "@reactpreview/config": "^0.3.4",
     "@types/jquery": "^3.5.11",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
@@ -47,9 +48,16 @@
     "webpack-cli": "^4.9.1"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.17",
+    "grommet": "^2.20.1",
+    "polished": "^4.1.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-native-shapes": "^0.1.0",
     "reconnecting-websocket": "^4.4.0",
-    "sharedb": "^2.2.1"
+    "sharedb": "^2.2.1",
+    "styled-components": "^5.3.3"
   }
 }

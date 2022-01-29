@@ -1,28 +1,86 @@
 import React from "react";
+import { Box, Grommet } from "grommet";
+import { preview } from "@reactpreview/config";
+
 import FinalScores from "./FinalScores";
-import Preparing from "./Preparing";
-import Question from "./Question";
+import { Preparing } from "./Preparing";
+import { Question } from "./Question";
 import Scores from "./Scores";
+import { IParams, IState, IContext } from "../types";
+import { Initializing } from "./Initializing";
+import { sampleParams } from "../sampleParams";
 
-import { Phases } from "../types";
-
-/**
- * A simple React functional component displaying the voting user interface
- */
-export default function ({
-  isTeacher,
-  phase,
+export const Main = ({
+  context,
+  doc,
+  params,
 }: {
-  isTeacher: boolean;
-  phase: Phases;
-}) {
+  context: IContext;
+  doc?: IState;
+  params: IParams;
+}) => {
   return (
-    <div>
-      {phase === "preparing" && <Preparing></Preparing>}
-      {phase === "question" && <Question></Question>}
-      {phase === "review" && <Question></Question>}
-      {phase === "scores" && <Scores></Scores>}
-      {phase === "finalscores" && <FinalScores></FinalScores>}
-    </div>
+    <Grommet plain>
+      {doc !== undefined ? (
+        <Box>
+          {doc.phase === "preparing" && (
+            <Preparing context={context} doc={doc} params={params}></Preparing>
+          )}
+          {doc.phase === "question" && (
+            <Question params={params} context={context} doc={doc}></Question>
+          )}
+          {doc.phase === "review" && (
+            <Question params={params} context={context} doc={doc}></Question>
+          )}
+          {doc.phase === "scores" && <Scores></Scores>}
+          {doc.phase === "finalscores" && <FinalScores></FinalScores>}
+        </Box>
+      ) : (
+        <Box>
+          <Initializing params={params} />
+        </Box>
+      )}
+    </Grommet>
   );
-}
+};
+
+preview(Main, {
+  connecting: {
+    context: {
+      isTeacher: true,
+      userId: "",
+    },
+    doc: undefined,
+    params: sampleParams,
+  },
+  "preparing-teacher": {
+    context: {
+      isTeacher: true,
+      userId: "",
+    },
+    doc: {
+      answers: [],
+      currentQuestionOrder: [],
+      phase: "preparing",
+      scores: {},
+      currentQuestionNumber: 0,
+      currentQuestionStart: Date.now(),
+    },
+    params: sampleParams,
+  },
+  "preparing-student": {
+    context: {
+      isTeacher: false,
+      userId: "",
+    },
+    doc: {
+      answers: [],
+      currentQuestionOrder: [],
+      phase: "preparing",
+      scores: {},
+      currentQuestionNumber: 0,
+      currentQuestionStart: Date.now(),
+    },
+    params: sampleParams,
+  },
+});

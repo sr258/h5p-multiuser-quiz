@@ -2,8 +2,9 @@ import React from "react";
 import * as ReactDOM from "react-dom";
 
 import QuizDoc from "./QuizDoc";
-import Main from "./components/Main";
+import { Main } from "./components/Main";
 import ShareDBConnector from "./ShareDBConnector";
+import { IParams } from "./types";
 
 /**
  * The H5P content type class.
@@ -14,7 +15,11 @@ export default class MultiuserQuiz {
    * @param contentId Content's id.
    * @param extras Saved state, metadata, etc.
    */
-  constructor(params: any, private contentId: string, extras: any = {}) {
+  constructor(
+    private params: IParams,
+    private contentId: string,
+    extras: any = {}
+  ) {
     // Create render root
     this.root = document.createElement("div");
 
@@ -61,8 +66,12 @@ export default class MultiuserQuiz {
     // later when the data from the server has arrived.
     ReactDOM.render(
       <Main
-        isTeacher={this.userInformation.level === "privileged"}
-        phase={"preparing"}
+        context={{
+          userId: this.userInformation.userId,
+          isTeacher: this.userInformation.level === "privileged",
+        }}
+        doc={this.data}
+        params={this.params}
       />,
       this.root
     );
@@ -78,8 +87,12 @@ export default class MultiuserQuiz {
     this.data = data;
     ReactDOM.render(
       <Main
-        isTeacher={this.userInformation.level === "privileged"}
-        phase={this.data.phase}
+        context={{
+          userId: this.userInformation.userId,
+          isTeacher: this.userInformation.level === "privileged",
+        }}
+        doc={this.data}
+        params={this.params}
       />,
       this.root
     );
