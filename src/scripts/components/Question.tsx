@@ -89,6 +89,7 @@ export const Question = ({
                     : undefined,
               }}
               background={{ color: colors[index] }}
+              key={q}
             >
               <Stack fill margin={{ vertical: "small" }}>
                 <Box alignSelf="start" margin="medium">
@@ -164,8 +165,9 @@ export const Question = ({
               doc.currentQuestionOrder.indexOf(currQuestion.answers.indexOf(a))
           )
           .map((q, index) => (
-            <Box margin="small" height="6em">
+            <Box margin="small" height="6em" key={index}>
               <Button
+                key={q}
                 disabled={
                   doc.answers[doc.currentQuestionNumber][context.userId] !==
                     undefined &&

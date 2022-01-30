@@ -4,7 +4,8 @@ import * as ReactDOM from "react-dom";
 import QuizDoc from "./QuizDoc";
 import { Main } from "./components/Main";
 import ShareDBConnector from "./ShareDBConnector";
-import { IParams } from "./types";
+import { IActions, IParams } from "./types";
+import ShareDBActions from "./ShareDBActions";
 
 /**
  * The H5P content type class.
@@ -42,6 +43,7 @@ export default class MultiuserQuiz {
       this.refreshData,
       QuizDoc
     );
+    this.actions = new ShareDBActions(this.connector);
   }
 
   private root: HTMLElement;
@@ -54,6 +56,7 @@ export default class MultiuserQuiz {
     userId: "",
     level: "anonymous",
   };
+  private actions: IActions;
 
   /**
    * Attach content type to DOM.
@@ -95,6 +98,7 @@ export default class MultiuserQuiz {
         }}
         doc={this.data}
         params={this.params}
+        actions={this.actions}
       />,
       this.root
     );
