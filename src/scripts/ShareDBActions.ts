@@ -68,13 +68,33 @@ export default class ShareDBActions implements IActions {
     ]);
   }
   showAnswerAndScore(context: IContext, state: IState, params: IParams): void {
+    const participatedUsers = Object.keys(
+      state.answers[state.currentQuestionNumber]
+    );
+    const newScores = participatedUsers.reduce(
+      (scores, userId) => {
+        if (state.answers[state.currentQuestionNumber][userId] === 0) {
+          scores[userId] = (scores[userId] ?? 0) + 1000;
+        } else if (!scores[userId]) {
+          // first participation of user
+          scores[userId] = 0;
+        }
+        return scores;
+      },
+      { ...state.scores }
+    );
+
     this.db.submitOp([
       {
         p: ["phase"],
         od: "question",
         oi: "review",
       },
-      // TODO calculate scores
+      {
+        p: ["scores"],
+        od: state.scores,
+        oi: newScores,
+      },
     ]);
   }
   showScores(context: IContext, state: IState, params: IParams): void {

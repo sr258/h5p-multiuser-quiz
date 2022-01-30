@@ -14,7 +14,7 @@ export const Main = ({
   context,
   doc,
   params,
-  actions
+  actions,
 }: {
   context: IContext;
   doc?: IState;
@@ -49,22 +49,26 @@ export const Main = ({
               actions={actions}
             ></Question>
           )}
-          {doc.phase === "scores" && (
-            <Scores
-              params={params}
-              context={context}
-              doc={doc}
-              actions={actions}
-            />
-          )}
-          {doc.phase === "finalscores" && (
-            <FinalScores
-              params={params}
-              context={context}
-              doc={doc}
-              actions={actions}
-            />
-          )}
+          {doc.phase === "scores" &&
+            doc.currentQuestionNumber !==
+              params.questions.params.choices.length - 1 && (
+              <Scores
+                params={params}
+                context={context}
+                doc={doc}
+                actions={actions}
+              />
+            )}
+          {doc.phase === "scores" &&
+            doc.currentQuestionNumber ===
+              params.questions.params.choices.length - 1 && (
+              <FinalScores
+                params={params}
+                context={context}
+                doc={doc}
+                actions={actions}
+              />
+            )}
         </Box>
       ) : (
         <Box>

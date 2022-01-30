@@ -142,7 +142,7 @@ preview(FinalScores, {
       currentQuestionOrder: [],
       currentQuestionNumber: 0,
       currentQuestionStart: 0,
-      phase: "finalscores",
+      phase: "score",
       scores: {
         user1: 1000,
         user2: 5000,
@@ -163,7 +163,7 @@ preview(FinalScores, {
       currentQuestionOrder: [],
       currentQuestionNumber: 0,
       currentQuestionStart: 0,
-      phase: "finalscores",
+      phase: "score",
       scores: {
         user1: 1000,
         user2: 5000,
@@ -185,7 +185,7 @@ preview(FinalScores, {
       currentQuestionOrder: [],
       currentQuestionNumber: 0,
       currentQuestionStart: 0,
-      phase: "finalscores",
+      phase: "score",
       scores: {
         user1: 1000,
         user2: 5000,

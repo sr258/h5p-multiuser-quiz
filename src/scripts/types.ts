@@ -1,9 +1,4 @@
-export type Phases =
-  | "preparing"
-  | "question"
-  | "review"
-  | "scores"
-  | "finalscores";
+export type Phases = "preparing" | "question" | "review" | "scores";
 
 export interface IState {
   answers: {
