@@ -51,6 +51,8 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.17",
+    "@types/color": "^3.0.2",
+    "color": "^4.2.0",
     "grommet": "^2.20.1",
     "polished": "^4.1.4",
     "react": "^17.0.2",

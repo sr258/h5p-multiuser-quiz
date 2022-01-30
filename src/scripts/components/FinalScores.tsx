@@ -63,7 +63,7 @@ export const FinalScores = ({
           {Object.keys(doc.scores)
             .sort((a, b) => doc.scores[b] - doc.scores[a])
             .map((userId, index) => (
-              <TableRow>
+              <TableRow key={userId}>
                 <TableCell scope="row">
                   {index >= 0 && index <= 2 ? (
                     <FontAwesomeIcon
@@ -142,7 +142,7 @@ preview(FinalScores, {
       currentQuestionOrder: [],
       currentQuestionNumber: 0,
       currentQuestionStart: 0,
-      phase: "score",
+      phase: "scores",
       scores: {
         user1: 1000,
         user2: 5000,
@@ -163,7 +163,7 @@ preview(FinalScores, {
       currentQuestionOrder: [],
       currentQuestionNumber: 0,
       currentQuestionStart: 0,
-      phase: "score",
+      phase: "scores",
       scores: {
         user1: 1000,
         user2: 5000,
@@ -174,7 +174,6 @@ preview(FinalScores, {
     },
     params: sampleParams,
   },
-
   "student-winner": {
     context: {
       userId: "user5",
@@ -185,7 +184,7 @@ preview(FinalScores, {
       currentQuestionOrder: [],
       currentQuestionNumber: 0,
       currentQuestionStart: 0,
-      phase: "score",
+      phase: "scores",
       scores: {
         user1: 1000,
         user2: 5000,

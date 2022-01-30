@@ -1,5 +1,6 @@
 import { preview } from "@reactpreview/config";
-import { Box, Text, Heading, Button, Grid, Stack } from "grommet";
+import Color from "color";
+import { Box, Text, Heading, Button, Grid, Stack, Tag } from "grommet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircle,
@@ -78,17 +79,29 @@ export const Question = ({
           })
           .map((q, index) => (
             <Box
+              border={{
+                size: "3px",
+                color:
+                  doc.phase === "question" ||
+                  (doc.phase === "review" &&
+                    currQuestion.answers.indexOf(q) !== 0)
+                    ? "transparent"
+                    : undefined,
+              }}
               margin="small"
               round
               align="center"
-              style={{
-                opacity:
+              background={{
+                color:
                   doc.phase === "review" &&
                   currQuestion.answers.indexOf(q) !== 0
-                    ? 0.3
-                    : undefined,
+                    ? new Color(colors[index])
+                        .alpha(0.4)
+                        .lighten(0.1)
+                        .rgb()
+                        .string()
+                    : colors[index],
               }}
-              background={{ color: colors[index] }}
               key={q}
             >
               <Stack fill margin={{ vertical: "small" }}>
@@ -97,7 +110,7 @@ export const Question = ({
                 </Box>
                 <Box fill align="center" justify="center">
                   <Box
-                    margin={{ left: "large", right: "medium" }}
+                    margin={{ left: "large", right: "large" }}
                     justify="center"
                   >
                     <Text
@@ -106,6 +119,24 @@ export const Question = ({
                     ></Text>
                   </Box>
                 </Box>
+                {doc.phase === "review" && (
+                  <Box
+                    fill
+                    justify="center"
+                    align="end"
+                    pad={{
+                      right: "small",
+                    }}
+                  >
+                    <Tag
+                      value={
+                        Object.values(
+                          doc.answers[doc.currentQuestionNumber]
+                        ).filter((a) => a === index).length
+                      }
+                    />
+                  </Box>
+                )}
               </Stack>
             </Box>
           ))}
