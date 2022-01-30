@@ -6,7 +6,7 @@ import { FinalScores } from "./FinalScores";
 import { Preparing } from "./Preparing";
 import { Question } from "./Question";
 import { Scores } from "./Scores";
-import { IParams, IState, IContext } from "../types";
+import { IParams, IState, IContext, IActions } from "../types";
 import { Initializing } from "./Initializing";
 import { sampleParams } from "../sampleParams";
 
@@ -14,29 +14,56 @@ export const Main = ({
   context,
   doc,
   params,
+  actions
 }: {
   context: IContext;
   doc?: IState;
   params: IParams;
+  actions?: IActions;
 }) => {
   return (
     <Grommet plain>
       {doc !== undefined ? (
         <Box>
           {doc.phase === "preparing" && (
-            <Preparing context={context} doc={doc} params={params}></Preparing>
+            <Preparing
+              context={context}
+              doc={doc}
+              params={params}
+              actions={actions}
+            ></Preparing>
           )}
           {doc.phase === "question" && (
-            <Question params={params} context={context} doc={doc}></Question>
+            <Question
+              params={params}
+              context={context}
+              doc={doc}
+              actions={actions}
+            ></Question>
           )}
           {doc.phase === "review" && (
-            <Question params={params} context={context} doc={doc}></Question>
+            <Question
+              params={params}
+              context={context}
+              doc={doc}
+              actions={actions}
+            ></Question>
           )}
           {doc.phase === "scores" && (
-            <Scores params={params} context={context} doc={doc} />
+            <Scores
+              params={params}
+              context={context}
+              doc={doc}
+              actions={actions}
+            />
           )}
           {doc.phase === "finalscores" && (
-            <FinalScores params={params} context={context} doc={doc} />
+            <FinalScores
+              params={params}
+              context={context}
+              doc={doc}
+              actions={actions}
+            />
           )}
         </Box>
       ) : (

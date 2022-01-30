@@ -10,18 +10,19 @@ import {
   TableRow,
   Text,
 } from "grommet";
-import React from "react";
 import { sampleParams } from "../sampleParams";
-import { IContext, IParams, IState } from "../types";
+import { IActions, IContext, IParams, IState } from "../types";
 
 export const Scores = ({
   context,
   params,
   doc,
+  actions,
 }: {
   context: IContext;
   params: IParams;
   doc: IState;
+  actions?: IActions;
 }) => {
   return context.isTeacher ? (
     <Box>
@@ -51,7 +52,14 @@ export const Scores = ({
           {"Question "} {doc.currentQuestionNumber + 1} /{" "}
           {params.questions.params.choices.length}
         </Text>
-        <Button margin="medium" primary label="Next question" />
+        <Button
+          margin="medium"
+          primary
+          label="Next question"
+          onClick={() => {
+            actions?.nextQuestion(context, doc, params);
+          }}
+        />
       </Box>
     </Box>
   ) : (

@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 
 import { sampleParams } from "../sampleParams";
-import { IContext, IParams, IState } from "../types";
+import { IActions, IContext, IParams, IState } from "../types";
 
 const scoreIndexToColor = (index: number): string => {
   if (index === 0) {
@@ -30,10 +30,12 @@ export const FinalScores = ({
   context,
   params,
   doc,
+  actions,
 }: {
   context: IContext;
   params: IParams;
   doc: IState;
+  actions?: IActions;
 }) => {
   let userScoreIndex = 0;
   if (!context.isTeacher) {
@@ -79,7 +81,14 @@ export const FinalScores = ({
         </TableBody>
       </Table>
       <Box direction="row" justify="center" margin={{ top: "medium" }}>
-        <Button margin="medium" primary label="Play again" />
+        <Button
+          margin="medium"
+          primary
+          label="Play again"
+          onClick={() => {
+            actions?.start(context, doc, params);
+          }}
+        />
       </Box>
     </Box>
   ) : (

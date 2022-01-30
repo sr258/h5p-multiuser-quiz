@@ -3,16 +3,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLaughBeam } from "@fortawesome/free-solid-svg-icons";
 
 import { Heading, Text, Box, Button } from "grommet";
-import { IParams, IState, IContext } from "../types";
+import { IParams, IState, IContext, IActions } from "../types";
 
 export const Preparing = ({
   context,
   params,
   doc,
+  actions,
 }: {
   context: IContext;
   params: IParams;
   doc: IState;
+  actions?: IActions;
 }) => {
   return (
     <Box fill="vertical" align="center">
@@ -31,6 +33,9 @@ export const Preparing = ({
                 <Text margin="medium">Start</Text>
               </Box>
             }
+            onClick={() => {
+              actions?.start(context, doc, params);
+            }}
           />
         </React.Fragment>
       ) : (

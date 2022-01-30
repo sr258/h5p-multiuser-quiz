@@ -14,7 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { sampleParams } from "../sampleParams";
-import { IParams, IState, IContext } from "../types";
+import { IParams, IState, IContext, IActions } from "../types";
 
 const colors = [
   "#DA4453",
@@ -42,10 +42,12 @@ export const Question = ({
   context,
   params,
   doc,
+  actions,
 }: {
   context: IContext;
   params: IParams;
   doc: IState;
+  actions?: IActions;
 }) => {
   const currQuestion =
     params.questions.params.choices[doc.currentQuestionNumber];
@@ -126,10 +128,22 @@ export const Question = ({
           </Text>
         )}
         {doc.phase === "question" && (
-          <Button margin="medium" label="Show answer" />
+          <Button
+            margin="medium"
+            label="Show answer"
+            onClick={() => {
+              actions?.showAnswerAndScore(context, doc, params);
+            }}
+          />
         )}
         {doc.phase === "review" && (
-          <Button margin="medium" label="Show scores" />
+          <Button
+            margin="medium"
+            label="Show scores"
+            onClick={() => {
+              actions?.showScores(context, doc, params);
+            }}
+          />
         )}
       </Box>
     </Box>
@@ -162,6 +176,14 @@ export const Question = ({
                 color={colors[index]}
                 primary
                 fill
+                onClick={() => {
+                  actions?.answer(
+                    context,
+                    doc,
+                    params,
+                    doc.currentQuestionOrder[index]
+                  );
+                }}
               ></Button>
             </Box>
           ))}
