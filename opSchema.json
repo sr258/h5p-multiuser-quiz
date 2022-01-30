@@ -164,6 +164,183 @@
               }
             }
           ]
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "prefixItems": [
+            {
+              "type": "object",
+              "properties": {
+                "p": {
+                  "type": "array",
+                  "prefixItems": [
+                    { "enum": ["answers"] },
+                    { "type": "integer" },
+                    { "type": "string" }
+                  ],
+                  "maxItems": 3,
+                  "minItems": 3
+                },
+                "oi": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "prefixItems": [
+            {
+              "type": "object",
+              "properties": {
+                "p": {
+                  "type": "array",
+                  "prefixItems": [{ "enum": ["phase"] }],
+                  "maxItems": 1,
+                  "minItems": 1
+                },
+                "od": {
+                  "type": "string",
+                  "pattern": "^question$"
+                },
+                "oi": {
+                  "type": "string",
+                  "pattern": "^review$"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "prefixItems": [
+            {
+              "type": "object",
+              "properties": {
+                "p": {
+                  "type": "array",
+                  "prefixItems": [{ "enum": ["phase"] }],
+                  "maxItems": 1,
+                  "minItems": 1
+                },
+                "od": {
+                  "type": "string",
+                  "pattern": "^review$"
+                },
+                "oi": {
+                  "type": "string",
+                  "pattern": "^scores$"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "prefixItems": [
+            {
+              "type": "object",
+              "properties": {
+                "p": {
+                  "type": "array",
+                  "prefixItems": [{ "enum": ["currentQuestionNumber"] }],
+                  "maxItems": 1,
+                  "minItems": 1
+                },
+                "od": {
+                  "type": "integer"
+                },
+                "oi": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "p": {
+                  "type": "array",
+                  "prefixItems": [{ "enum": ["currentQuestionStart"] }],
+                  "maxItems": 1,
+                  "minItems": 1
+                },
+                "od": {
+                  "type": "integer"
+                },
+                "oi": {
+                  "type": "integer"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "p": {
+                  "type": "array",
+                  "prefixItems": [{ "enum": ["currentQuestionOrder"] }],
+                  "maxItems": 1,
+                  "minItems": 1
+                },
+                "od": {
+                  "type": "array"
+                },
+                "oi": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "p": {
+                  "type": "array",
+                  "prefixItems": [{ "enum": ["phase"] }],
+                  "maxItems": 1,
+                  "minItems": 1
+                },
+                "od": {
+                  "type": "string"
+                },
+                "oi": {
+                  "type": "string",
+                  "pattern": "^question$"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "p": {
+                  "type": "array",
+                  "prefixItems": [
+                    { "enum": ["answers"] },
+                    { "type": "integer", "minimum": 1 }
+                  ],
+                  "maxItems": 2,
+                  "minItems": 2
+                },
+                "li": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          ]
         }
       ]
     }

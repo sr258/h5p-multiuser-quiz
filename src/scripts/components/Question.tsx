@@ -172,7 +172,7 @@ export const Question = ({
                   doc.answers[doc.currentQuestionNumber][context.userId] !==
                     undefined &&
                   doc.answers[doc.currentQuestionNumber][context.userId] !==
-                    index
+                    doc.currentQuestionOrder[index]
                 }
                 label={<Text size="xlarge">{icons[index]}</Text>}
                 color={colors[index]}

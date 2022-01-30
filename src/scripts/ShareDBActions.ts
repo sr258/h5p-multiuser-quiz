@@ -9,6 +9,29 @@ function shuffle(arr: any[]) {
     .map(({ value }) => value);
 }
 
+const createQuestionOp = (next: number, state: IState, params: IParams) => [
+  { p: ["currentQuestionNumber"], od: state.currentQuestionNumber, oi: next },
+  {
+    p: ["currentQuestionStart"],
+    od: state.currentQuestionStart,
+    oi: Date.now(),
+  },
+  {
+    p: ["currentQuestionOrder"],
+    od: state.currentQuestionOrder,
+    oi: shuffle(
+      Array(params.questions.params.choices[next].answers.length)
+        .fill(1)
+        .map((el, i) => i)
+    ),
+  },
+  {
+    p: ["phase"],
+    od: state.phase,
+    oi: "question",
+  },
+];
+
 export default class ShareDBActions implements IActions {
   constructor(private db: ShareDBConnector<QuizDoc>) {}
 
@@ -28,26 +51,7 @@ export default class ShareDBActions implements IActions {
       { p: ["answers"], od: state.answers, oi: [{}] },
       { p: ["scores"], od: state.scores, oi: {} },
       // start question 0
-      { p: ["currentQuestionNumber"], od: state.currentQuestionNumber, oi: 0 },
-      {
-        p: ["currentQuestionStart"],
-        od: state.currentQuestionStart,
-        oi: Date.now(),
-      },
-      {
-        p: ["currentQuestionOrder"],
-        od: state.currentQuestionOrder,
-        oi: shuffle(
-          Array(params.questions.params.choices[0].answers.length)
-            .fill(1)
-            .map((el, i) => i)
-        ),
-      },
-      {
-        p: ["phase"],
-        od: state.phase,
-        oi: "question",
-      },
+      ...createQuestionOp(0, state, params),
     ]);
   }
   answer(
@@ -56,15 +60,36 @@ export default class ShareDBActions implements IActions {
     params: IParams,
     optionNumber: number
   ): void {
-    throw new Error("Method not implemented.");
+    this.db.submitOp([
+      {
+        p: ["answers", state.currentQuestionNumber, context.userId],
+        oi: optionNumber,
+      },
+    ]);
   }
   showAnswerAndScore(context: IContext, state: IState, params: IParams): void {
-    throw new Error("Method not implemented.");
+    this.db.submitOp([
+      {
+        p: ["phase"],
+        od: "question",
+        oi: "review",
+      },
+      // TODO calculate scores
+    ]);
   }
   showScores(context: IContext, state: IState, params: IParams): void {
-    throw new Error("Method not implemented.");
+    this.db.submitOp([
+      {
+        p: ["phase"],
+        od: "review",
+        oi: "scores",
+      },
+    ]);
   }
   nextQuestion(context: IContext, state: IState, params: IParams): void {
-    throw new Error("Method not implemented.");
+    this.db.submitOp([
+      ...createQuestionOp(state.currentQuestionNumber + 1, state, params),
+      { p: ["answers", state.answers.length], li: {} },
+    ]);
   }
 }
