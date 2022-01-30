@@ -18,7 +18,7 @@ H5P = H5P || {};
 H5P.MultiuserQuiz = class extends H5P.ContentType(true) {
   constructor(params: any, contentId: string, extras: any) {
     super();
-    this.multiuserQuiz = new MultiuserQuiz(params, contentId, extras);
+    this.multiuserQuiz = new MultiuserQuiz(params, contentId, extras, this.triggerResize);
   }
 
   private multiuserQuiz: MultiuserQuiz;
@@ -29,5 +29,9 @@ H5P.MultiuserQuiz = class extends H5P.ContentType(true) {
    */
   attach = (wrapper: JQuery) => {
     this.multiuserQuiz.attach(wrapper);
+  };
+
+  triggerResize = () => {
+    this.trigger("resize");
   };
 };

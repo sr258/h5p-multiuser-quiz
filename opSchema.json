@@ -24,6 +24,20 @@
             "phase": {
               "type": "string",
               "pattern": "^preparing$"
+            },
+            "currentQuestionNumber": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 0
+            },
+            "currentQuestionStart": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 0
+            },
+            "currentQuestionOrder": {
+              "type": "array",
+              "maxItems": 0
             }
           }
         }

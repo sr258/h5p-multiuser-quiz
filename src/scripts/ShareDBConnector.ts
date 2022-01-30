@@ -43,9 +43,9 @@ export default class ShareDBConnector<T extends ShareDBDocument> {
       this.doc.create(newDoc, (error) => {
         if (error) {
           console.error("Error while creating ShareDB doc: ", error);
+          return;
         }
-        // We don't need to call refreshCallback. This is already by ShareDB as
-        // it calls refresh again.
+        this.refreshCallback(newDoc);
       });
     } else {
       await this.refreshCallback(this.doc.data);

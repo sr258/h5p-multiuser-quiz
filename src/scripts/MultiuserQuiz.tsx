@@ -18,7 +18,8 @@ export default class MultiuserQuiz {
   constructor(
     private params: IParams,
     private contentId: string,
-    extras: any = {}
+    private extras: any = {},
+    private triggerResize: () => void
   ) {
     // Create render root
     this.root = document.createElement("div");
@@ -75,6 +76,7 @@ export default class MultiuserQuiz {
       />,
       this.root
     );
+    this.triggerResize();
   };
 
   /**
@@ -96,6 +98,7 @@ export default class MultiuserQuiz {
       />,
       this.root
     );
+    this.triggerResize();
   };
 
   // /**

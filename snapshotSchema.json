@@ -28,10 +28,23 @@
     "currentQuestionStart": {
       "type": "number"
     },
+    "currentQuestionOrder": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
     "phase": {
       "type": "string",
       "pattern": "^(preparing)|(question)|(review)|(scores)|(finalscores)$"
     }
   },
-  "required": ["answers", "scores", "phase"]
+  "required": [
+    "answers",
+    "scores",
+    "phase",
+    "currentQuestionNumber",
+    "currentQuestionStart",
+    "currentQuestionOrder"
+  ]
 }
