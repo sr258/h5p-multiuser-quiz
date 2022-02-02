@@ -27,7 +27,7 @@ export default class ShareDBConnector<T extends ShareDBDocument> {
 
     // When document changes (by this client or any other, or the server),
     // update the number on the page
-    this.doc.on("op", this.refresh);
+    this.doc.on("op batch", this.refresh);
   }
 
   private socket: ReconnectingWebSocket;
@@ -51,9 +51,9 @@ export default class ShareDBConnector<T extends ShareDBDocument> {
         await this.refreshCallback(newDoc);
       });
     } else {
-      if (!this.initial) {
-        await this.connectedCallback(this.doc.data);
+      if (this.initial) {
         this.initial = false;
+        await this.connectedCallback(this.doc.data);
       }
       await this.refreshCallback(this.doc.data);
     }
