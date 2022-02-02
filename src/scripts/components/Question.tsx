@@ -69,7 +69,7 @@ export const Question = ({
       let left = calculateTimeLeft();
       if (left <= 0) {
         clearTimeout(timer);
-        if (doc.phase === "question") {
+        if (doc.phase === "question" && context.isTeacher) {
           actions?.showAnswerAndScore(context, doc, params);
         }
       }
@@ -226,6 +226,7 @@ export const Question = ({
               <Button
                 key={q}
                 disabled={
+                  doc.answers[doc.currentQuestionNumber] !== undefined &&
                   doc.answers[doc.currentQuestionNumber][context.userId] !==
                     undefined &&
                   doc.answers[doc.currentQuestionNumber][context.userId] !==

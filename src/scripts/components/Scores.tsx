@@ -31,12 +31,14 @@ export const Scores = ({
       <Heading alignSelf="center">Current scores</Heading>
       <Table alignSelf="center">
         <TableHeader>
-          <TableCell scope="col" border="bottom">
-            Name
-          </TableCell>
-          <TableCell scope="col" border="bottom">
-            Score
-          </TableCell>
+          <TableRow>
+            <TableCell scope="col" border="bottom">
+              Name
+            </TableCell>
+            <TableCell scope="col" border="bottom">
+              Score
+            </TableCell>
+          </TableRow>
         </TableHeader>
         <TableBody>
           {Object.keys(doc.scores)

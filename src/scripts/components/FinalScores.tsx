@@ -50,16 +50,18 @@ export const FinalScores = ({
       <Heading alignSelf="center">Final scores</Heading>
       <Table alignSelf="center">
         <TableHeader>
-          <TableCell scope="col" border="bottom"></TableCell>
-          <TableCell scope="col" border="bottom">
-            Place
-          </TableCell>
-          <TableCell scope="col" border="bottom">
-            Student
-          </TableCell>
-          <TableCell scope="col" border="bottom">
-            Score
-          </TableCell>
+          <TableRow>
+            <TableCell scope="col" border="bottom"></TableCell>
+            <TableCell scope="col" border="bottom">
+              Place
+            </TableCell>
+            <TableCell scope="col" border="bottom">
+              Student
+            </TableCell>
+            <TableCell scope="col" border="bottom">
+              Score
+            </TableCell>
+          </TableRow>
         </TableHeader>
         <TableBody>
           {Object.keys(doc.scores)
