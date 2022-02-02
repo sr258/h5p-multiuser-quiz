@@ -1,6 +1,6 @@
 import { preview } from "@reactpreview/config";
 import Color from "color";
-import { Box, Text, Heading, Button, Grid, Stack, Tag } from "grommet";
+import { Box, Text, Heading, Button, Grid, Stack, Tag, Meter } from "grommet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircle,
@@ -16,6 +16,8 @@ import {
 
 import { sampleParams } from "../sampleParams";
 import { IParams, IState, IContext, IActions } from "../types";
+import { useEffect, useState } from "react";
+import { Timer } from "./Timer";
 
 const colors = [
   "#DA4453",
@@ -39,6 +41,8 @@ const icons = [
   <FontAwesomeIcon icon={faCube} />,
 ];
 
+const maxTime = 20;
+
 export const Question = ({
   context,
   params,
@@ -50,6 +54,30 @@ export const Question = ({
   doc: IState;
   actions?: IActions;
 }) => {
+  const calculateTimeLeft = () => {
+    return Math.round(
+      (maxTime * 1000 - (Date.now() - doc.currentQuestionStart)) / 1000
+    );
+  };
+
+  const [timeLeft, setTimeLeft] = useState<number>(maxTime);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      let left = calculateTimeLeft();
+      if (left <= 0) {
+        clearTimeout(timer);
+        if (doc.phase === "question") {
+          actions?.showAnswerAndScore(context, doc, params);
+        }
+      }
+      left = left <= 0 ? 0 : left;
+      setTimeLeft(left);
+    }, 200);
+
+    return () => clearTimeout(timer);
+  });
+
   const currQuestion =
     params.questions.params.choices[doc.currentQuestionNumber];
 
@@ -141,7 +169,7 @@ export const Question = ({
             </Box>
           ))}
       </Grid>
-      <Box direction="row" justify="between">
+      <Box direction="row" justify="between" align="center">
         <Text margin="medium">
           {"Question "} {doc.currentQuestionNumber + 1} /{" "}
           {params.questions.params.choices.length}
@@ -151,13 +179,9 @@ export const Question = ({
           {Object.keys(doc.answers[doc.currentQuestionNumber]).length}
         </Text>
         {doc.phase === "question" && (
-          <Text margin="medium">
-            {"Time left: "}
-            {Math.round(
-              (20000 - (Date.now() - doc.currentQuestionStart)) / 1000
-            )}
-            {"s"}
-          </Text>
+          <Box margin="medium">
+            <Timer left={timeLeft} max={maxTime} />
+          </Box>
         )}
         {doc.phase === "question" && (
           <Button
@@ -226,11 +250,9 @@ export const Question = ({
           {"Question "} {doc.currentQuestionNumber + 1} /{" "}
           {params.questions.params.choices.length}
         </Text>
-        <Text margin="medium">
-          {"Time left: "}
-          {Math.round((20000 - (Date.now() - doc.currentQuestionStart)) / 1000)}
-          {"s"}
-        </Text>
+        <Box margin="medium">
+          <Timer left={timeLeft} max={maxTime} />
+        </Box>
       </Box>
     </Box>
   ) : (
