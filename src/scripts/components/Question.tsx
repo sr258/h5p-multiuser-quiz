@@ -14,10 +14,11 @@ import {
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { sampleParams } from "../sampleParams";
+import { sampleParams } from "../testData/sampleParams";
 import { IParams, IState, IContext, IActions } from "../types";
 import { useEffect, useState } from "react";
 import { Timer } from "./Timer";
+import { sampleDoc } from "../testData/sampleDoc";
 
 const colors = [
   "#DA4453",
@@ -290,12 +291,11 @@ preview(Question, {
       isTeacher: true,
     },
     doc: {
+      ...sampleDoc,
       answers: [{ user1: 1, user2: 2, user3: 1 }],
       currentQuestionOrder: [1, 2, 3, 0],
-      currentQuestionNumber: 0,
       currentQuestionStart: Date.now() - 8547,
       phase: "question",
-      scores: {},
     },
     params: sampleParams,
   },
@@ -305,12 +305,11 @@ preview(Question, {
       isTeacher: true,
     },
     doc: {
+      ...sampleDoc,
       answers: [{ user1: 1, user2: 2, user3: 1 }],
       currentQuestionOrder: [1, 2, 3, 0],
-      currentQuestionNumber: 0,
       currentQuestionStart: Date.now() - 8547,
       phase: "review",
-      scores: {},
     },
     params: sampleParams,
   },
@@ -320,12 +319,11 @@ preview(Question, {
       isTeacher: false,
     },
     doc: {
+      ...sampleDoc,
       answers: [{ user1: 1, user2: 2, user3: 1 }],
       currentQuestionOrder: [1, 2, 3, 0],
-      currentQuestionNumber: 0,
       currentQuestionStart: Date.now() - 8547,
       phase: "question",
-      scores: {},
     },
     params: sampleParams,
   },
@@ -335,12 +333,11 @@ preview(Question, {
       isTeacher: false,
     },
     doc: {
+      ...sampleDoc,
       answers: [{ user1: 1, user2: 2, user3: 1 }],
       currentQuestionOrder: [1, 2, 3, 0],
-      currentQuestionNumber: 0,
       currentQuestionStart: Date.now() - 8547,
       phase: "question",
-      scores: {},
     },
     params: sampleParams,
   },
@@ -350,12 +347,11 @@ preview(Question, {
       isTeacher: false,
     },
     doc: {
+      ...sampleDoc,
       answers: [{ user1: 0, user2: 2, user3: 1 }],
       currentQuestionOrder: [1, 2, 3, 0],
-      currentQuestionNumber: 0,
       currentQuestionStart: Date.now() - 8547,
       phase: "review",
-      scores: {},
     },
     params: sampleParams,
   },
@@ -365,12 +361,11 @@ preview(Question, {
       isTeacher: false,
     },
     doc: {
+      ...sampleDoc,
       answers: [{ user1: 1, user2: 2, user3: 1 }],
       currentQuestionOrder: [1, 2, 3, 0],
-      currentQuestionNumber: 0,
       currentQuestionStart: Date.now() - 8547,
       phase: "review",
-      scores: {},
     },
     params: sampleParams,
   },

@@ -25,6 +25,10 @@ export default class QuizDoc extends ShareDBDocument implements IState {
     [userId: string]: number;
   };
 
+  public users: {
+    [userId: string]: string;
+  };
+
   public currentQuestionNumber: number;
   public currentQuestionStart: number;
   public currentQuestionOrder: number[];

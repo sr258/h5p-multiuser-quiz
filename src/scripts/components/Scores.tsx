@@ -10,7 +10,8 @@ import {
   TableRow,
   Text,
 } from "grommet";
-import { sampleParams } from "../sampleParams";
+import { sampleDoc } from "../testData/sampleDoc";
+import { sampleParams } from "../testData/sampleParams";
 import { IActions, IContext, IParams, IState } from "../types";
 
 export const Scores = ({
@@ -90,11 +91,8 @@ preview(Scores, {
       isTeacher: true,
     },
     doc: {
-      answers: [{ user1: 1, user2: 2, user3: 1 }],
-      currentQuestionOrder: [1, 2, 3, 0],
-      currentQuestionNumber: 0,
-      currentQuestionStart: Date.now() - 8547,
-      phase: "question",
+      ...sampleDoc,
+      phase: "scores",
       scores: {
         user1: 1000,
         user2: 5000,
@@ -111,11 +109,8 @@ preview(Scores, {
       isTeacher: false,
     },
     doc: {
-      answers: [{ user1: 1, user2: 2, user3: 1 }],
-      currentQuestionOrder: [1, 2, 3, 0],
-      currentQuestionNumber: 0,
-      currentQuestionStart: Date.now() - 8547,
-      phase: "question",
+      ...sampleDoc,
+      phase: "scores",
       scores: {
         user1: 1000,
         user2: 5000,

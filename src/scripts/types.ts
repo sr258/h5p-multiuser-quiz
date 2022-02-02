@@ -9,6 +9,10 @@ export interface IState {
     [userId: string]: number;
   };
 
+  users: {
+    [userId: string]: string;
+  };
+
   currentQuestionNumber: number;
   currentQuestionStart: number;
   currentQuestionOrder: number[];

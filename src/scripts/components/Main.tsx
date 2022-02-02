@@ -8,7 +8,8 @@ import { Question } from "./Question";
 import { Scores } from "./Scores";
 import { IParams, IState, IContext, IActions } from "../types";
 import { Initializing } from "./Initializing";
-import { sampleParams } from "../sampleParams";
+import { sampleParams } from "../testData/sampleParams";
+import { sampleDoc } from "../testData/sampleDoc";
 
 export const Main = ({
   context,
@@ -93,14 +94,7 @@ preview(Main, {
       isTeacher: true,
       userId: "",
     },
-    doc: {
-      answers: [],
-      currentQuestionOrder: [],
-      phase: "preparing",
-      scores: {},
-      currentQuestionNumber: 0,
-      currentQuestionStart: Date.now(),
-    },
+    doc: sampleDoc,
     params: sampleParams,
   },
   "preparing-student": {
@@ -108,14 +102,7 @@ preview(Main, {
       isTeacher: false,
       userId: "",
     },
-    doc: {
-      answers: [],
-      currentQuestionOrder: [],
-      phase: "preparing",
-      scores: {},
-      currentQuestionNumber: 0,
-      currentQuestionStart: Date.now(),
-    },
+    doc: sampleDoc,
     params: sampleParams,
   },
 });

@@ -1,4 +1,4 @@
-import { IParams } from "./types";
+import { IParams } from "../types";
 
 export const sampleParams: IParams = {
   questions: {

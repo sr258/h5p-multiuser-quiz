@@ -13,8 +13,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 
-import { sampleParams } from "../sampleParams";
+import { sampleParams } from "../testData/sampleParams";
 import { IActions, IContext, IParams, IState } from "../types";
+import { sampleDoc } from "../testData/sampleDoc";
 
 const scoreIndexToColor = (index: number): string => {
   if (index === 0) {
@@ -138,10 +139,7 @@ preview(FinalScores, {
       isTeacher: true,
     },
     doc: {
-      answers: [],
-      currentQuestionOrder: [],
-      currentQuestionNumber: 0,
-      currentQuestionStart: 0,
+      ...sampleDoc,
       phase: "scores",
       scores: {
         user1: 1000,
@@ -159,10 +157,7 @@ preview(FinalScores, {
       isTeacher: false,
     },
     doc: {
-      answers: [],
-      currentQuestionOrder: [],
-      currentQuestionNumber: 0,
-      currentQuestionStart: 0,
+      ...sampleDoc,
       phase: "scores",
       scores: {
         user1: 1000,
@@ -180,10 +175,7 @@ preview(FinalScores, {
       isTeacher: false,
     },
     doc: {
-      answers: [],
-      currentQuestionOrder: [],
-      currentQuestionNumber: 0,
-      currentQuestionStart: 0,
+      ...sampleDoc,
       phase: "scores",
       scores: {
         user1: 1000,
