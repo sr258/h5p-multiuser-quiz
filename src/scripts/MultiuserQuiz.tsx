@@ -4,7 +4,7 @@ import * as ReactDOM from "react-dom";
 import QuizDoc from "./QuizDoc";
 import { Main } from "./components/Main";
 import ShareDBConnector from "./ShareDBConnector";
-import { IActions, IParams } from "./types";
+import { IActions, IContext, IParams } from "./types";
 import ShareDBActions from "./ShareDBActions";
 
 /**
@@ -34,16 +34,21 @@ export default class MultiuserQuiz {
       credentials: "include",
     }).then(async (auth) => {
       this.userInformation = await auth.json();
+      this.context = {
+        userId: this.userInformation.userId,
+        isTeacher: this.userInformation.level === "privileged",
+        displayName: H5PIntegration.user.name,
+      };
+      // Initialize connection to ShareDB server
+      this.connector = new ShareDBConnector<QuizDoc>(
+        serverConfig.serverUrl,
+        contentId,
+        this.onRefreshData,
+        this.onConnected,
+        QuizDoc
+      );
+      this.actions = new ShareDBActions(this.connector);
     });
-
-    // Initialize connection to ShareDB server
-    this.connector = new ShareDBConnector<QuizDoc>(
-      serverConfig.serverUrl,
-      contentId,
-      this.refreshData,
-      QuizDoc
-    );
-    this.actions = new ShareDBActions(this.connector);
   }
 
   private root: HTMLElement;
@@ -56,6 +61,7 @@ export default class MultiuserQuiz {
     userId: "",
     level: "anonymous",
   };
+  private context: IContext;
   private actions: IActions;
 
   /**
@@ -73,6 +79,7 @@ export default class MultiuserQuiz {
         context={{
           userId: this.userInformation.userId,
           isTeacher: this.userInformation.level === "privileged",
+          displayName: H5PIntegration.user.name,
         }}
         doc={this.data}
         params={this.params}
@@ -82,20 +89,24 @@ export default class MultiuserQuiz {
     this.triggerResize();
   };
 
+  onConnected = async (state: QuizDoc): Promise<void> => {
+    console.log("Connection established");
+    if (!this.context.isTeacher) {
+      this.actions.register(this.context, state, this.params);
+    }
+  };
+
   /**
    * This method is called when the ShareDB server has updated the shared state.
    * React is clever enough to note replace the whole DOM when doing this. It
    * only rerenders the changed parts.
    */
-  refreshData = async (data: QuizDoc): Promise<void> => {
+  onRefreshData = async (data: QuizDoc): Promise<void> => {
     console.log("Refreshing data", data);
     this.data = data;
     ReactDOM.render(
       <Main
-        context={{
-          userId: this.userInformation.userId,
-          isTeacher: this.userInformation.level === "privileged",
-        }}
+        context={this.context}
         doc={this.data}
         params={this.params}
         actions={this.actions}
@@ -104,38 +115,4 @@ export default class MultiuserQuiz {
     );
     this.triggerResize();
   };
-
-  // /**
-  //  * Submit operation when user clicked on "vote up" button.
-  //  */
-  // public voteUp = (): void => {
-  //   console.log("voting up");
-  //   this.connector.submitOp([
-  //     { p: ["votesUp", 0], li: this.userInformation.userId },
-  //   ]);
-  // };
-
-  // /**
-  //  * Submit operation when user clicked on "vote down" button.
-  //  */
-  // public voteDown = (): void => {
-  //   console.log("voting down");
-  //   this.connector.submitOp([
-  //     { p: ["votesDown", 0], li: this.userInformation.userId },
-  //   ]);
-  // };
-
-  // /**
-  //  * Submit operation when user clicked on "clear button"
-  //  */
-  // public clear = (): void => {
-  //   if (this.data) {
-  //     console.log("clearing");
-  //     // Clearing works by replacing the arrays with empty arrays
-  //     this.connector.submitOp([
-  //       { p: ["votesDown"], od: this.data.votesDown, oi: [] },
-  //       { p: ["votesUp"], od: this.data.votesUp, oi: [] },
-  //     ]);
-  //   }
-  // };
 }

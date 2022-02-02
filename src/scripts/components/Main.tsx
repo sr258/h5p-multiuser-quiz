@@ -10,6 +10,7 @@ import { IParams, IState, IContext, IActions } from "../types";
 import { Initializing } from "./Initializing";
 import { sampleParams } from "../testData/sampleParams";
 import { sampleDoc } from "../testData/sampleDoc";
+import { teacherContext } from "../testData/teacherContext";
 
 export const Main = ({
   context,
@@ -82,26 +83,17 @@ export const Main = ({
 
 preview(Main, {
   connecting: {
-    context: {
-      isTeacher: true,
-      userId: "",
-    },
+    context: teacherContext,
     doc: undefined,
     params: sampleParams,
   },
   "preparing-teacher": {
-    context: {
-      isTeacher: true,
-      userId: "",
-    },
+    context: teacherContext,
     doc: sampleDoc,
     params: sampleParams,
   },
   "preparing-student": {
-    context: {
-      isTeacher: false,
-      userId: "",
-    },
+    context: teacherContext,
     doc: sampleDoc,
     params: sampleParams,
   },

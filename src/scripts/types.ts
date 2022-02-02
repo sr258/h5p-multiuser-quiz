@@ -70,6 +70,7 @@ export interface IParams {
 export interface IContext {
   userId: string;
   isTeacher: boolean;
+  displayName: string;
 }
 
 /**
@@ -113,4 +114,6 @@ export interface IActions {
    * Called by the teacher when clicking on the "next question" button.
    */
   nextQuestion(context: IContext, state: IState, params: IParams): void;
+
+  register(context: IContext, state: IState, params: IParams): void;
 }

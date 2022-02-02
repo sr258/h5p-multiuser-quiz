@@ -11,6 +11,7 @@ export default class QuizDoc extends ShareDBDocument implements IState {
   seed(): void {
     this.answers = [];
     this.scores = {};
+    this.users = {};
     this.phase = "preparing";
     this.currentQuestionNumber = 0;
     this.currentQuestionStart = 0;

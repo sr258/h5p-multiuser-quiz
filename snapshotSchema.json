@@ -22,6 +22,14 @@
         }
       }
     },
+    "users": {
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "type": "string"
+        }
+      }
+    },
     "currentQuestionNumber": {
       "type": "number"
     },

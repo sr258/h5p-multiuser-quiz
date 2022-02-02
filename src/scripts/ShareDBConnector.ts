@@ -11,6 +11,7 @@ export default class ShareDBConnector<T extends ShareDBDocument> {
     websocketEndpoint: string,
     contentId: string,
     private refreshCallback: (data: T) => Promise<void>,
+    private connectedCallback: (data: T) => Promise<void>,
     private T: { new (): T }
   ) {
     // Open WebSocket connection to ShareDB server
@@ -32,6 +33,7 @@ export default class ShareDBConnector<T extends ShareDBDocument> {
   private socket: ReconnectingWebSocket;
   private connection: Connection;
   private doc: Doc<T>;
+  private initial = true;
 
   refresh = async () => {
     if (this.doc.type === null) {
@@ -40,14 +42,19 @@ export default class ShareDBConnector<T extends ShareDBDocument> {
       // document by seeding it and submitting the create op.
       const newDoc = new this.T();
       newDoc.seed();
-      this.doc.create(newDoc, (error) => {
+      this.doc.create(newDoc, async (error) => {
         if (error) {
           console.error("Error while creating ShareDB doc: ", error);
           return;
         }
-        this.refreshCallback(newDoc);
+        await this.connectedCallback(newDoc);
+        await this.refreshCallback(newDoc);
       });
     } else {
+      if (!this.initial) {
+        await this.connectedCallback(this.doc.data);
+        this.initial = false;
+      }
       await this.refreshCallback(this.doc.data);
     }
   };

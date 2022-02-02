@@ -16,6 +16,7 @@ import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 import { sampleParams } from "../testData/sampleParams";
 import { IActions, IContext, IParams, IState } from "../types";
 import { sampleDoc } from "../testData/sampleDoc";
+import { teacherContext } from "../testData/teacherContext";
 
 const scoreIndexToColor = (index: number): string => {
   if (index === 0) {
@@ -75,7 +76,7 @@ export const FinalScores = ({
                   ) : undefined}
                 </TableCell>
                 <TableCell scope="row">{index + 1}</TableCell>
-                <TableCell scope="row">{userId}</TableCell>
+                <TableCell scope="row">{doc.users[userId] ?? userId}</TableCell>
                 <TableCell scope="row">{doc.scores[userId]}</TableCell>
               </TableRow>
             ))}
@@ -134,10 +135,7 @@ export const FinalScores = ({
 
 preview(FinalScores, {
   teacher: {
-    context: {
-      userId: "teacher",
-      isTeacher: true,
-    },
+    context: teacherContext,
     doc: {
       ...sampleDoc,
       phase: "scores",
@@ -155,6 +153,7 @@ preview(FinalScores, {
     context: {
       userId: "user3",
       isTeacher: false,
+      displayName: "Real Name 3",
     },
     doc: {
       ...sampleDoc,
@@ -173,6 +172,7 @@ preview(FinalScores, {
     context: {
       userId: "user5",
       isTeacher: false,
+      displayName: "Real Name 5",
     },
     doc: {
       ...sampleDoc,

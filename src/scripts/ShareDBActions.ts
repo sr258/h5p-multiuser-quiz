@@ -112,4 +112,17 @@ export default class ShareDBActions implements IActions {
       { p: ["answers", state.answers.length], li: {} },
     ]);
   }
+
+  /**
+   * Writes the human-readable name of the user into the state so that others
+   * know who the userId is.
+   */
+  register(context: IContext, state: IState, params: IParams): void {
+    this.db.submitOp([
+      {
+        p: ["users", context.userId],
+        oi: context.displayName,
+      },
+    ]);
+  }
 }

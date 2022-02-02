@@ -12,6 +12,7 @@ import {
 } from "grommet";
 import { sampleDoc } from "../testData/sampleDoc";
 import { sampleParams } from "../testData/sampleParams";
+import { teacherContext } from "../testData/teacherContext";
 import { IActions, IContext, IParams, IState } from "../types";
 
 export const Scores = ({
@@ -42,7 +43,7 @@ export const Scores = ({
             .sort((a, b) => doc.scores[b] - doc.scores[a])
             .map((userId) => (
               <TableRow>
-                <TableCell scope="row">{userId}</TableCell>
+                <TableCell scope="row">{doc.users[userId] ?? userId}</TableCell>
                 <TableCell scope="row">{doc.scores[userId]}</TableCell>
               </TableRow>
             ))}
@@ -86,10 +87,7 @@ export const Scores = ({
 
 preview(Scores, {
   teacher: {
-    context: {
-      userId: "teacher",
-      isTeacher: true,
-    },
+    context: teacherContext,
     doc: {
       ...sampleDoc,
       phase: "scores",
@@ -107,6 +105,7 @@ preview(Scores, {
     context: {
       userId: "user3",
       isTeacher: false,
+      displayName: "Real Name 3",
     },
     doc: {
       ...sampleDoc,

@@ -19,6 +19,7 @@ import { IParams, IState, IContext, IActions } from "../types";
 import { useEffect, useState } from "react";
 import { Timer } from "./Timer";
 import { sampleDoc } from "../testData/sampleDoc";
+import { teacherContext } from "../testData/teacherContext";
 
 const colors = [
   "#DA4453",
@@ -286,10 +287,7 @@ export const Question = ({
 
 preview(Question, {
   "teacher-unanswered": {
-    context: {
-      userId: "teacher",
-      isTeacher: true,
-    },
+    context: teacherContext,
     doc: {
       ...sampleDoc,
       answers: [{ user1: 1, user2: 2, user3: 1 }],
@@ -300,10 +298,7 @@ preview(Question, {
     params: sampleParams,
   },
   "teacher-review": {
-    context: {
-      userId: "teacher",
-      isTeacher: true,
-    },
+    context: teacherContext,
     doc: {
       ...sampleDoc,
       answers: [{ user1: 1, user2: 2, user3: 1 }],
@@ -317,6 +312,7 @@ preview(Question, {
     context: {
       userId: "user4",
       isTeacher: false,
+      displayName: "Real Name 4",
     },
     doc: {
       ...sampleDoc,
@@ -331,6 +327,7 @@ preview(Question, {
     context: {
       userId: "user1",
       isTeacher: false,
+      displayName: "Real Name 1",
     },
     doc: {
       ...sampleDoc,
@@ -345,6 +342,7 @@ preview(Question, {
     context: {
       userId: "user1",
       isTeacher: false,
+      displayName: "Real Name 1",
     },
     doc: {
       ...sampleDoc,
@@ -359,6 +357,7 @@ preview(Question, {
     context: {
       userId: "user1",
       isTeacher: false,
+      displayName: "Real Name 1",
     },
     doc: {
       ...sampleDoc,
