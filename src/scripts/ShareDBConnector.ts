@@ -13,6 +13,7 @@ export default class ShareDBConnector<T extends ShareDBDocument> {
     private refreshCallback: (data: T) => Promise<void>,
     private connectedCallback: (data: T) => Promise<void>,
     private deletedCallback: () => Promise<void>,
+    private errorCallback: (error: string) => Promise<void>,
     private T: { new (): T }
   ) {
     // Open WebSocket connection to ShareDB server
@@ -30,15 +31,33 @@ export default class ShareDBConnector<T extends ShareDBDocument> {
     // update the number on the page
     this.doc.on("op batch", this.refresh);
 
+    // We need to stop user interaction and notify the user when the state was
+    // deleted
     this.doc.on("del", async () => {
       await this.deletedCallback();
     });
+
+    // Notify the user when there are errors
+    this.socket.onerror = (error) => {
+      this.hadError = true;
+      this.errorCallback(error.message ?? "No websocket connection to server");
+    };
+
+    // Return to regular view when error was resolved
+    this.socket.onopen = async () => {
+      if (this.hadError) {
+        await this.connectedCallback(this.doc.data);
+        await this.refreshCallback(this.doc.data);
+        this.hadError = false;
+      }
+    };
   }
 
   private socket: ReconnectingWebSocket;
   private connection: Connection;
   private doc: Doc<T>;
   private initial = true;
+  private hadError = false;
 
   refresh = async () => {
     if (this.doc.type === null) {

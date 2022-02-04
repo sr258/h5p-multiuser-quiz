@@ -46,6 +46,7 @@ export default class MultiuserQuiz {
         this.onRefreshData,
         this.onConnected,
         this.onDeleted,
+        this.onError,
         QuizDoc
       );
       this.actions = new ShareDBActions(this.connector);
@@ -109,6 +110,24 @@ export default class MultiuserQuiz {
         doc={undefined}
         params={this.params}
         deleted={true}
+      />,
+      this.root
+    );
+    this.triggerResize();
+  };
+
+  onError = async (error: string): Promise<void> => {
+    console.log("Error");
+    ReactDOM.render(
+      <Main
+        context={{
+          userId: this.userInformation.userId,
+          isTeacher: this.userInformation.level === "privileged",
+          displayName: H5PIntegration.user.name,
+        }}
+        doc={undefined}
+        params={this.params}
+        error={error}
       />,
       this.root
     );

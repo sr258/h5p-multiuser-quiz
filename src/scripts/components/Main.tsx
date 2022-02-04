@@ -12,6 +12,7 @@ import { sampleParams } from "../testData/sampleParams";
 import { sampleDoc } from "../testData/sampleDoc";
 import { teacherContext } from "../testData/teacherContext";
 import { Deleted } from "./Deleted";
+import { Error } from "./Error";
 
 export const Main = ({
   context,
@@ -19,12 +20,14 @@ export const Main = ({
   params,
   actions,
   deleted,
+  error,
 }: {
   context: IContext;
   doc?: IState;
   params: IParams;
   actions?: IActions;
   deleted?: boolean;
+  error?: string;
 }) => {
   return (
     <Grommet plain>
@@ -77,11 +80,9 @@ export const Main = ({
         </Box>
       ) : (
         <Box>
-          {deleted ? (
-            <Deleted params={params} />
-          ) : (
-            <Initializing params={params} />
-          )}
+          {!deleted && !error && <Initializing params={params} />}
+          {deleted && <Deleted params={params} />}
+          {error && <Error params={params} errorMessage={error} />}
         </Box>
       )}
     </Grommet>
@@ -99,6 +100,12 @@ preview(Main, {
     doc: undefined,
     params: sampleParams,
     deleted: true,
+  },
+  error: {
+    context: teacherContext,
+    doc: undefined,
+    params: sampleParams,
+    error: "Some weird error message",
   },
   "preparing-teacher": {
     context: teacherContext,
