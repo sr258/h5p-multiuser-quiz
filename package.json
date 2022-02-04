@@ -4,9 +4,10 @@
   "description": "A H5P Content Type inspired by Kahoot",
   "private": true,
   "scripts": {
-    "build": "cross-env NODE_ENV=production ./node_modules/.bin/webpack",
+    "build": "rm -rf dist && cross-env NODE_ENV=production ./node_modules/.bin/webpack",
     "build:watch": "./node_modules/.bin/webpack --watch",
-    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "dist": "rm -rf H5P.MultiuserQuiz-0.1 && rsync -a --exclude-from .h5pignore . H5P.MultiuserQuiz-0.1 && zip -rDX multiuser-quiz.h5p H5P.MultiuserQuiz-0.1 && rm -rf H5P.MultiuserQuiz-0.1"
   },
   "repository": {
     "type": "git",

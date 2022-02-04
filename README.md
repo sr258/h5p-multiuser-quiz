@@ -1,7 +1,7 @@
-# H5P shared state sample
+# H5P Multi-user Quiz
 
-A simple voting content types that demonstrates how to use lumieducation's
-shared state server.
+A Kahoot-like quiz that uses Lumieducation's shared state server extension for
+H5P.
 
 ## Getting started (development)
 
@@ -41,16 +41,16 @@ minify the code.
 
 ## Adding to WordPress
 
-- Make sure the directory of this repository is "H5P.ShareDBTest-0.1" (or the
+- Make sure the directory of this repository is "H5P.MultiuserQuiz-0.1" (or the
   current version number).
 - run `npm build`
 - Install the H5P CLI tool from NPM (`npm install -g h5p`)
 - go the parent directory of the repo
-- run `h5p package H5P.ShareDBTest-0.1`
+- run `h5p pack H5P.MultiuserQuiz-0.1`
 - Upload the resulting libraries.h5p file to WordPress (Make sure you've set these values in wp-config.php when you want to upload the same version again):
   - define('H5P_DEV', true);
   - define('H5P_DISABLE_AGGREGATION', true);
 
+## Attributions
 
-
-Flattastic Pro Color Palette by
+This content type uses colors by the "Flattastic Pro Color Palette".
