@@ -4,7 +4,7 @@ import * as ReactDOM from "react-dom";
 import QuizDoc from "./QuizDoc";
 import { Main } from "./components/Main";
 import ShareDBConnector from "./ShareDBConnector";
-import { IActions, IContext, IParams } from "./types";
+import { IActions, IContext, IMetadata, IParams } from "./types";
 import ShareDBActions from "./ShareDBActions";
 
 /**
@@ -19,9 +19,17 @@ export default class MultiuserQuiz {
   constructor(
     private params: IParams,
     private contentId: string,
-    private extras: any = {},
+    private extras: {
+      metadata?: IMetadata;
+      standalone?: boolean;
+    } = {},
     private triggerResize: () => void
   ) {
+    this.metadata = extras.metadata ?? {
+      defaultLanguage: "en",
+      title: "Unknown title",
+      license: "U",
+    };
     // Create render root
     this.root = document.createElement("div");
 
@@ -53,6 +61,7 @@ export default class MultiuserQuiz {
     });
   }
 
+  private metadata: IMetadata;
   private root: HTMLElement;
   private connector: ShareDBConnector<QuizDoc>;
   private data?: QuizDoc;
@@ -85,6 +94,7 @@ export default class MultiuserQuiz {
         }}
         doc={this.data}
         params={this.params}
+        metadata={this.metadata}
       />,
       this.root
     );
@@ -110,6 +120,7 @@ export default class MultiuserQuiz {
         doc={undefined}
         params={this.params}
         deleted={true}
+        metadata={this.metadata}
       />,
       this.root
     );
@@ -128,6 +139,7 @@ export default class MultiuserQuiz {
         doc={undefined}
         params={this.params}
         error={error}
+        metadata={this.metadata}
       />,
       this.root
     );
@@ -148,6 +160,7 @@ export default class MultiuserQuiz {
         doc={this.data}
         params={this.params}
         actions={this.actions}
+        metadata={this.metadata}
       />,
       this.root
     );

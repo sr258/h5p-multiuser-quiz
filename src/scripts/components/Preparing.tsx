@@ -10,15 +10,17 @@ export const Preparing = ({
   params,
   doc,
   actions,
+  title,
 }: {
   context: IContext;
   params: IParams;
   doc: IState;
   actions?: IActions;
+  title: string;
 }) => {
   return (
     <Box fill="vertical" align="center">
-      <Heading textAlign="center">{params.questions.metadata.title}</Heading>
+      <Heading textAlign="center">{title}</Heading>
       {context.isTeacher ? (
         <React.Fragment>
           <Text>

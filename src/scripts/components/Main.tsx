@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Grommet } from "grommet";
 import { preview } from "@reactpreview/config";
 
@@ -6,13 +5,14 @@ import { FinalScores } from "./FinalScores";
 import { Preparing } from "./Preparing";
 import { Question } from "./Question";
 import { Scores } from "./Scores";
-import { IParams, IState, IContext, IActions } from "../types";
+import { IParams, IState, IContext, IActions, IMetadata } from "../types";
 import { Initializing } from "./Initializing";
 import { sampleParams } from "../testData/sampleParams";
 import { sampleDoc } from "../testData/sampleDoc";
 import { teacherContext } from "../testData/teacherContext";
 import { Deleted } from "./Deleted";
 import { Error } from "./Error";
+import { sampleMetadata } from "../testData/sampleMetadata";
 
 export const Main = ({
   context,
@@ -21,6 +21,7 @@ export const Main = ({
   actions,
   deleted,
   error,
+  metadata,
 }: {
   context: IContext;
   doc?: IState;
@@ -28,6 +29,7 @@ export const Main = ({
   actions?: IActions;
   deleted?: boolean;
   error?: string;
+  metadata: IMetadata;
 }) => {
   return (
     <Grommet plain>
@@ -39,6 +41,7 @@ export const Main = ({
               doc={doc}
               params={params}
               actions={actions}
+              title={metadata.title}
             ></Preparing>
           )}
           {doc.phase === "question" && (
@@ -80,9 +83,17 @@ export const Main = ({
         </Box>
       ) : (
         <Box>
-          {!deleted && !error && <Initializing params={params} />}
-          {deleted && <Deleted params={params} />}
-          {error && <Error params={params} errorMessage={error} />}
+          {!deleted && !error && (
+            <Initializing params={params} title={metadata.title} />
+          )}
+          {deleted && <Deleted params={params} title={metadata.title} />}
+          {error && (
+            <Error
+              params={params}
+              errorMessage={error}
+              title={metadata.title}
+            />
+          )}
         </Box>
       )}
     </Grommet>
@@ -94,27 +105,36 @@ preview(Main, {
     context: teacherContext,
     doc: undefined,
     params: sampleParams,
+    metadata: sampleMetadata,
   },
   deleted: {
     context: teacherContext,
     doc: undefined,
     params: sampleParams,
     deleted: true,
+    metadata: sampleMetadata,
   },
   error: {
     context: teacherContext,
     doc: undefined,
     params: sampleParams,
     error: "Some weird error message",
+    metadata: sampleMetadata,
   },
   "preparing-teacher": {
     context: teacherContext,
     doc: sampleDoc,
     params: sampleParams,
+    metadata: sampleMetadata,
   },
   "preparing-student": {
-    context: teacherContext,
+    context: {
+      displayName: "Student",
+      isTeacher: false,
+      userId: "student",
+    },
     doc: sampleDoc,
     params: sampleParams,
+    metadata: sampleMetadata,
   },
 });

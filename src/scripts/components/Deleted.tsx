@@ -1,10 +1,16 @@
 import { Text, Box, Heading } from "grommet";
 import { IParams } from "../types";
 
-export const Deleted = ({ params }: { params: IParams }) => {
+export const Deleted = ({
+  params,
+  title,
+}: {
+  params: IParams;
+  title: string;
+}) => {
   return (
     <Box align="center">
-      <Heading textAlign="center">{params.questions.metadata.title}</Heading>
+      <Heading textAlign="center">{title}</Heading>
       <Box direction="row">
         <Text margin="small">
           The content was deleted or updated. Please refresh this page to try

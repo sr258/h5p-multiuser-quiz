@@ -115,3 +115,9 @@ export interface IActions {
 
   register(context: IContext, state: IState, params: IParams): void;
 }
+
+export interface IMetadata {
+  defaultLanguage: string;
+  license: string;
+  title: string;
+}
