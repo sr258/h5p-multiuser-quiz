@@ -85,9 +85,8 @@ export interface IActions {
 
   /**
    * Called by students when they press on an answer.
-   * @param optionNumber
+   * @param optionNumber the option the student has chosen
    */
-
   answer(
     context: IContext,
     state: IState,
@@ -102,7 +101,6 @@ export interface IActions {
    *
    * Besides showing the answers it also calculates the scores for the players.
    */
-
   showAnswerAndScore(context: IContext, state: IState, params: IParams): void;
 
   /**
