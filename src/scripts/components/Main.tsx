@@ -11,17 +11,20 @@ import { Initializing } from "./Initializing";
 import { sampleParams } from "../testData/sampleParams";
 import { sampleDoc } from "../testData/sampleDoc";
 import { teacherContext } from "../testData/teacherContext";
+import { Deleted } from "./Deleted";
 
 export const Main = ({
   context,
   doc,
   params,
   actions,
+  deleted,
 }: {
   context: IContext;
   doc?: IState;
   params: IParams;
   actions?: IActions;
+  deleted?: boolean;
 }) => {
   return (
     <Grommet plain>
@@ -74,7 +77,11 @@ export const Main = ({
         </Box>
       ) : (
         <Box>
-          <Initializing params={params} />
+          {deleted ? (
+            <Deleted params={params} />
+          ) : (
+            <Initializing params={params} />
+          )}
         </Box>
       )}
     </Grommet>
@@ -86,6 +93,12 @@ preview(Main, {
     context: teacherContext,
     doc: undefined,
     params: sampleParams,
+  },
+  deleted: {
+    context: teacherContext,
+    doc: undefined,
+    params: sampleParams,
+    deleted: true,
   },
   "preparing-teacher": {
     context: teacherContext,

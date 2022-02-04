@@ -12,6 +12,7 @@ export default class ShareDBConnector<T extends ShareDBDocument> {
     contentId: string,
     private refreshCallback: (data: T) => Promise<void>,
     private connectedCallback: (data: T) => Promise<void>,
+    private deletedCallback: () => Promise<void>,
     private T: { new (): T }
   ) {
     // Open WebSocket connection to ShareDB server
@@ -28,6 +29,10 @@ export default class ShareDBConnector<T extends ShareDBDocument> {
     // When document changes (by this client or any other, or the server),
     // update the number on the page
     this.doc.on("op batch", this.refresh);
+
+    this.doc.on("del", async () => {
+      await this.deletedCallback();
+    });
   }
 
   private socket: ReconnectingWebSocket;

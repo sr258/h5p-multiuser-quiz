@@ -45,6 +45,7 @@ export default class MultiuserQuiz {
         contentId,
         this.onRefreshData,
         this.onConnected,
+        this.onDeleted,
         QuizDoc
       );
       this.actions = new ShareDBActions(this.connector);
@@ -94,6 +95,24 @@ export default class MultiuserQuiz {
     if (!this.context.isTeacher) {
       this.actions.register(this.context, state, this.params);
     }
+  };
+
+  onDeleted = async (): Promise<void> => {
+    console.log("Document deleted");
+    ReactDOM.render(
+      <Main
+        context={{
+          userId: this.userInformation.userId,
+          isTeacher: this.userInformation.level === "privileged",
+          displayName: H5PIntegration.user.name,
+        }}
+        doc={undefined}
+        params={this.params}
+        deleted={true}
+      />,
+      this.root
+    );
+    this.triggerResize();
   };
 
   /**
