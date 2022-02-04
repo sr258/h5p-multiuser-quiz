@@ -1,0 +1,25 @@
+{
+  "snapshot": {
+    "answers": [
+      {
+        "user1": 0
+      },
+      {
+        "user2": 0
+      }
+    ],
+    "currentQuestionNumber": 1,
+    "currentQuestionOrder": [0, 1, 2, 3]
+  },
+  "params": {
+    "questions": {
+      "params": {
+        "choices": [
+          {
+            "answers": ["1", "2", "3", "4"]
+          }
+        ]
+      }
+    }
+  }
+}
