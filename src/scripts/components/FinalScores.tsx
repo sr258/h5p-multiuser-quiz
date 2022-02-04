@@ -12,6 +12,7 @@ import {
 } from "grommet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrophy } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
 
 import { sampleParams } from "../testData/sampleParams";
 import { IActions, IContext, IParams, IState } from "../types";
@@ -98,39 +99,47 @@ export const FinalScores = ({
   ) : (
     <Box>
       <Heading alignSelf="center">Final score</Heading>
-      <Box
-        background="status-ok"
-        round
-        margin={{ bottom: "medium" }}
-        alignSelf="center"
-      >
-        <Text margin="large" size="4xl" color="light-1">
-          {doc.scores[context.userId]}
-        </Text>
-      </Box>
-
-      <Box
-        background="light-3"
-        round
-        margin={{ vertical: "small" }}
-        alignSelf="center"
-        direction="row"
-        align="center"
-        justify="center"
-      >
-        {userScoreIndex <= 2 && (
-          <Box margin={{ left: "large", right: "small" }}>
-            <FontAwesomeIcon
-              size="4x"
-              icon={faTrophy}
-              color={scoreIndexToColor(userScoreIndex)}
-            />
+      {userScoreIndex !== -1 ? (
+        <React.Fragment>
+          <Box
+            background="status-ok"
+            round
+            margin={{ bottom: "medium" }}
+            alignSelf="center"
+          >
+            <Text margin="large" size="4xl" color="light-1">
+              {doc.scores[context.userId]}
+            </Text>
           </Box>
-        )}
-        <Text margin="large" size="4xl">
-          {"# "} {userScoreIndex + 1}
+
+          <Box
+            background="light-3"
+            round
+            margin={{ vertical: "small" }}
+            alignSelf="center"
+            direction="row"
+            align="center"
+            justify="center"
+          >
+            {userScoreIndex <= 2 && (
+              <Box margin={{ left: "large", right: "small" }}>
+                <FontAwesomeIcon
+                  size="4x"
+                  icon={faTrophy}
+                  color={scoreIndexToColor(userScoreIndex)}
+                />
+              </Box>
+            )}
+            <Text margin="large" size="4xl">
+              {"# "} {userScoreIndex + 1}
+            </Text>
+          </Box>
+        </React.Fragment>
+      ) : (
+        <Text size="xlarge" alignSelf="center">
+          You haven't played in this quiz!
         </Text>
-      </Box>
+      )}
     </Box>
   );
 };
@@ -186,6 +195,18 @@ preview(FinalScores, {
         user4: 9000,
         user5: 10000,
       },
+    },
+    params: sampleParams,
+  },
+  "student-no-score": {
+    context: {
+      userId: "user5",
+      isTeacher: false,
+      displayName: "Real Name 5",
+    },
+    doc: {
+      ...sampleDoc,
+      phase: "scores",
     },
     params: sampleParams,
   },

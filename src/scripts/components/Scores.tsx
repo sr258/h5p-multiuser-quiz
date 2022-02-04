@@ -10,6 +10,8 @@ import {
   TableRow,
   Text,
 } from "grommet";
+import React from "react";
+
 import { sampleDoc } from "../testData/sampleDoc";
 import { sampleParams } from "../testData/sampleParams";
 import { teacherContext } from "../testData/teacherContext";
@@ -69,20 +71,28 @@ export const Scores = ({
   ) : (
     <Box>
       <Heading alignSelf="center">Current score</Heading>
-      <Box
-        background="#48CFAD"
-        round
-        margin={{ left: "small", right: "small", bottom: "medium" }}
-        alignSelf="center"
-      >
-        <Text margin="large" size="6xl">
-          {doc.scores[context.userId]}
+      {doc.scores[context.userId] !== undefined ? (
+        <React.Fragment>
+          <Box
+            background="#48CFAD"
+            round
+            margin={{ left: "small", right: "small", bottom: "medium" }}
+            alignSelf="center"
+          >
+            <Text margin="large" size="6xl">
+              {doc.scores[context.userId]}
+            </Text>
+          </Box>
+          <Text margin="medium" alignSelf="center">
+            {"Question "} {doc.currentQuestionNumber + 1} /{" "}
+            {params.questions.params.choices.length}
+          </Text>
+        </React.Fragment>
+      ) : (
+        <Text alignSelf="center" size="xlarge">
+          You have not played in this quiz yet.
         </Text>
-      </Box>
-      <Text margin="medium" alignSelf="center">
-        {"Question "} {doc.currentQuestionNumber + 1} /{" "}
-        {params.questions.params.choices.length}
-      </Text>
+      )}
     </Box>
   );
 };
@@ -119,6 +129,18 @@ preview(Scores, {
         user4: 9000,
         user5: 10000,
       },
+    },
+    params: sampleParams,
+  },
+  "student-no-score": {
+    context: {
+      userId: "user1",
+      isTeacher: false,
+      displayName: "Real Name 3",
+    },
+    doc: {
+      ...sampleDoc,
+      phase: "scores",
     },
     params: sampleParams,
   },

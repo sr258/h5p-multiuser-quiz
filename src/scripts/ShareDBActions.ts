@@ -13,7 +13,7 @@ export default class ShareDBActions implements IActions {
   constructor(private db: ShareDBConnector<QuizDoc>) {}
 
   /**
-   * Called by a teacher when the game first starts or when clicking no 'play
+   * Called by a teacher when the game first starts or when clicking on 'play
    * again' (reset the game then).
    */
   start(context: IContext, state: IState, params: IParams): void {
