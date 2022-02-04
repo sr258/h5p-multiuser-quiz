@@ -260,28 +260,41 @@ export const Question = ({
     </Box>
   ) : (
     <Box>
-      <Box
-        margin="medium"
-        round
-        height="12em"
-        background={
-          doc.answers[doc.currentQuestionNumber][context.userId] === 0
-            ? "status-ok"
-            : "status-error"
-        }
-      >
-        <Box fill align="center" justify="center">
-          <FontAwesomeIcon
-            color="white"
-            size="4x"
-            icon={
-              doc.answers[doc.currentQuestionNumber][context.userId] === 0
-                ? faCheck
-                : faTimes
-            }
-          />
+      {doc.answers[doc.currentQuestionNumber][context.userId] !== undefined ? (
+        <Box
+          margin="medium"
+          round
+          height="12em"
+          background={
+            doc.answers[doc.currentQuestionNumber][context.userId] === 0
+              ? "status-ok"
+              : "status-error"
+          }
+        >
+          <Box fill align="center" justify="center">
+            <FontAwesomeIcon
+              color="white"
+              size="4x"
+              icon={
+                doc.answers[doc.currentQuestionNumber][context.userId] === 0
+                  ? faCheck
+                  : faTimes
+              }
+            />
+          </Box>
         </Box>
-      </Box>
+      ) : (
+        <Box
+          margin="medium"
+          round
+          height="12em"
+          background="light-4"
+          align="center"
+          justify="center"
+        >
+          <Text size="xlarge">You haven't given an answer.</Text>
+        </Box>
+      )}
     </Box>
   );
 };
@@ -363,6 +376,22 @@ preview(Question, {
     doc: {
       ...sampleDoc,
       answers: [{ user1: 1, user2: 2, user3: 1 }],
+      currentQuestionOrder: [1, 2, 3, 0],
+      currentQuestionStart: Date.now() - 8547,
+      phase: "review",
+    },
+    params: sampleParams,
+  },
+
+  "student-review-no-answer": {
+    context: {
+      userId: "user1",
+      isTeacher: false,
+      displayName: "Real Name 1",
+    },
+    doc: {
+      ...sampleDoc,
+      answers: [{ user2: 2, user3: 1 }],
       currentQuestionOrder: [1, 2, 3, 0],
       currentQuestionStart: Date.now() - 8547,
       phase: "review",
