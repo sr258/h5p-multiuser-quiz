@@ -1,3 +1,4 @@
+/* devblock:start */
 import { IMetadata } from "../types";
 
 export const sampleMetadata: IMetadata = {
@@ -5,3 +6,4 @@ export const sampleMetadata: IMetadata = {
   title: "My title",
   license: "U",
 };
+/* devblock:end */

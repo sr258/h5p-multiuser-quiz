@@ -9,6 +9,8 @@ module.exports = {
   mode: nodeEnv,
   optimization: {
     minimize: isProd,
+    innerGraph: true,
+    usedExports: true,
     minimizer: [
       new TerserPlugin({
         terserOptions: {
@@ -36,7 +38,14 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: "ts-loader",
+        use: [
+          {
+            loader: "ts-loader",
+          },
+          {
+            loader: "webpack-remove-code-blocks",
+          },
+        ],
         exclude: /node_modules/,
       },
       {

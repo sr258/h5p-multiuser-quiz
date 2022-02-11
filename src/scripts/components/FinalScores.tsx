@@ -146,6 +146,7 @@ export const FinalScores = ({
   );
 };
 
+/* devblock:start */
 preview(FinalScores, {
   teacher: {
     context: teacherContext,
@@ -213,3 +214,4 @@ preview(FinalScores, {
     params: sampleParams,
   },
 });
+/* devblock:end */

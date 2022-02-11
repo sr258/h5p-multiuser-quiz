@@ -99,6 +99,7 @@ export const Scores = ({
   );
 };
 
+/* devblock:start */
 preview(Scores, {
   teacher: {
     context: teacherContext,
@@ -147,3 +148,4 @@ preview(Scores, {
     params: sampleParams,
   },
 });
+/* devblock:end */

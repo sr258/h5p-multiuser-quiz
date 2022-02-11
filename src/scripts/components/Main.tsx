@@ -100,6 +100,7 @@ export const Main = ({
   );
 };
 
+/* devblock:start */
 preview(Main, {
   connecting: {
     context: teacherContext,
@@ -138,3 +139,4 @@ preview(Main, {
     metadata: sampleMetadata,
   },
 });
+/* devblock:end */

@@ -1,3 +1,4 @@
+/* devblock:start */
 import { IState } from "../types";
 
 export const sampleState: IState = {
@@ -15,3 +16,4 @@ export const sampleState: IState = {
   currentQuestionNumber: 0,
   currentQuestionStart: Date.now(),
 };
+/* devblock:end */
