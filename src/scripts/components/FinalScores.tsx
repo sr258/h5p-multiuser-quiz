@@ -16,7 +16,7 @@ import React from "react";
 
 import { sampleParams } from "../testData/sampleParams";
 import { IActions, IContext, IParams, IState } from "../types";
-import { sampleDoc } from "../testData/sampleDoc";
+import { sampleState } from "../testData/sampleState";
 import { teacherContext } from "../testData/teacherContext";
 
 const scoreIndexToColor = (index: number): string => {
@@ -32,18 +32,18 @@ const scoreIndexToColor = (index: number): string => {
 export const FinalScores = ({
   context,
   params,
-  doc,
+  state,
   actions,
 }: {
   context: IContext;
   params: IParams;
-  doc: IState;
+  state: IState;
   actions?: IActions;
 }) => {
   let userScoreIndex = 0;
   if (!context.isTeacher) {
-    userScoreIndex = Object.keys(doc.scores)
-      .sort((a, b) => doc.scores[b] - doc.scores[a])
+    userScoreIndex = Object.keys(state.scores)
+      .sort((a, b) => state.scores[b] - state.scores[a])
       .indexOf(context.userId);
   }
   return context.isTeacher ? (
@@ -65,8 +65,8 @@ export const FinalScores = ({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {Object.keys(doc.scores)
-            .sort((a, b) => doc.scores[b] - doc.scores[a])
+          {Object.keys(state.scores)
+            .sort((a, b) => state.scores[b] - state.scores[a])
             .map((userId, index) => (
               <TableRow key={userId}>
                 <TableCell scope="row">
@@ -79,8 +79,10 @@ export const FinalScores = ({
                   ) : undefined}
                 </TableCell>
                 <TableCell scope="row">{index + 1}</TableCell>
-                <TableCell scope="row">{doc.users[userId] ?? userId}</TableCell>
-                <TableCell scope="row">{doc.scores[userId]}</TableCell>
+                <TableCell scope="row">
+                  {state.users[userId] ?? userId}
+                </TableCell>
+                <TableCell scope="row">{state.scores[userId]}</TableCell>
               </TableRow>
             ))}
         </TableBody>
@@ -91,7 +93,7 @@ export const FinalScores = ({
           primary
           label="Play again"
           onClick={() => {
-            actions?.start(context, doc, params);
+            actions?.start(context, state, params);
           }}
         />
       </Box>
@@ -108,7 +110,7 @@ export const FinalScores = ({
             alignSelf="center"
           >
             <Text margin="large" size="4xl" color="light-1">
-              {doc.scores[context.userId]}
+              {state.scores[context.userId]}
             </Text>
           </Box>
 
@@ -147,8 +149,8 @@ export const FinalScores = ({
 preview(FinalScores, {
   teacher: {
     context: teacherContext,
-    doc: {
-      ...sampleDoc,
+    state: {
+      ...sampleState,
       phase: "scores",
       scores: {
         user1: 1000,
@@ -166,8 +168,8 @@ preview(FinalScores, {
       isTeacher: false,
       displayName: "Real Name 3",
     },
-    doc: {
-      ...sampleDoc,
+    state: {
+      ...sampleState,
       phase: "scores",
       scores: {
         user1: 1000,
@@ -185,8 +187,8 @@ preview(FinalScores, {
       isTeacher: false,
       displayName: "Real Name 5",
     },
-    doc: {
-      ...sampleDoc,
+    state: {
+      ...sampleState,
       phase: "scores",
       scores: {
         user1: 1000,
@@ -204,8 +206,8 @@ preview(FinalScores, {
       isTeacher: false,
       displayName: "Real Name 5",
     },
-    doc: {
-      ...sampleDoc,
+    state: {
+      ...sampleState,
       phase: "scores",
     },
     params: sampleParams,

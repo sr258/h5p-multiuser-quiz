@@ -8,13 +8,13 @@ import { IParams, IState, IContext, IActions } from "../types";
 export const Preparing = ({
   context,
   params,
-  doc,
+  state,
   actions,
   title,
 }: {
   context: IContext;
   params: IParams;
-  doc: IState;
+  state: IState;
   actions?: IActions;
   title: string;
 }) => {
@@ -36,7 +36,7 @@ export const Preparing = ({
               </Box>
             }
             onClick={() => {
-              actions?.start(context, doc, params);
+              actions?.start(context, state, params);
             }}
           />
         </React.Fragment>

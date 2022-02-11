@@ -8,7 +8,7 @@ import { Scores } from "./Scores";
 import { IParams, IState, IContext, IActions, IMetadata } from "../types";
 import { Initializing } from "./Initializing";
 import { sampleParams } from "../testData/sampleParams";
-import { sampleDoc } from "../testData/sampleDoc";
+import { sampleState } from "../testData/sampleState";
 import { teacherContext } from "../testData/teacherContext";
 import { Deleted } from "./Deleted";
 import { Error } from "./Error";
@@ -16,7 +16,7 @@ import { sampleMetadata } from "../testData/sampleMetadata";
 
 export const Main = ({
   context,
-  doc,
+  state,
   params,
   actions,
   deleted,
@@ -24,7 +24,7 @@ export const Main = ({
   metadata,
 }: {
   context: IContext;
-  doc?: IState;
+  state?: IState;
   params: IParams;
   actions?: IActions;
   deleted?: boolean;
@@ -33,50 +33,50 @@ export const Main = ({
 }) => {
   return (
     <Grommet plain>
-      {doc !== undefined ? (
+      {state !== undefined ? (
         <Box>
-          {doc.phase === "preparing" && (
+          {state.phase === "preparing" && (
             <Preparing
               context={context}
-              doc={doc}
+              state={state}
               params={params}
               actions={actions}
               title={metadata.title}
             ></Preparing>
           )}
-          {doc.phase === "question" && (
+          {state.phase === "question" && (
             <Question
               params={params}
               context={context}
-              doc={doc}
+              state={state}
               actions={actions}
             ></Question>
           )}
-          {doc.phase === "review" && (
+          {state.phase === "review" && (
             <Question
               params={params}
               context={context}
-              doc={doc}
+              state={state}
               actions={actions}
             ></Question>
           )}
-          {doc.phase === "scores" &&
-            doc.currentQuestionNumber !==
+          {state.phase === "scores" &&
+            state.currentQuestionNumber !==
               params.questions.params.choices.length - 1 && (
               <Scores
                 params={params}
                 context={context}
-                doc={doc}
+                state={state}
                 actions={actions}
               />
             )}
-          {doc.phase === "scores" &&
-            doc.currentQuestionNumber ===
+          {state.phase === "scores" &&
+            state.currentQuestionNumber ===
               params.questions.params.choices.length - 1 && (
               <FinalScores
                 params={params}
                 context={context}
-                doc={doc}
+                state={state}
                 actions={actions}
               />
             )}
@@ -103,27 +103,27 @@ export const Main = ({
 preview(Main, {
   connecting: {
     context: teacherContext,
-    doc: undefined,
+    state: undefined,
     params: sampleParams,
     metadata: sampleMetadata,
   },
   deleted: {
     context: teacherContext,
-    doc: undefined,
+    state: undefined,
     params: sampleParams,
     deleted: true,
     metadata: sampleMetadata,
   },
   error: {
     context: teacherContext,
-    doc: undefined,
+    state: undefined,
     params: sampleParams,
     error: "Some weird error message",
     metadata: sampleMetadata,
   },
   "preparing-teacher": {
     context: teacherContext,
-    doc: sampleDoc,
+    state: sampleState,
     params: sampleParams,
     metadata: sampleMetadata,
   },
@@ -133,7 +133,7 @@ preview(Main, {
       isTeacher: false,
       userId: "student",
     },
-    doc: sampleDoc,
+    state: sampleState,
     params: sampleParams,
     metadata: sampleMetadata,
   },

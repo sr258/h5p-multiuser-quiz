@@ -18,7 +18,7 @@ import { sampleParams } from "../testData/sampleParams";
 import { IParams, IState, IContext, IActions } from "../types";
 import { useEffect, useState } from "react";
 import { Timer } from "./Timer";
-import { sampleDoc } from "../testData/sampleDoc";
+import { sampleState } from "../testData/sampleState";
 import { teacherContext } from "../testData/teacherContext";
 
 const colors = [
@@ -48,17 +48,17 @@ const maxTime = 20;
 export const Question = ({
   context,
   params,
-  doc,
+  state,
   actions,
 }: {
   context: IContext;
   params: IParams;
-  doc: IState;
+  state: IState;
   actions?: IActions;
 }) => {
   const calculateTimeLeft = () => {
     return Math.round(
-      (maxTime * 1000 - (Date.now() - doc.currentQuestionStart)) / 1000
+      (maxTime * 1000 - (Date.now() - state.currentQuestionStart)) / 1000
     );
   };
 
@@ -69,8 +69,8 @@ export const Question = ({
       let left = calculateTimeLeft();
       if (left <= 0) {
         clearTimeout(timer);
-        if (doc.phase === "question" && context.isTeacher) {
-          actions?.showAnswerAndScore(context, doc, params);
+        if (state.phase === "question" && context.isTeacher) {
+          actions?.showAnswerAndScore(context, state, params);
         }
       }
       left = left <= 0 ? 0 : left;
@@ -81,7 +81,7 @@ export const Question = ({
   });
 
   const currQuestion =
-    params.questions.params.choices[doc.currentQuestionNumber];
+    params.questions.params.choices[state.currentQuestionNumber];
 
   return context.isTeacher ? (
     <Box>
@@ -101,10 +101,12 @@ export const Question = ({
         {Array.from(currQuestion.answers)
           .sort((a, b) => {
             return (
-              doc.currentQuestionOrder.indexOf(
+              state.currentQuestionOrder.indexOf(
                 currQuestion.answers.indexOf(a)
               ) -
-              doc.currentQuestionOrder.indexOf(currQuestion.answers.indexOf(b))
+              state.currentQuestionOrder.indexOf(
+                currQuestion.answers.indexOf(b)
+              )
             );
           })
           .map((q, index) => (
@@ -112,8 +114,8 @@ export const Question = ({
               border={{
                 size: "3px",
                 color:
-                  doc.phase === "question" ||
-                  (doc.phase === "review" &&
+                  state.phase === "question" ||
+                  (state.phase === "review" &&
                     currQuestion.answers.indexOf(q) !== 0)
                     ? "transparent"
                     : undefined,
@@ -123,7 +125,7 @@ export const Question = ({
               align="center"
               background={{
                 color:
-                  doc.phase === "review" &&
+                  state.phase === "review" &&
                   currQuestion.answers.indexOf(q) !== 0
                     ? new Color(colors[index])
                         .alpha(0.4)
@@ -149,7 +151,7 @@ export const Question = ({
                     ></Text>
                   </Box>
                 </Box>
-                {doc.phase === "review" && (
+                {state.phase === "review" && (
                   <Box
                     fill
                     justify="center"
@@ -161,7 +163,7 @@ export const Question = ({
                     <Tag
                       value={
                         Object.values(
-                          doc.answers[doc.currentQuestionNumber]
+                          state.answers[state.currentQuestionNumber]
                         ).filter((a) => a === index).length
                       }
                     />
@@ -173,39 +175,39 @@ export const Question = ({
       </Grid>
       <Box direction="row" justify="between" align="center">
         <Text margin="medium">
-          {"Question "} {doc.currentQuestionNumber + 1} /{" "}
+          {"Question "} {state.currentQuestionNumber + 1} /{" "}
           {params.questions.params.choices.length}
         </Text>
         <Text margin="medium">
           {"Given answers: "}
-          {Object.keys(doc.answers[doc.currentQuestionNumber]).length}
+          {Object.keys(state.answers[state.currentQuestionNumber]).length}
         </Text>
-        {doc.phase === "question" && (
+        {state.phase === "question" && (
           <Box margin="medium">
             <Timer left={timeLeft} max={maxTime} />
           </Box>
         )}
-        {doc.phase === "question" && (
+        {state.phase === "question" && (
           <Button
             margin="medium"
             label="Show answer"
             onClick={() => {
-              actions?.showAnswerAndScore(context, doc, params);
+              actions?.showAnswerAndScore(context, state, params);
             }}
           />
         )}
-        {doc.phase === "review" && (
+        {state.phase === "review" && (
           <Button
             margin="medium"
             label="Show scores"
             onClick={() => {
-              actions?.showScores(context, doc, params);
+              actions?.showScores(context, state, params);
             }}
           />
         )}
       </Box>
     </Box>
-  ) : doc.phase === "question" ? (
+  ) : state.phase === "question" ? (
     <Box>
       <Grid
         columns={{
@@ -216,21 +218,23 @@ export const Question = ({
         {Array.from(currQuestion.answers)
           .sort(
             (a, b) =>
-              doc.currentQuestionOrder.indexOf(
+              state.currentQuestionOrder.indexOf(
                 currQuestion.answers.indexOf(b)
               ) -
-              doc.currentQuestionOrder.indexOf(currQuestion.answers.indexOf(a))
+              state.currentQuestionOrder.indexOf(
+                currQuestion.answers.indexOf(a)
+              )
           )
           .map((q, index) => (
             <Box margin="small" height="6em" key={index}>
               <Button
                 key={q}
                 disabled={
-                  doc.answers[doc.currentQuestionNumber] !== undefined &&
-                  doc.answers[doc.currentQuestionNumber][context.userId] !==
+                  state.answers[state.currentQuestionNumber] !== undefined &&
+                  state.answers[state.currentQuestionNumber][context.userId] !==
                     undefined &&
-                  doc.answers[doc.currentQuestionNumber][context.userId] !==
-                    doc.currentQuestionOrder[index]
+                  state.answers[state.currentQuestionNumber][context.userId] !==
+                    state.currentQuestionOrder[index]
                 }
                 label={<Text size="xlarge">{icons[index]}</Text>}
                 color={colors[index]}
@@ -239,9 +243,9 @@ export const Question = ({
                 onClick={() => {
                   actions?.answer(
                     context,
-                    doc,
+                    state,
                     params,
-                    doc.currentQuestionOrder[index]
+                    state.currentQuestionOrder[index]
                   );
                 }}
               ></Button>
@@ -250,7 +254,7 @@ export const Question = ({
       </Grid>
       <Box direction="row" justify="between">
         <Text margin="medium">
-          {"Question "} {doc.currentQuestionNumber + 1} /{" "}
+          {"Question "} {state.currentQuestionNumber + 1} /{" "}
           {params.questions.params.choices.length}
         </Text>
         <Box margin="medium">
@@ -260,13 +264,14 @@ export const Question = ({
     </Box>
   ) : (
     <Box>
-      {doc.answers[doc.currentQuestionNumber][context.userId] !== undefined ? (
+      {state.answers[state.currentQuestionNumber][context.userId] !==
+      undefined ? (
         <Box
           margin="medium"
           round
           height="12em"
           background={
-            doc.answers[doc.currentQuestionNumber][context.userId] === 0
+            state.answers[state.currentQuestionNumber][context.userId] === 0
               ? "status-ok"
               : "status-error"
           }
@@ -276,7 +281,7 @@ export const Question = ({
               color="white"
               size="4x"
               icon={
-                doc.answers[doc.currentQuestionNumber][context.userId] === 0
+                state.answers[state.currentQuestionNumber][context.userId] === 0
                   ? faCheck
                   : faTimes
               }
@@ -302,8 +307,8 @@ export const Question = ({
 preview(Question, {
   "teacher-unanswered": {
     context: teacherContext,
-    doc: {
-      ...sampleDoc,
+    state: {
+      ...sampleState,
       answers: [{ user1: 1, user2: 2, user3: 1 }],
       currentQuestionOrder: [1, 2, 3, 0],
       currentQuestionStart: Date.now() - 8547,
@@ -313,8 +318,8 @@ preview(Question, {
   },
   "teacher-review": {
     context: teacherContext,
-    doc: {
-      ...sampleDoc,
+    state: {
+      ...sampleState,
       answers: [{ user1: 1, user2: 2, user3: 1 }],
       currentQuestionOrder: [1, 2, 3, 0],
       currentQuestionStart: Date.now() - 8547,
@@ -328,8 +333,8 @@ preview(Question, {
       isTeacher: false,
       displayName: "Real Name 4",
     },
-    doc: {
-      ...sampleDoc,
+    state: {
+      ...sampleState,
       answers: [{ user1: 1, user2: 2, user3: 1 }],
       currentQuestionOrder: [1, 2, 3, 0],
       currentQuestionStart: Date.now() - 8547,
@@ -343,8 +348,8 @@ preview(Question, {
       isTeacher: false,
       displayName: "Real Name 1",
     },
-    doc: {
-      ...sampleDoc,
+    state: {
+      ...sampleState,
       answers: [{ user1: 1, user2: 2, user3: 1 }],
       currentQuestionOrder: [1, 2, 3, 0],
       currentQuestionStart: Date.now() - 8547,
@@ -358,8 +363,8 @@ preview(Question, {
       isTeacher: false,
       displayName: "Real Name 1",
     },
-    doc: {
-      ...sampleDoc,
+    state: {
+      ...sampleState,
       answers: [{ user1: 0, user2: 2, user3: 1 }],
       currentQuestionOrder: [1, 2, 3, 0],
       currentQuestionStart: Date.now() - 8547,
@@ -373,8 +378,8 @@ preview(Question, {
       isTeacher: false,
       displayName: "Real Name 1",
     },
-    doc: {
-      ...sampleDoc,
+    state: {
+      ...sampleState,
       answers: [{ user1: 1, user2: 2, user3: 1 }],
       currentQuestionOrder: [1, 2, 3, 0],
       currentQuestionStart: Date.now() - 8547,
@@ -389,8 +394,8 @@ preview(Question, {
       isTeacher: false,
       displayName: "Real Name 1",
     },
-    doc: {
-      ...sampleDoc,
+    state: {
+      ...sampleState,
       answers: [{ user2: 2, user3: 1 }],
       currentQuestionOrder: [1, 2, 3, 0],
       currentQuestionStart: Date.now() - 8547,

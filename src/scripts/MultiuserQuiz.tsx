@@ -94,7 +94,7 @@ export default class MultiuserQuiz {
           isTeacher: this.userInformation.level === "privileged",
           displayName: H5PIntegration.user.name,
         }}
-        doc={this.data}
+        state={this.data}
         params={this.params}
         metadata={this.metadata}
       />,
@@ -121,7 +121,7 @@ export default class MultiuserQuiz {
           isTeacher: this.userInformation.level === "privileged",
           displayName: H5PIntegration.user.name,
         }}
-        doc={undefined}
+        state={undefined}
         params={this.params}
         deleted={true}
         metadata={this.metadata}
@@ -140,7 +140,7 @@ export default class MultiuserQuiz {
           isTeacher: this.userInformation.level === "privileged",
           displayName: H5PIntegration.user.name,
         }}
-        doc={undefined}
+        state={undefined}
         params={this.params}
         error={error}
         metadata={this.metadata}
@@ -161,7 +161,7 @@ export default class MultiuserQuiz {
     ReactDOM.render(
       <Main
         context={this.context}
-        doc={this.data}
+        state={this.data}
         params={this.params}
         actions={this.actions}
         metadata={this.metadata}

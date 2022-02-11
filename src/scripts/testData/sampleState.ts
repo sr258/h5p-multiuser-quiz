@@ -1,6 +1,6 @@
 import { IState } from "../types";
 
-export const sampleDoc: IState = {
+export const sampleState: IState = {
   answers: [],
   currentQuestionOrder: [],
   phase: "preparing",

@@ -12,7 +12,7 @@ import {
 } from "grommet";
 import React from "react";
 
-import { sampleDoc } from "../testData/sampleDoc";
+import { sampleState } from "../testData/sampleState";
 import { sampleParams } from "../testData/sampleParams";
 import { teacherContext } from "../testData/teacherContext";
 import { IActions, IContext, IParams, IState } from "../types";
@@ -20,12 +20,12 @@ import { IActions, IContext, IParams, IState } from "../types";
 export const Scores = ({
   context,
   params,
-  doc,
+  state,
   actions,
 }: {
   context: IContext;
   params: IParams;
-  doc: IState;
+  state: IState;
   actions?: IActions;
 }) => {
   return context.isTeacher ? (
@@ -43,19 +43,21 @@ export const Scores = ({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {Object.keys(doc.scores)
-            .sort((a, b) => doc.scores[b] - doc.scores[a])
+          {Object.keys(state.scores)
+            .sort((a, b) => state.scores[b] - state.scores[a])
             .map((userId) => (
               <TableRow>
-                <TableCell scope="row">{doc.users[userId] ?? userId}</TableCell>
-                <TableCell scope="row">{doc.scores[userId]}</TableCell>
+                <TableCell scope="row">
+                  {state.users[userId] ?? userId}
+                </TableCell>
+                <TableCell scope="row">{state.scores[userId]}</TableCell>
               </TableRow>
             ))}
         </TableBody>
       </Table>
       <Box direction="row" justify="between" margin={{ top: "medium" }}>
         <Text margin="medium">
-          {"Question "} {doc.currentQuestionNumber + 1} /{" "}
+          {"Question "} {state.currentQuestionNumber + 1} /{" "}
           {params.questions.params.choices.length}
         </Text>
         <Button
@@ -63,7 +65,7 @@ export const Scores = ({
           primary
           label="Next question"
           onClick={() => {
-            actions?.nextQuestion(context, doc, params);
+            actions?.nextQuestion(context, state, params);
           }}
         />
       </Box>
@@ -71,7 +73,7 @@ export const Scores = ({
   ) : (
     <Box>
       <Heading alignSelf="center">Current score</Heading>
-      {doc.scores[context.userId] !== undefined ? (
+      {state.scores[context.userId] !== undefined ? (
         <React.Fragment>
           <Box
             background="#48CFAD"
@@ -80,11 +82,11 @@ export const Scores = ({
             alignSelf="center"
           >
             <Text margin="large" size="6xl">
-              {doc.scores[context.userId]}
+              {state.scores[context.userId]}
             </Text>
           </Box>
           <Text margin="medium" alignSelf="center">
-            {"Question "} {doc.currentQuestionNumber + 1} /{" "}
+            {"Question "} {state.currentQuestionNumber + 1} /{" "}
             {params.questions.params.choices.length}
           </Text>
         </React.Fragment>
@@ -100,8 +102,8 @@ export const Scores = ({
 preview(Scores, {
   teacher: {
     context: teacherContext,
-    doc: {
-      ...sampleDoc,
+    state: {
+      ...sampleState,
       phase: "scores",
       scores: {
         user1: 1000,
@@ -119,8 +121,8 @@ preview(Scores, {
       isTeacher: false,
       displayName: "Real Name 3",
     },
-    doc: {
-      ...sampleDoc,
+    state: {
+      ...sampleState,
       phase: "scores",
       scores: {
         user1: 1000,
@@ -138,8 +140,8 @@ preview(Scores, {
       isTeacher: false,
       displayName: "Real Name 3",
     },
-    doc: {
-      ...sampleDoc,
+    state: {
+      ...sampleState,
       phase: "scores",
     },
     params: sampleParams,
