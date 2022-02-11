@@ -1,5 +1,6 @@
 import "../styles/multiuser-quiz.css";
 import MultiuserQuiz from "../scripts/MultiuserQuiz";
+import { IMetadata } from "../scripts/types";
 
 /**
  * Global H5P namespace object.
@@ -16,9 +17,21 @@ H5P = H5P || {};
 
 // Add a wrapper class to the global H5P namespace.
 H5P.MultiuserQuiz = class extends H5P.ContentType(true) {
-  constructor(params: any, contentId: string, extras: any) {
+  constructor(
+    params: any,
+    contentId: string,
+    extras: {
+      metadata?: IMetadata;
+      standalone?: boolean;
+    }
+  ) {
     super();
-    this.multiuserQuiz = new MultiuserQuiz(params, contentId, extras, this.triggerResize);
+    this.multiuserQuiz = new MultiuserQuiz(
+      params,
+      contentId,
+      extras,
+      this.triggerResize
+    );
   }
 
   private multiuserQuiz: MultiuserQuiz;

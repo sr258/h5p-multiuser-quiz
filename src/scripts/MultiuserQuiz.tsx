@@ -37,6 +37,8 @@ export default class MultiuserQuiz {
     // the host system. (Must be configured there)
     const serverConfig: { serverUrl: string; auth: string } =
       H5P.getLibraryConfig("H5P.ShareDBTest");
+
+    // Get authentication data
     fetch(serverConfig.auth + "/" + contentId, {
       mode: "cors",
       credentials: "include",
@@ -45,7 +47,7 @@ export default class MultiuserQuiz {
       this.context = {
         userId: this.userInformation.userId,
         isTeacher: this.userInformation.level === "privileged",
-        displayName: H5PIntegration.user.name,
+        displayName: H5PIntegration.user?.name,
       };
       // Initialize connection to ShareDB server
       this.connector = new ShareDBConnector<QuizDoc>(
@@ -104,6 +106,8 @@ export default class MultiuserQuiz {
   onConnected = async (state: QuizDoc): Promise<void> => {
     console.log("Connection established");
     if (!this.context.isTeacher) {
+      // We need to write the current user name into the shared state so that it
+      // is known to other users (when displaying the scores).
       this.actions.register(this.context, state, this.params);
     }
   };
