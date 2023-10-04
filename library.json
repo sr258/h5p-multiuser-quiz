@@ -30,6 +30,11 @@
   },
   "preloadedDependencies": [
     {
+      "machineName": "H5P.SharedStateClient",
+      "majorVersion": 0,
+      "minorVersion": 2
+    },
+    {
       "machineName": "H5P.SingleChoiceSet",
       "majorVersion": "1",
       "minorVersion": "11"

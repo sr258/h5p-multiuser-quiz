@@ -1,11 +1,13 @@
 import React from "react";
 import * as ReactDOM from "react-dom";
+import { H5PIntegrationObject } from "h5p-types";
 
 import QuizDoc from "./QuizDoc";
 import { Main } from "./components/Main";
-import ShareDBConnector from "./ShareDBConnector";
 import { IActions, IContext, IMetadata, IParams } from "./types";
 import ShareDBActions from "./ShareDBActions";
+
+declare var H5PIntegration: H5PIntegrationObject;
 
 /**
  * The H5P content type class.
@@ -33,39 +35,19 @@ export default class MultiuserQuiz {
     // Create render root
     this.root = document.createElement("div");
 
-    // The shared-state server configuration is provided by the H5P plugin of
-    // the host system. (Must be configured there)
-    const serverConfig: { serverUrl: string; auth: string } =
-      H5P.getLibraryConfig("H5P.ShareDBTest");
-
-    // Get authentication data
-    fetch(serverConfig.auth + "/" + contentId, {
-      mode: "cors",
-      credentials: "include",
-    }).then(async (auth) => {
-      this.userInformation = await auth.json();
-      this.context = {
-        userId: this.userInformation.userId,
-        isTeacher: this.userInformation.level === "privileged",
-        displayName: H5PIntegration.user?.name,
-      };
-      // Initialize connection to ShareDB server
-      this.connector = new ShareDBConnector<QuizDoc>(
-        serverConfig.serverUrl,
-        contentId,
-        this.onRefreshData,
-        this.onConnected,
-        this.onDeleted,
-        this.onError,
-        QuizDoc
-      );
-      this.actions = new ShareDBActions(this.connector);
+    // Initialize connection to ShareDB server
+    this.connector = new H5P.SharedStateClient<QuizDoc>(QuizDoc, contentId, {
+      onRefresh: this.onRefreshData,
+      onConnected: this.onConnected,
+      onDeleted: this.onDeleted,
+      onError: this.onError,
     });
+    this.actions = new ShareDBActions(this.connector);
   }
 
   private metadata: IMetadata;
   private root: HTMLElement;
-  private connector: ShareDBConnector<QuizDoc>;
+  private connector: H5P.SharedStateClient<QuizDoc>;
   private data?: QuizDoc;
   private userInformation: {
     userId: string;
@@ -105,6 +87,16 @@ export default class MultiuserQuiz {
 
   onConnected = async (state: QuizDoc): Promise<void> => {
     console.log("Connection established");
+    if (!this.connector.userInformation) {
+      throw new Error("Didn't get required user information.");
+    }
+    this.userInformation = this.connector.userInformation;
+    this.context = {
+      userId: this.userInformation.userId,
+      isTeacher: this.userInformation.level === "privileged",
+      displayName: H5PIntegration.user?.name,
+    };
+
     if (!this.context.isTeacher) {
       // We need to write the current user name into the shared state so that it
       // is known to other users (when displaying the scores).

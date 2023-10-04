@@ -1,13 +1,9 @@
 import { IState, Phases } from "./types";
-import ShareDBDocument from "./ShareDBDocument";
 
 /**
  * The document that represents the quiz shared state.
  */
-export default class QuizDoc extends ShareDBDocument implements IState {
-  constructor() {
-    super();
-  }
+export default class QuizDoc implements IState {
   seed(): void {
     this.answers = [];
     this.scores = {};
