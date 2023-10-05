@@ -1,6 +1,5 @@
-import { preview } from "@reactpreview/config";
 import Color from "color";
-import { Box, Text, Heading, Button, Grid, Stack, Tag, Meter } from "grommet";
+import { Box, Text, Button, Grid, Stack, Tag } from "grommet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircle,
@@ -14,12 +13,9 @@ import {
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { sampleParams } from "../testData/sampleParams";
 import { IParams, IState, IContext, IActions } from "../types";
 import { useEffect, useState } from "react";
 import { Timer } from "./Timer";
-import { sampleState } from "../testData/sampleState";
-import { teacherContext } from "../testData/teacherContext";
 
 const colors = [
   "#DA4453",
@@ -303,106 +299,3 @@ export const Question = ({
     </Box>
   );
 };
-
-/* devblock:start */
-preview(Question, {
-  "teacher-unanswered": {
-    context: teacherContext,
-    state: {
-      ...sampleState,
-      answers: [{ user1: 1, user2: 2, user3: 1 }],
-      currentQuestionOrder: [1, 2, 3, 0],
-      currentQuestionStart: Date.now() - 8547,
-      phase: "question",
-    },
-    params: sampleParams,
-  },
-  "teacher-review": {
-    context: teacherContext,
-    state: {
-      ...sampleState,
-      answers: [{ user1: 1, user2: 2, user3: 1 }],
-      currentQuestionOrder: [1, 2, 3, 0],
-      currentQuestionStart: Date.now() - 8547,
-      phase: "review",
-    },
-    params: sampleParams,
-  },
-  "student-unanswered": {
-    context: {
-      userId: "user4",
-      isTeacher: false,
-      displayName: "Real Name 4",
-    },
-    state: {
-      ...sampleState,
-      answers: [{ user1: 1, user2: 2, user3: 1 }],
-      currentQuestionOrder: [1, 2, 3, 0],
-      currentQuestionStart: Date.now() - 8547,
-      phase: "question",
-    },
-    params: sampleParams,
-  },
-  "student-answered": {
-    context: {
-      userId: "user1",
-      isTeacher: false,
-      displayName: "Real Name 1",
-    },
-    state: {
-      ...sampleState,
-      answers: [{ user1: 1, user2: 2, user3: 1 }],
-      currentQuestionOrder: [1, 2, 3, 0],
-      currentQuestionStart: Date.now() - 8547,
-      phase: "question",
-    },
-    params: sampleParams,
-  },
-  "student-review-correct": {
-    context: {
-      userId: "user1",
-      isTeacher: false,
-      displayName: "Real Name 1",
-    },
-    state: {
-      ...sampleState,
-      answers: [{ user1: 0, user2: 2, user3: 1 }],
-      currentQuestionOrder: [1, 2, 3, 0],
-      currentQuestionStart: Date.now() - 8547,
-      phase: "review",
-    },
-    params: sampleParams,
-  },
-  "student-review-wrong": {
-    context: {
-      userId: "user1",
-      isTeacher: false,
-      displayName: "Real Name 1",
-    },
-    state: {
-      ...sampleState,
-      answers: [{ user1: 1, user2: 2, user3: 1 }],
-      currentQuestionOrder: [1, 2, 3, 0],
-      currentQuestionStart: Date.now() - 8547,
-      phase: "review",
-    },
-    params: sampleParams,
-  },
-
-  "student-review-no-answer": {
-    context: {
-      userId: "user1",
-      isTeacher: false,
-      displayName: "Real Name 1",
-    },
-    state: {
-      ...sampleState,
-      answers: [{ user2: 2, user3: 1 }],
-      currentQuestionOrder: [1, 2, 3, 0],
-      currentQuestionStart: Date.now() - 8547,
-      phase: "review",
-    },
-    params: sampleParams,
-  },
-});
-/* devblock:end */

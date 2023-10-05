@@ -1,4 +1,3 @@
-import { preview } from "@reactpreview/config";
 import {
   Box,
   Button,
@@ -12,9 +11,6 @@ import {
 } from "grommet";
 import React from "react";
 
-import { sampleState } from "../testData/sampleState";
-import { sampleParams } from "../testData/sampleParams";
-import { teacherContext } from "../testData/teacherContext";
 import { IActions, IContext, IParams, IState } from "../types";
 
 export const Scores = ({
@@ -98,54 +94,3 @@ export const Scores = ({
     </Box>
   );
 };
-
-/* devblock:start */
-preview(Scores, {
-  teacher: {
-    context: teacherContext,
-    state: {
-      ...sampleState,
-      phase: "scores",
-      scores: {
-        user1: 1000,
-        user2: 5000,
-        user3: 2500,
-        user4: 9000,
-        user5: 10000,
-      },
-    },
-    params: sampleParams,
-  },
-  student: {
-    context: {
-      userId: "user3",
-      isTeacher: false,
-      displayName: "Real Name 3",
-    },
-    state: {
-      ...sampleState,
-      phase: "scores",
-      scores: {
-        user1: 1000,
-        user2: 5000,
-        user3: 2500,
-        user4: 9000,
-        user5: 10000,
-      },
-    },
-    params: sampleParams,
-  },
-  "student-no-score": {
-    context: {
-      userId: "user1",
-      isTeacher: false,
-      displayName: "Real Name 3",
-    },
-    state: {
-      ...sampleState,
-      phase: "scores",
-    },
-    params: sampleParams,
-  },
-});
-/* devblock:end */

@@ -1,4 +1,3 @@
-import { preview } from "@reactpreview/config";
 import {
   Box,
   Button,
@@ -14,10 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
-import { sampleParams } from "../testData/sampleParams";
 import { IActions, IContext, IParams, IState } from "../types";
-import { sampleState } from "../testData/sampleState";
-import { teacherContext } from "../testData/teacherContext";
 
 const scoreIndexToColor = (index: number): string => {
   if (index === 0) {
@@ -145,73 +141,3 @@ export const FinalScores = ({
     </Box>
   );
 };
-
-/* devblock:start */
-preview(FinalScores, {
-  teacher: {
-    context: teacherContext,
-    state: {
-      ...sampleState,
-      phase: "scores",
-      scores: {
-        user1: 1000,
-        user2: 5000,
-        user3: 2500,
-        user4: 9000,
-        user5: 10000,
-      },
-    },
-    params: sampleParams,
-  },
-  "student-no-winner": {
-    context: {
-      userId: "user3",
-      isTeacher: false,
-      displayName: "Real Name 3",
-    },
-    state: {
-      ...sampleState,
-      phase: "scores",
-      scores: {
-        user1: 1000,
-        user2: 5000,
-        user3: 2500,
-        user4: 9000,
-        user5: 10000,
-      },
-    },
-    params: sampleParams,
-  },
-  "student-winner": {
-    context: {
-      userId: "user5",
-      isTeacher: false,
-      displayName: "Real Name 5",
-    },
-    state: {
-      ...sampleState,
-      phase: "scores",
-      scores: {
-        user1: 1000,
-        user2: 5000,
-        user3: 2500,
-        user4: 9000,
-        user5: 10000,
-      },
-    },
-    params: sampleParams,
-  },
-  "student-no-score": {
-    context: {
-      userId: "user5",
-      isTeacher: false,
-      displayName: "Real Name 5",
-    },
-    state: {
-      ...sampleState,
-      phase: "scores",
-    },
-    params: sampleParams,
-  },
-});
-/* devblock:end */

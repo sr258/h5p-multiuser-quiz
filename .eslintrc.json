@@ -1,7 +1,9 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "globals": {
     "H5P": true,
     "H5PIntegration": true,
@@ -11,17 +13,43 @@
     "browser": true,
     "node": true
   },
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:storybook/recommended"
+  ],
   "parserOptions": {
     "sourceType": "module"
   },
   "rules": {
     "valid-jsdoc": "off",
-    "semi": [2, "always"],
-    "keyword-spacing": ["error", { "after": true }],
-    "comma-spacing": ["error", { "before": false, "after": true }],
-    "space-infix-ops": ["error", { "int32Hint": false }],
-    "eqeqeq": [2, "smart"],
+    "semi": [
+      2,
+      "always"
+    ],
+    "keyword-spacing": [
+      "error",
+      {
+        "after": true
+      }
+    ],
+    "comma-spacing": [
+      "error",
+      {
+        "before": false,
+        "after": true
+      }
+    ],
+    "space-infix-ops": [
+      "error",
+      {
+        "int32Hint": false
+      }
+    ],
+    "eqeqeq": [
+      2,
+      "smart"
+    ],
     "space-before-blocks": "error",
     "space-before-function-paren": [
       "error",
@@ -32,6 +60,14 @@
       }
     ],
     "no-extra-boolean-cast": "off",
-    "no-console": ["warn", { "allow": ["warn", "error"] }]
+    "no-console": [
+      "warn",
+      {
+        "allow": [
+          "warn",
+          "error"
+        ]
+      }
+    ]
   }
 }

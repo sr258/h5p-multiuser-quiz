@@ -1,12 +1,8 @@
 {
-  "presets": ["@babel/preset-env", "@babel/preset-react"],
-  "plugins": [
-    [
-      "@babel/plugin-transform-classes",
-      {
-        "loose": true
-      }
-    ],
-    ["@babel/plugin-transform-destructuring"]
-  ]
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react",
+    "@babel/preset-typescript"
+  ],
+  "plugins": [["@babel/plugin-transform-destructuring"]]
 }

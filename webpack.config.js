@@ -41,10 +41,7 @@ module.exports = {
         use: [
           {
             loader: "ts-loader",
-          },
-          {
-            loader: "webpack-remove-code-blocks",
-          },
+          }
         ],
         exclude: /node_modules/,
       },
