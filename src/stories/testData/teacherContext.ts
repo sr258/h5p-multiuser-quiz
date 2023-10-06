@@ -1,9 +1,7 @@
-/* devblock:start */
-import { IContext } from "../types";
+import { IContext } from "../../scripts/types";
 
 export const teacherContext: IContext = {
   isTeacher: true,
   userId: "teacher",
   displayName: "Teacher",
 };
-/* devblock:end */

@@ -1,9 +1,7 @@
-/* devblock:start */
-import { IMetadata } from "../types";
+import { IMetadata } from "../../scripts/types";
 
 export const sampleMetadata: IMetadata = {
   defaultLanguage: "en",
   title: "My title",
   license: "U",
 };
-/* devblock:end */

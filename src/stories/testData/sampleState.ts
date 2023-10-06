@@ -1,5 +1,4 @@
-/* devblock:start */
-import { IState } from "../types";
+import { IState } from "../../scripts/types";
 
 export const sampleState: IState = {
   answers: [],
@@ -16,4 +15,3 @@ export const sampleState: IState = {
   currentQuestionNumber: 0,
   currentQuestionStart: Date.now(),
 };
-/* devblock:end */

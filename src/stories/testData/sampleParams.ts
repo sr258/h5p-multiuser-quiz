@@ -1,5 +1,4 @@
-/* devblock:start */
-import { IParams } from "../types";
+import { IParams } from "../../scripts/types";
 
 export const sampleParams: IParams = {
   questions: {
@@ -76,4 +75,3 @@ export const sampleParams: IParams = {
     },
   },
 };
-/* devblock:end */
