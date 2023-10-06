@@ -133,7 +133,7 @@ export const Question = ({
               key={q}
             >
               <Stack fill margin={{ vertical: "small" }}>
-                <Box alignSelf="start" margin="medium">
+                <Box align="start" fill margin="medium">
                   {icons[index]}
                 </Box>
                 <Box fill align="center" justify="center">
