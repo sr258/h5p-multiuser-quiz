@@ -16,6 +16,9 @@ namespace H5P {
         onConnected?: (data: StateType) => Promise<void>;
         onDeleted?: () => Promise<void>;
         onError?: (error: string) => Promise<void>;
+      },
+      options?: {
+        enablePresence: boolean;
       }
     );
     userInformation?: IUserInformation;
@@ -34,6 +37,7 @@ namespace H5P {
      * <https://github.com/ottypes/json0> for details
      */
     submitOp: (data: unknown) => void;
+    submitPresence: (data: unknown) => void;
     private onConnected;
     private onError;
     private onDeleted;

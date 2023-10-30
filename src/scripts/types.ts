@@ -138,3 +138,8 @@ export interface IMetadata {
   license: string;
   title: string;
 }
+
+export interface IActiveUser {
+  userId: string;
+  displayName: string;
+}

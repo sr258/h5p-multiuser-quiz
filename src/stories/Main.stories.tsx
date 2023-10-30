@@ -6,6 +6,7 @@ import { sampleParams } from "./testData/sampleParams";
 import { sampleState } from "./testData/sampleState";
 import { teacherContext } from "./testData/teacherContext";
 import { sampleMetadata } from "./testData/sampleMetadata";
+import { sampleUsers, sampleUsersMany } from "./testData/sampleUsers";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -57,8 +58,19 @@ export const PreparingTeacher: Story = {
     state: sampleState,
     params: sampleParams,
     metadata: sampleMetadata,
+    users: sampleUsers,
   },
 };
+export const PreparingTeacherManyStudents: Story = {
+  args: {
+    context: teacherContext,
+    state: sampleState,
+    params: sampleParams,
+    metadata: sampleMetadata,
+    users: sampleUsersMany,
+  },
+};
+
 export const PreparingStudent: Story = {
   args: {
     context: {
@@ -69,5 +81,6 @@ export const PreparingStudent: Story = {
     state: sampleState,
     params: sampleParams,
     metadata: sampleMetadata,
+    users: sampleUsers,
   },
 };

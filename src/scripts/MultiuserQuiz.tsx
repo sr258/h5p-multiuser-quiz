@@ -37,12 +37,17 @@ export default class MultiuserQuiz {
     this.root = document.createElement("div");
 
     // Initialize connection to ShareDB server
-    this.connector = new H5P.SharedStateClient<QuizDoc>(QuizDoc, contentId, {
-      onRefresh: this.onRefreshData,
-      onConnected: this.onConnected,
-      onDeleted: this.onDeleted,
-      onError: this.onError,
-    });
+    this.connector = new H5P.SharedStateClient<QuizDoc>(
+      QuizDoc,
+      contentId,
+      {
+        onRefresh: this.onRefreshData,
+        onConnected: this.onConnected,
+        onDeleted: this.onDeleted,
+        onError: this.onError,
+      },
+      { enablePresence: true }
+    );
     this.actions = new ShareDBActions(this.connector);
   }
 

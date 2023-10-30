@@ -8,7 +8,9 @@
   "author": "S. Rettig",
   "license": "MIT",
   "machineName": "H5P.MultiuserQuiz",
-  "embedTypes": ["iframe"],
+  "embedTypes": [
+    "iframe"
+  ],
   "preloadedJs": [
     {
       "path": "dist/multiuser-quiz.js"

@@ -4,7 +4,7 @@ import { FinalScores } from "./FinalScores";
 import { Preparing } from "./Preparing";
 import { Question } from "./Question";
 import { Scores } from "./Scores";
-import { IParams, IState, IContext, IActions, IMetadata } from "../types";
+import { IParams, IState, IContext, IActions, IMetadata, IActiveUser } from "../types";
 import { Initializing } from "./Initializing";
 import { Deleted } from "./Deleted";
 import { Error } from "./Error";
@@ -17,6 +17,7 @@ export const Main = ({
   deleted,
   error,
   metadata,
+  users
 }: {
   context: IContext;
   state?: IState;
@@ -25,9 +26,10 @@ export const Main = ({
   deleted?: boolean;
   error?: string;
   metadata: IMetadata;
+  users?: IActiveUser[];
 }) => {
   return state !== undefined ? (
-    <Box>
+    <Box fill>
       {state.phase === "preparing" && (
         <Preparing
           context={context}
@@ -35,6 +37,7 @@ export const Main = ({
           params={params}
           actions={actions}
           title={metadata.title}
+          users={users}
         ></Preparing>
       )}
       {state.phase === "question" && (
