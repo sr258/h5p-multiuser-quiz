@@ -35,7 +35,7 @@ export const TeacherUnanswered: Story = {
       phase: "question",
     },
     params: sampleParams,
-    users: sampleUsers
+    users: sampleUsers,
   },
 };
 export const TeacherReview: Story = {
@@ -49,7 +49,7 @@ export const TeacherReview: Story = {
       phase: "review",
     },
     params: sampleParams,
-    users: sampleUsers
+    users: sampleUsers,
   },
 };
 export const StudentUnanswered: Story = {
@@ -67,6 +67,7 @@ export const StudentUnanswered: Story = {
       phase: "question",
     },
     params: sampleParams,
+    users: [],
   },
 };
 export const StudentAnswered: Story = {
@@ -84,6 +85,7 @@ export const StudentAnswered: Story = {
       phase: "question",
     },
     params: sampleParams,
+    users: [],
   },
 };
 export const StudentReviewCorrect: Story = {
@@ -101,6 +103,7 @@ export const StudentReviewCorrect: Story = {
       phase: "review",
     },
     params: sampleParams,
+    users: [],
   },
 };
 export const StudentReviewWrong: Story = {
@@ -118,6 +121,7 @@ export const StudentReviewWrong: Story = {
       phase: "review",
     },
     params: sampleParams,
+    users: [],
   },
 };
 export const StudentReviewNoAnswer: Story = {
@@ -135,5 +139,6 @@ export const StudentReviewNoAnswer: Story = {
       phase: "review",
     },
     params: sampleParams,
+    users: [],
   },
 };

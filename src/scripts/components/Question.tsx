@@ -53,7 +53,7 @@ export const Question = ({
   params: IParams;
   state: IState;
   actions?: IActions;
-  users?: IOtherUser[];
+  users: IOtherUser[];
 }) => {
   const calculateTimeLeft = () => {
     return Math.round(
@@ -92,7 +92,13 @@ export const Question = ({
           }}
           textAlign="center"
         />
-        <Box pad="medium" justify="end" direction="row" align="center" gap="small">
+        <Box
+          pad="medium"
+          justify="end"
+          direction="row"
+          align="center"
+          gap="small"
+        >
           {users?.length}
           <FontAwesomeIcon icon={faUser} size="2xs" />
         </Box>
@@ -116,6 +122,7 @@ export const Question = ({
           })
           .map((q, index) => (
             <Box
+              key={`${index}-${q}`}
               border={{
                 size: "3px",
                 color:
@@ -139,7 +146,6 @@ export const Question = ({
                         .string()
                     : colors[index],
               }}
-              key={q}
             >
               <Stack fill margin={{ vertical: "small" }}>
                 <Box align="start" fill margin="medium">

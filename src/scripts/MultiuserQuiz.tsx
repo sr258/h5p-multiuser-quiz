@@ -5,8 +5,8 @@ import { H5PIntegrationObject } from "h5p-types";
 import QuizDoc from "./QuizDoc";
 import { Main } from "./components/Main";
 import {
-  IActions,
   IContext,
+  IMe,
   IMetadata,
   IOtherUser,
   IParams,
@@ -14,6 +14,7 @@ import {
 } from "./types";
 import ShareDBActions from "./ShareDBActions";
 import { Grommet } from "grommet";
+import { triggerActions } from "./triggers";
 
 declare const H5PIntegration: H5PIntegrationObject;
 
@@ -63,15 +64,12 @@ export default class MultiuserQuiz {
   private root: HTMLElement;
   private connector: H5P.SharedStateClient<QuizDoc, IQuizPresence>;
   private data?: QuizDoc;
-  private userInformation: {
-    userId: string;
-    level: "anonymous" | "user" | "privileged";
-  } = {
+  private userInformation: IMe = {
     userId: "",
     level: "anonymous",
   };
   private context: IContext;
-  private actions: IActions;
+  private actions: ShareDBActions;
   private otherUsers: IOtherUser[] = [];
 
   /**
@@ -193,6 +191,16 @@ export default class MultiuserQuiz {
       </Grommet>,
       this.root
     );
+    if (this.data) {
+      triggerActions(
+        this.context,
+        this.params,
+        this.data,
+        this.userInformation,
+        this.otherUsers,
+        this.actions
+      );
+    }
     this.triggerResize();
   };
 
@@ -217,6 +225,16 @@ export default class MultiuserQuiz {
       </Grommet>,
       this.root
     );
+    if (this.data) {
+      triggerActions(
+        this.context,
+        this.params,
+        this.data,
+        this.userInformation,
+        this.otherUsers,
+        this.actions
+      );
+    }
     this.triggerResize();
   };
 }

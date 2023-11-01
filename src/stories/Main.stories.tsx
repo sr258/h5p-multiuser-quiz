@@ -32,6 +32,7 @@ export const Connecting: Story = {
     state: undefined,
     params: sampleParams,
     metadata: sampleMetadata,
+    users: [],
   },
 };
 export const Deleted: Story = {
@@ -41,6 +42,7 @@ export const Deleted: Story = {
     params: sampleParams,
     deleted: true,
     metadata: sampleMetadata,
+    users: [],
   },
 };
 export const Error: Story = {
@@ -50,6 +52,7 @@ export const Error: Story = {
     params: sampleParams,
     error: "Some weird error message",
     metadata: sampleMetadata,
+    users: [],
   },
 };
 export const PreparingTeacherNoStudents: Story = {

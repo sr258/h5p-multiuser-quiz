@@ -33,7 +33,7 @@ export const Main = ({
   deleted?: boolean;
   error?: string;
   metadata: IMetadata;
-  users?: IOtherUser[];
+  users: IOtherUser[];
 }) => {
   return state !== undefined ? (
     <Box fill>
@@ -62,6 +62,7 @@ export const Main = ({
           context={context}
           state={state}
           actions={actions}
+          users={users}
         ></Question>
       )}
       {state.phase === "scores" &&
