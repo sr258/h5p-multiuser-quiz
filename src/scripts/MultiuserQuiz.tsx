@@ -4,7 +4,14 @@ import { H5PIntegrationObject } from "h5p-types";
 
 import QuizDoc from "./QuizDoc";
 import { Main } from "./components/Main";
-import { IActions, IContext, IMetadata, IParams } from "./types";
+import {
+  IActions,
+  IContext,
+  IMetadata,
+  IOtherUser,
+  IParams,
+  IQuizPresence,
+} from "./types";
 import ShareDBActions from "./ShareDBActions";
 import { Grommet } from "grommet";
 
@@ -37,11 +44,12 @@ export default class MultiuserQuiz {
     this.root = document.createElement("div");
 
     // Initialize connection to ShareDB server
-    this.connector = new H5P.SharedStateClient<QuizDoc>(
+    this.connector = new H5P.SharedStateClient<QuizDoc, IQuizPresence>(
       QuizDoc,
       contentId,
       {
         onRefresh: this.onRefreshData,
+        onRefreshPresences: this.onRefreshPresences,
         onConnected: this.onConnected,
         onDeleted: this.onDeleted,
         onError: this.onError,
@@ -53,7 +61,7 @@ export default class MultiuserQuiz {
 
   private metadata: IMetadata;
   private root: HTMLElement;
-  private connector: H5P.SharedStateClient<QuizDoc>;
+  private connector: H5P.SharedStateClient<QuizDoc, IQuizPresence>;
   private data?: QuizDoc;
   private userInformation: {
     userId: string;
@@ -64,6 +72,7 @@ export default class MultiuserQuiz {
   };
   private context: IContext;
   private actions: IActions;
+  private otherUsers: IOtherUser[] = [];
 
   /**
    * Attach content type to DOM.
@@ -86,6 +95,7 @@ export default class MultiuserQuiz {
           state={this.data}
           params={this.params}
           metadata={this.metadata}
+          users={this.otherUsers}
         />
       </Grommet>,
       this.root
@@ -110,6 +120,12 @@ export default class MultiuserQuiz {
       // is known to other users (when displaying the scores).
       this.actions.register(this.context, state, this.params);
     }
+
+    await this.connector.submitPresence({
+      userId: this.userInformation.userId,
+      name: H5PIntegration.user?.name,
+      level: this.userInformation.level,
+    });
   };
 
   onDeleted = async (): Promise<void> => {
@@ -126,6 +142,7 @@ export default class MultiuserQuiz {
           params={this.params}
           deleted={true}
           metadata={this.metadata}
+          users={this.otherUsers}
         />
       </Grommet>,
       this.root
@@ -147,6 +164,7 @@ export default class MultiuserQuiz {
           params={this.params}
           error={error}
           metadata={this.metadata}
+          users={this.otherUsers}
         />
       </Grommet>,
       this.root
@@ -170,6 +188,31 @@ export default class MultiuserQuiz {
           params={this.params}
           actions={this.actions}
           metadata={this.metadata}
+          users={this.otherUsers}
+        />
+      </Grommet>,
+      this.root
+    );
+    this.triggerResize();
+  };
+
+  onRefreshPresences = async (presences: {
+    [id: string]: IQuizPresence;
+  }): Promise<void> => {
+    console.log("Refreshing presences", presences);
+    this.otherUsers = Object.keys(presences).map((k) => ({
+      ...presences[k],
+      presenceId: k,
+    }));
+    ReactDOM.render(
+      <Grommet plain>
+        <Main
+          context={this.context}
+          state={this.data}
+          params={this.params}
+          actions={this.actions}
+          metadata={this.metadata}
+          users={this.otherUsers}
         />
       </Grommet>,
       this.root

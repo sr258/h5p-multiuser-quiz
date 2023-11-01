@@ -4,7 +4,14 @@ import { FinalScores } from "./FinalScores";
 import { Preparing } from "./Preparing";
 import { Question } from "./Question";
 import { Scores } from "./Scores";
-import { IParams, IState, IContext, IActions, IMetadata, IActiveUser } from "../types";
+import {
+  IParams,
+  IState,
+  IContext,
+  IActions,
+  IMetadata,
+  IOtherUser,
+} from "../types";
 import { Initializing } from "./Initializing";
 import { Deleted } from "./Deleted";
 import { Error } from "./Error";
@@ -17,7 +24,7 @@ export const Main = ({
   deleted,
   error,
   metadata,
-  users
+  users,
 }: {
   context: IContext;
   state?: IState;
@@ -26,7 +33,7 @@ export const Main = ({
   deleted?: boolean;
   error?: string;
   metadata: IMetadata;
-  users?: IActiveUser[];
+  users?: IOtherUser[];
 }) => {
   return state !== undefined ? (
     <Box fill>
@@ -46,6 +53,7 @@ export const Main = ({
           context={context}
           state={state}
           actions={actions}
+          users={users}
         ></Question>
       )}
       {state.phase === "review" && (

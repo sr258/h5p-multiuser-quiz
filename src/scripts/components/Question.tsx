@@ -11,9 +11,10 @@ import {
   faCoffee,
   faCube,
   faCheck,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { IParams, IState, IContext, IActions } from "../types";
+import { IParams, IState, IContext, IActions, IOtherUser } from "../types";
 import { useEffect, useState } from "react";
 import { Timer } from "./Timer";
 
@@ -46,11 +47,13 @@ export const Question = ({
   params,
   state,
   actions,
+  users,
 }: {
   context: IContext;
   params: IParams;
   state: IState;
   actions?: IActions;
+  users?: IOtherUser[];
 }) => {
   const calculateTimeLeft = () => {
     return Math.round(
@@ -81,13 +84,19 @@ export const Question = ({
 
   return context.isTeacher ? (
     <Box>
-      <Text
-        size="3xl"
-        dangerouslySetInnerHTML={{
-          __html: currQuestion.question,
-        }}
-        textAlign="center"
-      />
+      <Stack fill>
+        <Text
+          size="3xl"
+          dangerouslySetInnerHTML={{
+            __html: currQuestion.question,
+          }}
+          textAlign="center"
+        />
+        <Box pad="medium" justify="end" direction="row" align="center" gap="small">
+          {users?.length}
+          <FontAwesomeIcon icon={faUser} size="2xs" />
+        </Box>
+      </Stack>
       <Grid
         columns={{
           count: 2,

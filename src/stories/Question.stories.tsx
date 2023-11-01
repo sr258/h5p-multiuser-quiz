@@ -5,6 +5,7 @@ import { Question } from "../scripts/components/Question";
 import { sampleParams } from "./testData/sampleParams";
 import { sampleState } from "./testData/sampleState";
 import { teacherContext } from "./testData/teacherContext";
+import { sampleUsers } from "./testData/sampleUsers";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -34,6 +35,7 @@ export const TeacherUnanswered: Story = {
       phase: "question",
     },
     params: sampleParams,
+    users: sampleUsers
   },
 };
 export const TeacherReview: Story = {
@@ -47,6 +49,7 @@ export const TeacherReview: Story = {
       phase: "review",
     },
     params: sampleParams,
+    users: sampleUsers
   },
 };
 export const StudentUnanswered: Story = {

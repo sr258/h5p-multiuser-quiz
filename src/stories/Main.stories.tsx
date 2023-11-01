@@ -52,6 +52,15 @@ export const Error: Story = {
     metadata: sampleMetadata,
   },
 };
+export const PreparingTeacherNoStudents: Story = {
+  args: {
+    context: teacherContext,
+    state: sampleState,
+    params: sampleParams,
+    metadata: sampleMetadata,
+    users: [],
+  },
+};
 export const PreparingTeacher: Story = {
   args: {
     context: teacherContext,

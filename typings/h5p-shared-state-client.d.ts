@@ -3,8 +3,12 @@ namespace H5P {
    * This class abstracts the connection to ShareDB for the library. It is
    * reusable across content types.
    */
-  export declare class SharedStateClient<StateType extends SharedState> {
+  export declare class SharedStateClient<
+    StateType extends SharedState,
+    PresenceType extends PresenceData | null = null
+  > {
     private StateType;
+    private contentId;
     private callbacks;
     constructor(
       StateType: {
@@ -13,6 +17,9 @@ namespace H5P {
       contentId: string,
       callbacks: {
         onRefresh: (data: StateType) => Promise<void>;
+        onRefreshPresences?: (presences: {
+          [id: string]: PresenceType;
+        }) => Promise<void>;
         onConnected?: (data: StateType) => Promise<void>;
         onDeleted?: () => Promise<void>;
         onError?: (error: string) => Promise<void>;
@@ -27,6 +34,8 @@ namespace H5P {
     private doc;
     private initial;
     private hadError;
+    private myPresence;
+    private otherPresences;
     refresh: () => Promise<void>;
     /**
      * Sends an operation to the server and optimistically applies the change to
@@ -37,10 +46,11 @@ namespace H5P {
      * <https://github.com/ottypes/json0> for details
      */
     submitOp: (data: unknown) => void;
-    submitPresence: (data: unknown) => void;
+    submitPresence: (data: PresenceType) => Promise<void>;
     private onConnected;
     private onError;
     private onDeleted;
+    private initPresence;
   }
   export interface IUserInformation {
     userId: string;
@@ -50,6 +60,11 @@ namespace H5P {
      * JWT containing credentials and claims
      */
     token?: string;
+  }
+  export interface PresenceData {
+    userId: string;
+    name: string;
+    level: "anonymous" | "user" | "privileged";
   }
   /**
    * Concrete documents have to derive from this class.

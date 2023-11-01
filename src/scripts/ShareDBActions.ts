@@ -1,5 +1,5 @@
 import QuizDoc from "./QuizDoc";
-import { IActions, IContext, IParams, IState } from "./types";
+import { IActions, IContext, IParams, IState, IQuizPresence } from "./types";
 
 /**
  * This class is an implementation of the global actions for the ShareDB
@@ -9,7 +9,7 @@ export default class ShareDBActions implements IActions {
   /**
    * @param db the place to which the ops are submitted
    */
-  constructor(private db: H5P.SharedStateClient<QuizDoc>) {}
+  constructor(private db: H5P.SharedStateClient<QuizDoc, IQuizPresence>) {}
 
   /**
    * Called by a teacher when the game first starts or when clicking on 'play

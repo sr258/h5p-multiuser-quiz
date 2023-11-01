@@ -1,9 +1,9 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLaughBeam, faU, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faLaughBeam, faUser } from "@fortawesome/free-solid-svg-icons";
 
 import { Heading, Text, Box, Button, Avatar } from "grommet";
-import { IParams, IState, IContext, IActions, IActiveUser } from "../types";
+import { IParams, IState, IContext, IActions, IOtherUser } from "../types";
 
 export const Preparing = ({
   context,
@@ -18,26 +18,43 @@ export const Preparing = ({
   state: IState;
   actions?: IActions;
   title: string;
-  users?: IActiveUser[];
+  users?: IOtherUser[];
 }) => {
   return (
     <Box fill="vertical" align="center">
       <Heading textAlign="center">{title}</Heading>
       {context.isTeacher ? (
         <React.Fragment>
-          <Text textAlign="center">
-            Press the "Start" button when all participants have joined.
-          </Text>
-          <Box margin="medium" width="100%" wrap direction="row" overflow="scroll">
+          {users && users.length > 0 ? (
+            <Text textAlign="center">{users?.length} participants:</Text>
+          ) : (
+            <Text>No participants have joined yet.</Text>
+          )}
+          <Box
+            margin="medium"
+            width="100%"
+            wrap
+            direction="row"
+            justify="center"
+          >
             {users?.map((u) => (
-              <Box margin="small" direction="row" gap="small" align="center">
-                <Avatar background="brand" size="small" >
+              <Box
+                key={u?.presenceId}
+                margin="small"
+                direction="row"
+                gap="small"
+                align="center"
+              >
+                <Avatar background="brand" size="small">
                   <FontAwesomeIcon icon={faUser} size="2xs" />
                 </Avatar>
-                <Text>{u.displayName}</Text>
+                <Text>{u?.name}</Text>
               </Box>
             ))}
           </Box>
+          <Text textAlign="center">
+            Press the "Start" button when all participants have joined.
+          </Text>
           <Button
             primary
             margin="medium"

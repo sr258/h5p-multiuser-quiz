@@ -139,7 +139,8 @@ export interface IMetadata {
   title: string;
 }
 
-export interface IActiveUser {
-  userId: string;
-  displayName: string;
+export interface IQuizPresence extends H5P.PresenceData {}
+
+export interface IOtherUser extends IQuizPresence {
+  presenceId: string;
 }
