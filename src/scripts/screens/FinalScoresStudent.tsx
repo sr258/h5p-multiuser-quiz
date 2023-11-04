@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
-import { IActions, IContext, IParams, IState } from "../types";
+import { IContext, IState } from "../types";
 
 const scoreIndexToColor = (index: number): string => {
   if (index === 0) {
@@ -17,14 +17,10 @@ const scoreIndexToColor = (index: number): string => {
 
 export const FinalScoresStudent = ({
   context,
-  params,
   state,
-  actions,
 }: {
   context: IContext;
-  params: IParams;
   state: IState;
-  actions?: IActions;
 }) => {
   let userScoreIndex = 0;
   if (!context.isTeacher) {

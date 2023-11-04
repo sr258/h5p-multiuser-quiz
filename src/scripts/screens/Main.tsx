@@ -1,7 +1,7 @@
 import { Box } from "grommet";
 
 import { FinalScoresStudent } from "./FinalScoresStudent";
-import { Preparing } from "./Preparing";
+import { PreparingStudent } from "./PreparingStudent";
 import { Question } from "./Question";
 import { Scores } from "./Scores";
 import {
@@ -16,6 +16,7 @@ import { Initializing } from "./Initializing";
 import { Deleted } from "./Deleted";
 import { Error } from "./Error";
 import { FinalScoresTeacher } from "./FinalScoresTeacher";
+import { PreparingTeacher } from "./PreparingTeacher";
 
 const getScreen = ({
   context,
@@ -26,7 +27,7 @@ const getScreen = ({
   users,
 }: {
   context: IContext;
-  state?: IState;
+  state: IState;
   params: IParams;
   actions?: IActions;
   deleted?: boolean;
@@ -34,21 +35,22 @@ const getScreen = ({
   metadata: IMetadata;
   users: IOtherUser[];
 }) => {
-  if (!state) {
-    return undefined;
-  }
   switch (state.phase) {
     case "preparing":
-      return (
-        <Preparing
-          context={context}
-          state={state}
-          params={params}
-          actions={actions}
-          title={metadata.title}
-          users={users}
-        ></Preparing>
-      );
+      if (context.isTeacher) {
+        return (
+          <PreparingTeacher
+            context={context}
+            state={state}
+            params={params}
+            actions={actions}
+            metadata={metadata}
+            users={users}
+          ></PreparingTeacher>
+        );
+      } else {
+        return <PreparingStudent metadata={metadata}></PreparingStudent>;
+      }
     case "question":
       return (
         <Question
@@ -93,14 +95,7 @@ const getScreen = ({
             />
           );
         } else {
-          return (
-            <FinalScoresStudent
-              params={params}
-              context={context}
-              state={state}
-              actions={actions}
-            />
-          );
+          return <FinalScoresStudent context={context} state={state} />;
         }
       }
   }

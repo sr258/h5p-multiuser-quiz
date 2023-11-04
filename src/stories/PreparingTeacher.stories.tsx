@@ -1,53 +1,51 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Main } from "../scripts/screens/Main";
-
 import { sampleParams } from "./testData/sampleParams";
+import { sampleState } from "./testData/sampleState";
 import { teacherContext } from "./testData/teacherContext";
 import { sampleMetadata } from "./testData/sampleMetadata";
+import { sampleUsers, sampleUsersMany } from "./testData/sampleUsers";
+import { PreparingTeacher } from "../scripts/screens/PreparingTeacher";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: "Components/Main",
-  component: Main,
+  title: "Components/Preparing Teacher",
+  component: PreparingTeacher,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
     layout: "fullscreen",
   },
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {},
-} satisfies Meta<typeof Main>;
+} satisfies Meta<typeof PreparingTeacher>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const Connecting: Story = {
+export const NoStudent: Story = {
   args: {
     context: teacherContext,
-    state: undefined,
+    state: sampleState,
     params: sampleParams,
-    metadata: sampleMetadata,
     users: [],
+    metadata: sampleMetadata,
   },
 };
-export const Deleted: Story = {
+export const SomeStudents: Story = {
   args: {
     context: teacherContext,
-    state: undefined,
+    state: sampleState,
     params: sampleParams,
-    deleted: true,
+    users: sampleUsers,
     metadata: sampleMetadata,
-    users: [],
   },
 };
-export const Error: Story = {
+export const ManyStudents: Story = {
   args: {
     context: teacherContext,
-    state: undefined,
+    state: sampleState,
     params: sampleParams,
-    error: "Some weird error message",
+    users: sampleUsersMany,
     metadata: sampleMetadata,
-    users: [],
   },
 };
