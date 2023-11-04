@@ -13,16 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 
 import { IActions, IContext, IParams, IState } from "../types";
-
-const scoreIndexToColor = (index: number): string => {
-  if (index === 0) {
-    return "#b8860b";
-  }
-  if (index === 1) {
-    return "lightslategray";
-  }
-  return "#664620";
-};
+import { rankToColor } from "../helpers/colors";
 
 export const FinalScoresTeacher = ({
   context,
@@ -62,7 +53,7 @@ export const FinalScoresTeacher = ({
                   <FontAwesomeIcon
                     style={{ filter: "drop-shadow(0 0 5px lightgray)" }}
                     icon={faTrophy}
-                    color={scoreIndexToColor(index)}
+                    color={rankToColor(index)}
                   />
                 ) : undefined}
               </TableCell>

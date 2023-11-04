@@ -38,7 +38,6 @@ export const NoWinner: Story = {
         user5: 10000,
       },
     },
-    params: sampleParams,
   },
 };
 
@@ -60,7 +59,28 @@ export const Winner: Story = {
         user5: 10000,
       },
     },
-    params: sampleParams,
+  },
+};
+
+export const Second: Story = {
+  args: {
+    context: {
+      userId: "user4",
+      isTeacher: false,
+      displayName: "Real Name 4",
+    },
+    state: Winner.args.state,
+  },
+};
+
+export const Third: Story = {
+  args: {
+    context: {
+      userId: "user2",
+      isTeacher: false,
+      displayName: "Real Name 2",
+    },
+    state: Winner.args.state,
   },
 };
 
@@ -75,6 +95,5 @@ export const NoScore: Story = {
       ...sampleState,
       phase: "scores",
     },
-    params: sampleParams,
   },
 };

@@ -4,16 +4,7 @@ import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
 import { IContext, IState } from "../types";
-
-const scoreIndexToColor = (index: number): string => {
-  if (index === 0) {
-    return "#b8860b";
-  }
-  if (index === 1) {
-    return "lightslategray";
-  }
-  return "#664620";
-};
+import { rankToColor } from "../helpers/colors";
 
 export const FinalScoresStudent = ({
   context,
@@ -58,7 +49,7 @@ export const FinalScoresStudent = ({
                 <FontAwesomeIcon
                   size="4x"
                   icon={faTrophy}
-                  color={scoreIndexToColor(userScoreIndex)}
+                  color={rankToColor(userScoreIndex)}
                 />
               </Box>
             )}
