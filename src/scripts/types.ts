@@ -97,6 +97,11 @@ export interface IActions {
   start(context: IContext, state: IState, params: IParams): void;
 
   /**
+   * Called by a teacher when clicking on 'play again' (reset the game then).
+   */
+  reset(context: IContext, state: IState, params: IParams): void;
+
+  /**
    * Called by students when they press on an answer.
    * @param optionNumber the option the student has chosen
    */

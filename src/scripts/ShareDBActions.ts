@@ -31,7 +31,23 @@ export default class ShareDBActions implements IActions {
       { p: ["answers"], od: state.answers, oi: [{}] },
       { p: ["scores"], od: state.scores, oi: {} },
       // start question 0
-      ...this.createQuestionOp(0, state, params),
+      ...this.createQuestionOps(0, state, params),
+    ]);
+  }
+
+  /**
+   * Called by a teacher when clicking on 'play again' (reset the game then).
+   */
+  reset(context: IContext, state: IState, params: IParams): void {
+    this.db.submitOp([
+      // reset all data in case we restart
+      { p: ["answers"], od: state.answers, oi: [{}] },
+      { p: ["scores"], od: state.scores, oi: {} },
+      {
+        p: ["phase"],
+        od: state.phase,
+        oi: "preparing",
+      },
     ]);
   }
 
@@ -109,7 +125,7 @@ export default class ShareDBActions implements IActions {
    */
   nextQuestion(context: IContext, state: IState, params: IParams): void {
     this.db.submitOp([
-      ...this.createQuestionOp(state.currentQuestionNumber + 1, state, params),
+      ...this.createQuestionOps(state.currentQuestionNumber + 1, state, params),
       { p: ["answers", state.answers.length], li: {} },
     ]);
   }
@@ -134,7 +150,11 @@ export default class ShareDBActions implements IActions {
    * @param params
    * @returns
    */
-  private createQuestionOp = (next: number, state: IState, params: IParams) => [
+  private createQuestionOps = (
+    next: number,
+    state: IState,
+    params: IParams
+  ) => [
     { p: ["currentQuestionNumber"], od: state.currentQuestionNumber, oi: next },
     {
       p: ["currentQuestionStart"],

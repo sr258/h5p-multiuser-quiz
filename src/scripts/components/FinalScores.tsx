@@ -89,7 +89,7 @@ export const FinalScores = ({
           primary
           label="Play again"
           onClick={() => {
-            actions?.start(context, state, params);
+            actions?.reset(context, state, params);
           }}
         />
       </Box>
