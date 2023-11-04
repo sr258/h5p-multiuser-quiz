@@ -83,7 +83,7 @@ export const Question = ({
     params.questions.params.choices[state.currentQuestionNumber];
 
   return context.isTeacher ? (
-    <Box>
+    <Box fill>
       <Stack fill>
         <Text
           size="3xl"
@@ -104,9 +104,9 @@ export const Question = ({
         </Box>
       </Stack>
       <Grid
+        fill
         columns={{
-          count: 2,
-          size: "medium",
+          size: "large",
         }}
       >
         {Array.from(currQuestion.answers)
@@ -219,10 +219,11 @@ export const Question = ({
       </Box>
     </Box>
   ) : state.phase === "question" ? (
-    <Box>
+    <Box fill align="center">
       <Grid
+        fill
+        width={{ max: "60em" }}
         columns={{
-          count: 2,
           size: "medium",
         }}
       >
