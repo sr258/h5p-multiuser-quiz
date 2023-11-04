@@ -99,6 +99,7 @@ export const Question = ({
           align="center"
           gap="small"
         >
+          {Object.keys(state.answers[state.currentQuestionNumber]).length} /
           {users?.length}
           <FontAwesomeIcon icon={faUser} size="2xs" />
         </Box>
@@ -147,20 +148,25 @@ export const Question = ({
                     : colors[index],
               }}
             >
-              <Stack fill margin={{ vertical: "small" }}>
-                <Box align="start" fill margin="medium">
+              <Stack fill guidingChild={1} margin={{ vertical: "small" }}>
+                <Box
+                  align="start"
+                  fill
+                  justify="center"
+                  margin={{ left: "medium" }}
+                >
                   {icons[index]}
                 </Box>
-                <Box fill align="center" justify="center">
-                  <Box
-                    margin={{ left: "large", right: "large" }}
-                    justify="center"
-                  >
-                    <Text
-                      textAlign="center"
-                      dangerouslySetInnerHTML={{ __html: q }}
-                    ></Text>
-                  </Box>
+                <Box
+                  fill="vertical"
+                  align="center"
+                  justify="center"
+                  margin={{ horizontal: "xlarge" }}
+                >
+                  <Text
+                    textAlign="center"
+                    dangerouslySetInnerHTML={{ __html: q }}
+                  ></Text>
                 </Box>
                 {state.phase === "review" && (
                   <Box
@@ -188,10 +194,6 @@ export const Question = ({
         <Text margin="medium">
           {"Question "} {state.currentQuestionNumber + 1} /{" "}
           {params.questions.params.choices.length}
-        </Text>
-        <Text margin="medium">
-          {"Given answers: "}
-          {Object.keys(state.answers[state.currentQuestionNumber]).length}
         </Text>
         {state.phase === "question" && (
           <Box margin="medium">
@@ -264,7 +266,7 @@ export const Question = ({
             </Box>
           ))}
       </Grid>
-      <Box direction="row" justify="between">
+      <Box direction="row" justify="between" align="center">
         <Text margin="medium">
           {"Question "} {state.currentQuestionNumber + 1} /{" "}
           {params.questions.params.choices.length}
@@ -309,7 +311,9 @@ export const Question = ({
           align="center"
           justify="center"
         >
-          <Text size="xlarge">You haven't given an answer.</Text>
+          <Text textAlign="center" size="xlarge">
+            You haven't given an answer.
+          </Text>
         </Box>
       )}
     </Box>

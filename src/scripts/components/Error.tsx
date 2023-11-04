@@ -14,10 +14,10 @@ export const Error = ({
     <Box align="center">
       <Heading textAlign="center">{title}</Heading>
       <Box direction="column" align="center">
-        <Text margin="small">
+        <Text margin="small" textAlign="center">
           There was an error connecting to the shared state server:
         </Text>
-        <Text>{errorMessage}</Text>
+        <Text textAlign="center">{errorMessage}</Text>
       </Box>
     </Box>
   );

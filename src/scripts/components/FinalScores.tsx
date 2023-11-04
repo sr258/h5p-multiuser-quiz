@@ -134,7 +134,7 @@ export const FinalScores = ({
           </Box>
         </React.Fragment>
       ) : (
-        <Text size="xlarge" alignSelf="center">
+        <Text size="xlarge" alignSelf="center" textAlign="center">
           You haven't played in this quiz!
         </Text>
       )}

@@ -74,10 +74,10 @@ export const Scores = ({
           <Box
             background="#48CFAD"
             round
-            margin={{ left: "small", right: "small", bottom: "medium" }}
+            margin={{ horizontal: "medium", bottom: "medium" }}
             alignSelf="center"
           >
-            <Text margin="large" size="6xl">
+            <Text margin="large" size="4xl">
               {state.scores[context.userId]}
             </Text>
           </Box>
@@ -87,7 +87,7 @@ export const Scores = ({
           </Text>
         </React.Fragment>
       ) : (
-        <Text alignSelf="center" size="xlarge">
+        <Text alignSelf="center" size="xlarge" textAlign="center">
           You have not played in this quiz yet.
         </Text>
       )}

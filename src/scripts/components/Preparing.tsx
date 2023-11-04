@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLaughBeam, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faLaughBeam, faSpinner, faUser } from "@fortawesome/free-solid-svg-icons";
 
 import { Heading, Text, Box, Button, Avatar } from "grommet";
 import { IParams, IState, IContext, IActions, IOtherUser } from "../types";
@@ -72,9 +72,9 @@ export const Preparing = ({
       ) : (
         <Box align="center">
           <Box margin="large">
-            <FontAwesomeIcon color="#FFC300" size="5x" icon={faLaughBeam} />
+            <FontAwesomeIcon size="3x" icon={faSpinner} spin />
           </Box>
-          <Text>Please wait for your teacher to start the quiz...</Text>
+          <Text textAlign="center">Please wait for your teacher to start the quiz...</Text>
         </Box>
       )}
     </Box>
