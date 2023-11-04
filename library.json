@@ -28,7 +28,9 @@
     "snapshotSchema": true,
     "opSchema": true,
     "opLogicChecks": true,
-    "snapshotLogicChecks": true
+    "snapshotLogicChecks": true,
+    "presenceSchema": true,
+    "presenceLogicChecks": true
   },
   "preloadedDependencies": [
     {
