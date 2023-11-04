@@ -16,7 +16,7 @@ import {
 
 import { IParams, IState, IContext, IActions, IOtherUser } from "../types";
 import { useEffect, useState } from "react";
-import { Timer } from "./Timer";
+import { Timer } from "../components/Timer";
 
 const colors = [
   "#DA4453",

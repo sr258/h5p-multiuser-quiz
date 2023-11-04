@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 import { H5PIntegrationObject } from "h5p-types";
 
 import QuizDoc from "./QuizDoc";
-import { Main } from "./components/Main";
+import { Main } from "./screens/Main";
 import {
   IContext,
   IMe,

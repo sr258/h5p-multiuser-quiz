@@ -1,47 +1,26 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { FinalScores } from "../scripts/components/FinalScores";
+import { FinalScoresStudent } from "../scripts/screens/FinalScoresStudent";
 
 import { sampleState } from "./testData/sampleState";
 import { sampleParams } from "./testData/sampleParams";
-import { teacherContext } from "./testData/teacherContext";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: "Components/Final Scores",
-  component: FinalScores,
+  title: "Components/Final Scores Student",
+  component: FinalScoresStudent,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
     layout: "fullscreen",
   },
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
-  tags: ["autodocs"],
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {},
-} satisfies Meta<typeof FinalScores>;
+} satisfies Meta<typeof FinalScoresStudent>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Teacher: Story = {
-  args: {
-    context: teacherContext,
-    state: {
-      ...sampleState,
-      phase: "scores",
-      scores: {
-        user1: 1000,
-        user2: 5000,
-        user3: 2500,
-        user4: 9000,
-        user5: 10000,
-      },
-    },
-    params: sampleParams,
-  },
-};
-
-export const StudentNoWinner: Story = {
+export const NoWinner: Story = {
   args: {
     context: {
       userId: "user3",
@@ -63,7 +42,7 @@ export const StudentNoWinner: Story = {
   },
 };
 
-export const StudentWinner: Story = {
+export const Winner: Story = {
   args: {
     context: {
       userId: "user5",
@@ -85,7 +64,7 @@ export const StudentWinner: Story = {
   },
 };
 
-export const StudentNoScore: Story = {
+export const NoScore: Story = {
   args: {
     context: {
       userId: "user5",
