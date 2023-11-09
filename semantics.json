@@ -4,7 +4,30 @@
     "label": "Single Choice Set",
     "importance": "high",
     "type": "library",
-    "options": ["H5P.SingleChoiceSet 1.11"],
+    "options": [
+      "H5P.SingleChoiceSet 1.11"
+    ],
     "description": "Enter your questions in the single choice set."
+  },
+  {
+    "name": "l10n",
+    "type": "group",
+    "importance": "low",
+    "label": "Localize",
+    "common": true,
+    "fields": [
+      {
+        "name": "deleted",
+        "type": "text",
+        "label": "Text shown when content was deleted while user was active",
+        "default": "The content was deleted or updated. Please refresh this page to try reloading it."
+      },
+      {
+        "name": "no-participants",
+        "type": "text",
+        "label": "Text shown when the quiz has not begun and there are no participants",
+        "default": "No participants have joined yet."
+      }
+    ]
   }
 ]

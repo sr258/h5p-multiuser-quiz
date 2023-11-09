@@ -15,6 +15,7 @@ import {
 import ShareDBActions from "./ShareDBActions";
 import { Grommet } from "grommet";
 import { triggerActions } from "./triggers";
+import { L10nContext } from "use-h5p";
 
 declare const H5PIntegration: H5PIntegrationObject;
 
@@ -36,6 +37,7 @@ export default class MultiuserQuiz {
     } = {},
     private triggerResize: () => void
   ) {
+    console.log("params", this.params);
     this.metadata = extras.metadata ?? {
       defaultLanguage: "en",
       title: "Unknown title",
@@ -64,6 +66,8 @@ export default class MultiuserQuiz {
   private root: HTMLElement;
   private connector: H5P.SharedStateClient<QuizDoc, IQuizPresence>;
   private data?: QuizDoc;
+  private deleted = false;
+  private error?: string = undefined;
   private userInformation: IMe = {
     userId: "",
     level: "anonymous",
@@ -82,22 +86,7 @@ export default class MultiuserQuiz {
 
     // We render an initial state of the content type here. It will be updated
     // later when the data from the server has arrived.
-    ReactDOM.render(
-      <Grommet plain>
-        <Main
-          context={{
-            userId: this.userInformation.userId,
-            isTeacher: this.userInformation.level === "privileged",
-            displayName: H5PIntegration.user.name,
-          }}
-          state={this.data}
-          params={this.params}
-          metadata={this.metadata}
-          users={this.otherUsers}
-        />
-      </Grommet>,
-      this.root
-    );
+    this.renderRoot();
     this.triggerResize();
   };
 
@@ -128,45 +117,17 @@ export default class MultiuserQuiz {
 
   onDeleted = async (): Promise<void> => {
     console.log("Document deleted");
-    ReactDOM.render(
-      <Grommet plain>
-        <Main
-          context={{
-            userId: this.userInformation.userId,
-            isTeacher: this.userInformation.level === "privileged",
-            displayName: H5PIntegration.user.name,
-          }}
-          state={undefined}
-          params={this.params}
-          deleted={true}
-          metadata={this.metadata}
-          users={this.otherUsers}
-        />
-      </Grommet>,
-      this.root
-    );
+    this.data = undefined;
+    this.deleted = true;
+    this.renderRoot();
     this.triggerResize();
   };
 
   onError = async (error: string): Promise<void> => {
     console.log("Error");
-    ReactDOM.render(
-      <Grommet plain>
-        <Main
-          context={{
-            userId: this.userInformation.userId,
-            isTeacher: this.userInformation.level === "privileged",
-            displayName: H5PIntegration.user.name,
-          }}
-          state={undefined}
-          params={this.params}
-          error={error}
-          metadata={this.metadata}
-          users={this.otherUsers}
-        />
-      </Grommet>,
-      this.root
-    );
+    this.data = undefined;
+    this.error = error;
+    this.renderRoot();
     this.triggerResize();
   };
 
@@ -178,19 +139,7 @@ export default class MultiuserQuiz {
   onRefreshData = async (data: QuizDoc): Promise<void> => {
     console.log("Refreshing data", data);
     this.data = data;
-    ReactDOM.render(
-      <Grommet plain>
-        <Main
-          context={this.context}
-          state={this.data}
-          params={this.params}
-          actions={this.actions}
-          metadata={this.metadata}
-          users={this.otherUsers}
-        />
-      </Grommet>,
-      this.root
-    );
+    this.renderRoot();
     if (this.data) {
       triggerActions(
         this.context,
@@ -212,19 +161,7 @@ export default class MultiuserQuiz {
       ...presences[k],
       presenceId: k,
     }));
-    ReactDOM.render(
-      <Grommet plain>
-        <Main
-          context={this.context}
-          state={this.data}
-          params={this.params}
-          actions={this.actions}
-          metadata={this.metadata}
-          users={this.otherUsers}
-        />
-      </Grommet>,
-      this.root
-    );
+    this.renderRoot();
     if (this.data) {
       triggerActions(
         this.context,
@@ -236,5 +173,28 @@ export default class MultiuserQuiz {
       );
     }
     this.triggerResize();
+  };
+
+  private renderRoot = () => {
+    ReactDOM.render(
+      <Grommet plain>
+        <L10nContext.Provider value={this.params.l10n}>
+          <Main
+            context={{
+              userId: this.userInformation.userId,
+              isTeacher: this.userInformation.level === "privileged",
+              displayName: H5PIntegration.user.name,
+            }}
+            state={this.data}
+            deleted={this.deleted}
+            params={this.params}
+            error={this.error}
+            metadata={this.metadata}
+            users={this.otherUsers}
+          />
+        </L10nContext.Provider>
+      </Grommet>,
+      this.root
+    );
   };
 }

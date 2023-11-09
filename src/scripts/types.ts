@@ -75,6 +75,9 @@ export interface IParams {
       extraTitle: string;
     };
   };
+  l10n: {
+    [key: string]: string;
+  };
 }
 
 /**

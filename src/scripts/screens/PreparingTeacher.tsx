@@ -11,6 +11,7 @@ import {
   IOtherUser,
   IMetadata,
 } from "../types";
+import { useTranslation } from "use-h5p";
 
 export const PreparingTeacher = ({
   context,
@@ -27,6 +28,8 @@ export const PreparingTeacher = ({
   metadata: IMetadata;
   users?: IOtherUser[];
 }) => {
+  const { t } = useTranslation();
+
   return (
     <Box fill="vertical" align="center">
       <Heading textAlign="center">{metadata.title}</Heading>
@@ -34,7 +37,7 @@ export const PreparingTeacher = ({
         {users && users.length > 0 ? (
           <Text textAlign="center">{users?.length} participants:</Text>
         ) : (
-          <Text>No participants have joined yet.</Text>
+          <Text>{t("no-participants")}</Text>
         )}
         <Box margin="medium" width="100%" wrap direction="row" justify="center">
           {users?.map((u) => (
