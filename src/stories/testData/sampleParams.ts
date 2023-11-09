@@ -74,4 +74,5 @@ export const sampleParams: IParams = {
       extraTitle: "Unbenannt: Single Choice-Fragen (Single Choice Set)",
     },
   },
+  l10n: {},
 };

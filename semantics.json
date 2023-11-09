@@ -23,10 +23,82 @@
         "default": "The content was deleted or updated. Please refresh this page to try reloading it."
       },
       {
-        "name": "no-participants",
+        "name": "connection-error",
+        "type": "text",
+        "label": "Text when there was a connection error",
+        "default": "There was an error connecting to the shared state server:"
+      },
+      {
+        "name": "final-score-title",
+        "type": "text",
+        "label": "Label for the final score",
+        "default": "Final Score"
+      },
+      {
+        "name": "final-score-not-played",
+        "type": "text",
+        "label": "Text in final score screen when user hasn't played",
+        "default": "You haven't played in this quiz!"
+      },
+      {
+        "name": "final-score-table-place",
+        "type": "text",
+        "label": "Label for 'Place' in the final score table",
+        "default": "Place"
+      },
+      {
+        "name": "final-score-table-name",
+        "type": "text",
+        "label": "Label for 'Name' in the final score table",
+        "default": "Name"
+      },
+      {
+        "name": "final-score-table-score",
+        "type": "text",
+        "label": "Label for 'Score' in the final score table",
+        "default": "Score"
+      },
+      {
+        "name": "final-score-play-again",
+        "type": "text",
+        "label": "Label for the 'Play again' button in the final score",
+        "default": "Play again"
+      },
+      {
+        "name": "connecting",
+        "type": "text",
+        "label": "Label for the 'Connecting to server'",
+        "default": "Connecting to server..."
+      },
+      {
+        "name": "preparing-student",
+        "type": "text",
+        "label": "Text shown to student when waiting for the teacher to start the quiz",
+        "default": "Please wait for your teacher to start the quiz..."
+      },
+      {
+        "name": "preparing-teacher-no-participants",
         "type": "text",
         "label": "Text shown when the quiz has not begun and there are no participants",
         "default": "No participants have joined yet."
+      },
+      {
+        "name": "preparing-teacher-participants",
+        "type": "text",
+        "label": "Text shown when the quiz has not begun and there are participants",
+        "default": "%number participant(s)"
+      },
+      {
+        "name": "preparing-teacher-instruction",
+        "type": "text",
+        "label": "Text explaining to the teacher what to do before the quiz has started",
+        "default": "Press the \"Start\" button when all participants have joined."
+      },
+      {
+        "name": "preparing-teacher-start",
+        "type": "text",
+        "label": "Label of the \"Start\" button",
+        "default": "Start"
       }
     ]
   }

@@ -5,6 +5,7 @@ import React from "react";
 
 import { IContext, IState } from "../types";
 import { rankToColor } from "../helpers/colors";
+import { useTranslation } from "use-h5p";
 
 export const FinalScoresStudent = ({
   context,
@@ -13,6 +14,8 @@ export const FinalScoresStudent = ({
   context: IContext;
   state: IState;
 }) => {
+  const { t } = useTranslation();
+
   let userScoreIndex = 0;
   if (!context.isTeacher) {
     userScoreIndex = Object.keys(state.scores)
@@ -21,7 +24,7 @@ export const FinalScoresStudent = ({
   }
   return (
     <Box>
-      <Heading alignSelf="center">Final score</Heading>
+      <Heading alignSelf="center">{t("final-score-title")}</Heading>
       {userScoreIndex !== -1 ? (
         <React.Fragment>
           <Box
@@ -60,7 +63,7 @@ export const FinalScoresStudent = ({
         </React.Fragment>
       ) : (
         <Text size="xlarge" alignSelf="center" textAlign="center">
-          You haven't played in this quiz!
+          {t("final-score-not-played")}
         </Text>
       )}
     </Box>

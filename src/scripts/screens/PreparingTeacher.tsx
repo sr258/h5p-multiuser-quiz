@@ -28,16 +28,20 @@ export const PreparingTeacher = ({
   metadata: IMetadata;
   users?: IOtherUser[];
 }) => {
-  const { t } = useTranslation();
+  const { t, tOpts } = useTranslation();
 
   return (
     <Box fill="vertical" align="center">
       <Heading textAlign="center">{metadata.title}</Heading>
       <React.Fragment>
         {users && users.length > 0 ? (
-          <Text textAlign="center">{users?.length} participants:</Text>
+          <Text textAlign="center">
+            {tOpts("preparing-teacher-participants", {
+              "%number": users?.length,
+            })}
+          </Text>
         ) : (
-          <Text>{t("no-participants")}</Text>
+          <Text>{t("preparing-teacher-no-participants")}</Text>
         )}
         <Box margin="medium" width="100%" wrap direction="row" justify="center">
           {users?.map((u) => (
@@ -55,16 +59,14 @@ export const PreparingTeacher = ({
             </Box>
           ))}
         </Box>
-        <Text textAlign="center">
-          Press the "Start" button when all participants have joined.
-        </Text>
+        <Text textAlign="center">{t("preparing-teacher-instruction")}</Text>
         <Button
           primary
           margin="medium"
           alignSelf="center"
           label={
             <Box>
-              <Text margin="medium">Start</Text>
+              <Text margin="medium">{t("preparing-teacher-start")}</Text>
             </Box>
           }
           onClick={() => {
