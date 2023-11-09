@@ -5,7 +5,7 @@ import { sampleMetadata } from "./testData/sampleMetadata";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: "Components/Preparing Student",
+  title: "Screens/Preparing/Student",
   component: PreparingStudent,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout

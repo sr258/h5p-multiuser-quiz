@@ -10,10 +10,8 @@ export const triggerActions = async (
   otherUsers: IOtherUser[],
   actions: ShareDBActions
 ) => {
-  console.log("checking triggers");
   if (me.level === "privileged") {
     if (state.phase === "question") {
-      console.log("in");
       if (
         Object.keys(state.answers[state.currentQuestionNumber]).length ===
         otherUsers.filter((u) => u.level !== "privileged").length

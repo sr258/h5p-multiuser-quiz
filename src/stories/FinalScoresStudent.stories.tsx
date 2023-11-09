@@ -3,11 +3,10 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { FinalScoresStudent } from "../scripts/screens/FinalScoresStudent";
 
 import { sampleState } from "./testData/sampleState";
-import { sampleParams } from "./testData/sampleParams";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: "Components/Final Scores Student",
+  title: "Screens/Final Scores/Student",
   component: FinalScoresStudent,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout

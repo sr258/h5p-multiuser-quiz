@@ -2,8 +2,8 @@ import { Box } from "grommet";
 
 import { FinalScoresStudent } from "./FinalScoresStudent";
 import { PreparingStudent } from "./PreparingStudent";
-import { Question } from "./Question";
-import { Scores } from "./Scores";
+import { QuestionStudent } from "./QuestionStudent";
+import { ScoresStudent } from "./ScoresStudent";
 import {
   IParams,
   IState,
@@ -17,6 +17,8 @@ import { Deleted } from "./Deleted";
 import { Error } from "./Error";
 import { FinalScoresTeacher } from "./FinalScoresTeacher";
 import { PreparingTeacher } from "./PreparingTeacher";
+import { QuestionTeacher } from "./QuestionTeacher";
+import { ScoresTeacher } from "./ScoresTeacher";
 
 const getScreen = ({
   context,
@@ -52,38 +54,43 @@ const getScreen = ({
         return <PreparingStudent metadata={metadata}></PreparingStudent>;
       }
     case "question":
-      return (
-        <Question
-          params={params}
-          context={context}
-          state={state}
-          actions={actions}
-          users={users}
-        ></Question>
-      );
     case "review":
-      return (
-        <Question
+      if (context.isTeacher) {
+        <QuestionTeacher
           params={params}
           context={context}
           state={state}
           actions={actions}
           users={users}
-        ></Question>
-      );
+        ></QuestionTeacher>;
+      } else {
+        return (
+          <QuestionStudent
+            params={params}
+            context={context}
+            state={state}
+            actions={actions}
+          ></QuestionStudent>
+        );
+      }
+      break;
     case "scores":
       if (
         state.currentQuestionNumber !==
         params.questions.params.choices.length - 1
       ) {
-        return (
-          <Scores
-            params={params}
-            context={context}
-            state={state}
-            actions={actions}
-          />
-        );
+        if (context.isTeacher) {
+          return (
+            <ScoresTeacher
+              params={params}
+              context={context}
+              state={state}
+              actions={actions}
+            />
+          );
+        } else {
+          <ScoresStudent params={params} context={context} state={state} />;
+        }
       } else {
         if (context.isTeacher) {
           return (

@@ -1,51 +1,52 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
+import { QuestionTeacher } from "../scripts/screens/QuestionTeacher";
+
 import { sampleParams } from "./testData/sampleParams";
 import { sampleState } from "./testData/sampleState";
 import { teacherContext } from "./testData/teacherContext";
-import { sampleMetadata } from "./testData/sampleMetadata";
-import { sampleUsers, sampleUsersMany } from "./testData/sampleUsers";
-import { PreparingTeacher } from "../scripts/screens/PreparingTeacher";
+import { sampleUsers } from "./testData/sampleUsers";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: "Screens/Preparing/Teacher",
-  component: PreparingTeacher,
+  title: "Screens/Question/Teacher",
+  component: QuestionTeacher,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
-    layout: "fullscreen",
+    layout: "padded",
   },
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {},
-} satisfies Meta<typeof PreparingTeacher>;
+} satisfies Meta<typeof QuestionTeacher>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const NoStudent: Story = {
+export const Unanswered: Story = {
   args: {
     context: teacherContext,
-    state: sampleState,
-    params: sampleParams,
-    users: [],
-    metadata: sampleMetadata,
-  },
-};
-export const SomeStudents: Story = {
-  args: {
-    context: teacherContext,
-    state: sampleState,
+    state: {
+      ...sampleState,
+      answers: [{ user1: 1, user2: 2, user3: 1 }],
+      currentQuestionOrder: [1, 2, 3, 0],
+      currentQuestionStart: Date.now() - 8547,
+      phase: "question",
+    },
     params: sampleParams,
     users: sampleUsers,
-    metadata: sampleMetadata,
   },
 };
-export const ManyStudents: Story = {
+export const Review: Story = {
   args: {
     context: teacherContext,
-    state: sampleState,
+    state: {
+      ...sampleState,
+      answers: [{ user1: 1, user2: 2, user3: 1 }],
+      currentQuestionOrder: [1, 2, 3, 0],
+      currentQuestionStart: Date.now() - 8547,
+      phase: "review",
+    },
     params: sampleParams,
-    users: sampleUsersMany,
-    metadata: sampleMetadata,
+    users: sampleUsers,
   },
 };

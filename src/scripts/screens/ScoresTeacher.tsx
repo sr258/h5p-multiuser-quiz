@@ -13,7 +13,7 @@ import React from "react";
 
 import { IActions, IContext, IParams, IState } from "../types";
 
-export const Scores = ({
+export const ScoresTeacher = ({
   context,
   params,
   state,
@@ -24,7 +24,7 @@ export const Scores = ({
   state: IState;
   actions?: IActions;
 }) => {
-  return context.isTeacher ? (
+  return (
     <Box>
       <Heading alignSelf="center">Current scores</Heading>
       <Table alignSelf="center">
@@ -65,32 +65,6 @@ export const Scores = ({
           }}
         />
       </Box>
-    </Box>
-  ) : (
-    <Box>
-      <Heading alignSelf="center">Current score</Heading>
-      {state.scores[context.userId] !== undefined ? (
-        <React.Fragment>
-          <Box
-            background="#48CFAD"
-            round
-            margin={{ horizontal: "medium", bottom: "medium" }}
-            alignSelf="center"
-          >
-            <Text margin="large" size="4xl">
-              {state.scores[context.userId]}
-            </Text>
-          </Box>
-          <Text margin="medium" alignSelf="center">
-            {"Question "} {state.currentQuestionNumber + 1} /{" "}
-            {params.questions.params.choices.length}
-          </Text>
-        </React.Fragment>
-      ) : (
-        <Text alignSelf="center" size="xlarge" textAlign="center">
-          You have not played in this quiz yet.
-        </Text>
-      )}
     </Box>
   );
 };

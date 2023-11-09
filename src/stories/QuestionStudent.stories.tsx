@@ -1,56 +1,26 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Question } from "../scripts/screens/Question";
+import { QuestionStudent } from "../scripts/screens/QuestionStudent";
 
 import { sampleParams } from "./testData/sampleParams";
 import { sampleState } from "./testData/sampleState";
-import { teacherContext } from "./testData/teacherContext";
-import { sampleUsers } from "./testData/sampleUsers";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: "Components/Question",
-  component: Question,
+  title: "Screens/Question/Student",
+  component: QuestionStudent,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
     layout: "padded",
   },
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {},
-} satisfies Meta<typeof Question>;
+} satisfies Meta<typeof QuestionStudent>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const TeacherUnanswered: Story = {
-  args: {
-    context: teacherContext,
-    state: {
-      ...sampleState,
-      answers: [{ user1: 1, user2: 2, user3: 1 }],
-      currentQuestionOrder: [1, 2, 3, 0],
-      currentQuestionStart: Date.now() - 8547,
-      phase: "question",
-    },
-    params: sampleParams,
-    users: sampleUsers,
-  },
-};
-export const TeacherReview: Story = {
-  args: {
-    context: teacherContext,
-    state: {
-      ...sampleState,
-      answers: [{ user1: 1, user2: 2, user3: 1 }],
-      currentQuestionOrder: [1, 2, 3, 0],
-      currentQuestionStart: Date.now() - 8547,
-      phase: "review",
-    },
-    params: sampleParams,
-    users: sampleUsers,
-  },
-};
-export const StudentUnanswered: Story = {
+export const Unanswered: Story = {
   args: {
     context: {
       userId: "user4",
@@ -65,10 +35,9 @@ export const StudentUnanswered: Story = {
       phase: "question",
     },
     params: sampleParams,
-    users: [],
   },
 };
-export const StudentAnswered: Story = {
+export const Answered: Story = {
   args: {
     context: {
       userId: "user1",
@@ -83,10 +52,9 @@ export const StudentAnswered: Story = {
       phase: "question",
     },
     params: sampleParams,
-    users: [],
   },
 };
-export const StudentReviewCorrect: Story = {
+export const ReviewCorrect: Story = {
   args: {
     context: {
       userId: "user1",
@@ -101,10 +69,9 @@ export const StudentReviewCorrect: Story = {
       phase: "review",
     },
     params: sampleParams,
-    users: [],
   },
 };
-export const StudentReviewWrong: Story = {
+export const ReviewWrong: Story = {
   args: {
     context: {
       userId: "user1",
@@ -119,10 +86,9 @@ export const StudentReviewWrong: Story = {
       phase: "review",
     },
     params: sampleParams,
-    users: [],
   },
 };
-export const StudentReviewNoAnswer: Story = {
+export const ReviewNoAnswer: Story = {
   args: {
     context: {
       userId: "user1",
@@ -137,6 +103,5 @@ export const StudentReviewNoAnswer: Story = {
       phase: "review",
     },
     params: sampleParams,
-    users: [],
   },
 };
