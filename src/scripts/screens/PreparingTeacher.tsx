@@ -70,11 +70,9 @@ export const PreparingTeacher = ({
             </Box>
           }
           onClick={() => {
-            console.log('actions', actions);
             actions?.start(context, state, params);
           }}
         />
-        <Button>TEST</Button>
       </React.Fragment>
     </Box>
   );

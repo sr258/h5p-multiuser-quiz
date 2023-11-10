@@ -1,9 +1,17 @@
 import { Box } from "grommet";
 
+import { Deleted } from "./Deleted";
+import { Error } from "./Error";
 import { FinalScoresStudent } from "./FinalScoresStudent";
+import { FinalScoresTeacher } from "./FinalScoresTeacher";
+import { Initializing } from "./Initializing";
 import { PreparingStudent } from "./PreparingStudent";
+import { PreparingTeacher } from "./PreparingTeacher";
 import { QuestionStudent } from "./QuestionStudent";
+import { QuestionTeacher } from "./QuestionTeacher";
 import { ScoresStudent } from "./ScoresStudent";
+import { ScoresTeacher } from "./ScoresTeacher";
+
 import {
   IParams,
   IState,
@@ -12,13 +20,6 @@ import {
   IMetadata,
   IOtherUser,
 } from "../types";
-import { Initializing } from "./Initializing";
-import { Deleted } from "./Deleted";
-import { Error } from "./Error";
-import { FinalScoresTeacher } from "./FinalScoresTeacher";
-import { PreparingTeacher } from "./PreparingTeacher";
-import { QuestionTeacher } from "./QuestionTeacher";
-import { ScoresTeacher } from "./ScoresTeacher";
 
 const getScreen = ({
   context,
@@ -56,7 +57,7 @@ const getScreen = ({
     case "question":
     case "review":
       if (context.isTeacher) {
-        <QuestionTeacher
+        return <QuestionTeacher
           params={params}
           context={context}
           state={state}

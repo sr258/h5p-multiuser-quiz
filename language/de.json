@@ -33,7 +33,7 @@
         },
         {
           "label": "Text, der den Lehrenden erklärt, was sie vor dem Start des Quiz tun sollen",
-          "default": "Drücke die Schaltfläche \"Start\", wenn alle Teilnehmenden beigetreten sind."
+          "default": "Drücke auf Start, wenn alle Teilnehmenden beigetreten sind."
         },
         {
           "label": "Beschriftung der Schaltfläche \"Start\", die vor dem Start des Quiz angezeigt wird",
@@ -66,6 +66,10 @@
         {
           "label": "Titel des Punkte-Bildschirms für Lehrende",
           "default": "Aktuelle Punkte"
+        },
+        {
+          "label": "Beschriftung des \"Nächste Frage\"-Buttons im Punkte-Bildschirm",
+          "default": "Nächste Frage"
         },
         {
           "label": "Beschriftung für die endgültige Punktzahl",

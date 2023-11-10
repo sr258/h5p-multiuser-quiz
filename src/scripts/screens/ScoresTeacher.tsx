@@ -64,7 +64,7 @@ export const ScoresTeacher = ({
         <Button
           margin="medium"
           primary
-          label="Next question"
+          label={t('scores-next-question')}
           onClick={() => {
             actions?.nextQuestion(context, state, params);
           }}

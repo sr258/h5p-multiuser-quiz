@@ -1,5 +1,5 @@
 import React from "react";
-import * as ReactDOM from "react-dom";
+import { Root, createRoot } from "react-dom/client";
 import { H5PIntegrationObject } from "h5p-types";
 
 import QuizDoc from "./QuizDoc";
@@ -37,14 +37,14 @@ export default class MultiuserQuiz {
     } = {},
     private triggerResize: () => void
   ) {
-    console.log("params", this.params);
     this.metadata = extras.metadata ?? {
       defaultLanguage: "en",
       title: "Unknown title",
       license: "U",
     };
     // Create render root
-    this.root = document.createElement("div");
+    this.domRoot = document.createElement("div");
+    this.root = createRoot(this.domRoot);
 
     // Initialize connection to ShareDB server
     this.connector = new H5P.SharedStateClient<QuizDoc, IQuizPresence>(
@@ -63,7 +63,8 @@ export default class MultiuserQuiz {
   }
 
   private metadata: IMetadata;
-  private root: HTMLElement;
+  private domRoot: HTMLElement;
+  private root: Root;
   private connector: H5P.SharedStateClient<QuizDoc, IQuizPresence>;
   private data?: QuizDoc;
   private deleted = false;
@@ -82,7 +83,7 @@ export default class MultiuserQuiz {
    */
   attach = (wrapper: JQuery) => {
     wrapper?.get(0)?.classList.add("multiuser-quiz");
-    wrapper?.get(0)?.appendChild(this.root);
+    wrapper?.get(0)?.appendChild(this.domRoot);
 
     // We render an initial state of the content type here. It will be updated
     // later when the data from the server has arrived.
@@ -176,7 +177,7 @@ export default class MultiuserQuiz {
   };
 
   private renderRoot = () => {
-    ReactDOM.render(
+    this.root.render(
       <Grommet plain>
         <L10nContext.Provider value={this.params.l10n}>
           <Main
@@ -191,10 +192,10 @@ export default class MultiuserQuiz {
             error={this.error}
             metadata={this.metadata}
             users={this.otherUsers}
+            actions={this.actions}
           />
         </L10nContext.Provider>
-      </Grommet>,
-      this.root
+      </Grommet>
     );
   };
 }

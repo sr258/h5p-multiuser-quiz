@@ -1,0 +1,101 @@
+{
+  "semantics": [
+    {
+      "label": "Single Choice Set",
+      "description": "Enter your questions in the single choice set."
+    },
+    {
+      "label": "Localize",
+      "fields": [
+        {
+          "label": "Text shown when connecting to server",
+          "default": "Connecting to server..."
+        },
+        {
+          "label": "Message shown when content was deleted while user was active",
+          "default": "The content was deleted or updated. Please refresh this page to try reloading it."
+        },
+        {
+          "label": "Message shown when there was a connection error",
+          "default": "There was an error connecting to the shared state server:"
+        },
+        {
+          "label": "Text shown to student when waiting for the teacher to start the quiz",
+          "default": "Please wait for your teacher to start the quiz..."
+        },
+        {
+          "label": "Text shown to the teacher when the quiz has not begun and there are no participants",
+          "default": "No participants have joined yet."
+        },
+        {
+          "label": "Text shown when the quiz has not begun and there are participants",
+          "default": "%number participant(s)"
+        },
+        {
+          "label": "Text explaining to the teacher what to do before the quiz has started",
+          "default": "Press Start when all participants have joined."
+        },
+        {
+          "label": "Label of the \"Start\" button shown before the quiz has started",
+          "default": "Start"
+        },
+        {
+          "label": "A textual representation of the current question number",
+          "default": "Question %current/%total"
+        },
+        {
+          "label": "Label of the \"Show answer\" button when displaying a question (teacher)",
+          "default": "Show answer"
+        },
+        {
+          "label": "Label of the \"Show scores\" button when display question's answer (teacher)",
+          "default": "Show scores"
+        },
+        {
+          "label": "Text shown to student when the question answer is being shown, but student hasn't given an answer",
+          "default": "You haven't given an answer."
+        },
+        {
+          "label": "Title of the scores screen for students",
+          "default": "Current score"
+        },
+        {
+          "label": "Text in score screen when student hasn't played yet",
+          "default": "You have not played in this quiz yet."
+        },
+        {
+          "label": "Title of the scores screen for teachers",
+          "default": "Current scores"
+        },
+        {
+          "label": "Label of the \"Next question\" button in the scores screen",
+          "default": "Next question"
+        },
+        {
+          "label": "Label for the final score",
+          "default": "Final Score"
+        },
+        {
+          "label": "Text in final score screen when student hasn't played",
+          "default": "You haven't played in this quiz!"
+        },
+        {
+          "label": "Label for 'Place' in the final score table",
+          "default": "Place"
+        },
+        {
+          "label": "Label for 'Name' in the (final) score table",
+          "default": "Name"
+        },
+        {
+          "label": "Label for 'Score' in the (final) score table",
+          "default": "Score"
+        },
+        {
+          "label": "Label for the 'Play again' button in the final score screen",
+          "default": "Play again"
+        }
+      ]
+    }
+  ]
+}

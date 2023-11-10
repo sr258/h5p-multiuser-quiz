@@ -56,7 +56,7 @@
         "name": "preparing-teacher-instruction",
         "type": "text",
         "label": "Text explaining to the teacher what to do before the quiz has started",
-        "default": "Press the \"Start\" button when all participants have joined."
+        "default": "Press Start when all participants have joined."
       },
       {
         "name": "preparing-teacher-start",
@@ -105,6 +105,12 @@
         "type": "text",
         "label": "Title of the scores screen for teachers",
         "default": "Current scores"
+      },
+      {
+        "name": "scores-next-question",
+        "type": "text",
+        "label": "Label of the \"Next question\" button in the scores screen",
+        "default": "Next question"
       },
       {
         "name": "final-score-title",
