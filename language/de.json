@@ -1,0 +1,97 @@
+{
+  "semantics": [
+    {
+      "label": "Single Choice Set",
+      "description": "Gib deine Fragen in das Single Choice Set ein."
+    },
+    {
+      "label": "Localize",
+      "fields": [
+        {
+          "label": "Text, der beim Verbinden mit dem Server angezeigt wird",
+          "default": "Verbindung zum Server wird hergestellt..."
+        },
+        {
+          "label": "Nachricht, die angezeigt wird, wenn Inhalte gelöscht wurden, während der Benutzer aktiv war",
+          "default": "Der Inhalt wurde gelöscht oder aktualisiert. Bitte aktualisiere diese Seite, um sie erneut zu laden."
+        },
+        {
+          "label": "Nachricht, die angezeigt wird, wenn ein Verbindungsfehler aufgetreten ist",
+          "default": "Es gab einen Fehler bei der Verbindung zum Shared State-Server:"
+        },
+        {
+          "label": "Text, der dir angezeigt wird, wenn auf die Lehrenden gewartet wird, um das Quiz zu starten",
+          "default": "Bitte warte, bis deine Lehrenden das Quiz starten..."
+        },
+        {
+          "label": "Text, der den Lehrenden angezeigt wird, wenn das Quiz noch nicht begonnen hat und keine Teilnehmenden vorhanden sind",
+          "default": "Es sind noch keine Teilnehmenden beigetreten."
+        },
+        {
+          "label": "Text, der angezeigt wird, wenn das Quiz noch nicht begonnen hat und Teilnehmende vorhanden sind",
+          "default": "%number Teilnehmende"
+        },
+        {
+          "label": "Text, der den Lehrenden erklärt, was sie vor dem Start des Quiz tun sollen",
+          "default": "Drücke die Schaltfläche \"Start\", wenn alle Teilnehmenden beigetreten sind."
+        },
+        {
+          "label": "Beschriftung der Schaltfläche \"Start\", die vor dem Start des Quiz angezeigt wird",
+          "default": "Start"
+        },
+        {
+          "label": "Die aktuelle Fragenummer als Text",
+          "default": "Frage %current/%total"
+        },
+        {
+          "label": "Beschriftung der Schaltfläche \"Antwort anzeigen\" beim Anzeigen einer Frage (Lehrende)",
+          "default": "Antwort anzeigen"
+        },
+        {
+          "label": "Beschriftung der Schaltfläche \"Punkte anzeigen\" beim Anzeigen der Antwort auf die Frage (Lehrende)",
+          "default": "Punkte anzeigen"
+        },
+        {
+          "label": "Text, der dir angezeigt wird, wenn die Antwort auf die Frage angezeigt wird, du jedoch keine Antwort gegeben hast",
+          "default": "Du hast keine Antwort gegeben."
+        },
+        {
+          "label": "Titel des Punkte-Bildschirms für die Lehrenden",
+          "default": "Aktuelle Punktzahl"
+        },
+        {
+          "label": "Text auf dem Punkte-Bildschirm, wenn du noch nicht gespielt hast",
+          "default": "Du hast noch nicht an diesem Quiz teilgenommen."
+        },
+        {
+          "label": "Titel des Punkte-Bildschirms für Lehrende",
+          "default": "Aktuelle Punkte"
+        },
+        {
+          "label": "Beschriftung für die endgültige Punktzahl",
+          "default": "Endpunktzahl"
+        },
+        {
+          "label": "Text auf dem Endbildschirm, wenn du noch nicht gespielt hast",
+          "default": "Du hast noch nicht an diesem Quiz teilgenommen!"
+        },
+        {
+          "label": "Beschriftung für 'Platz' in der Endpunktzahltabelle",
+          "default": "Platz"
+        },
+        {
+          "label": "Beschriftung für 'Name' in der (End-)Punktzahltabelle",
+          "default": "Name"
+        },
+        {
+          "label": "Beschriftung für 'Punktzahl' in der (End-)Punktzahltabelle",
+          "default": "Punktzahl"
+        },
+        {
+          "label": "Beschriftung für die Schaltfläche 'Erneut spielen' auf dem Endbildschirm",
+          "default": "Erneut spielen"
+        }
+      ]
+    }
+  ]
+}

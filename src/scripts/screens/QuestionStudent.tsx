@@ -1,42 +1,13 @@
 import { Box, Text, Button, Grid } from "grommet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircle,
-  faHeart,
-  faStar,
-  faSquare,
-  faCertificate,
-  faTimes,
-  faCoffee,
-  faCube,
-  faCheck,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTimes, faCheck } from "@fortawesome/free-solid-svg-icons";
 
-import { IParams, IState, IContext, IActions, IOtherUser } from "../types";
+import { IParams, IState, IContext, IActions } from "../types";
 import { useEffect, useState } from "react";
 import { Timer } from "../components/Timer";
-
-const colors = [
-  "#DA4453",
-  "#FFCE54",
-  "#4FC1E9",
-  "#A0D468",
-  "#37BC9B",
-  "#D770AD",
-  "#967ADC",
-  "#AAB2BD",
-];
-
-const icons = [
-  <FontAwesomeIcon icon={faCircle} />,
-  <FontAwesomeIcon icon={faHeart} />,
-  <FontAwesomeIcon icon={faStar} />,
-  <FontAwesomeIcon icon={faSquare} />,
-  <FontAwesomeIcon icon={faCertificate} />,
-  <FontAwesomeIcon icon={faTimes} />,
-  <FontAwesomeIcon icon={faCoffee} />,
-  <FontAwesomeIcon icon={faCube} />,
-];
+import { useTranslation } from "use-h5p";
+import { questionColors } from "../helpers/colors";
+import { questionIcons } from "../helpers/icons";
 
 const maxTime = 20;
 
@@ -51,6 +22,8 @@ export const QuestionStudent = ({
   state: IState;
   actions?: IActions;
 }) => {
+  const { t, tOpts } = useTranslation();
+
   const calculateTimeLeft = () => {
     return Math.round(
       (maxTime * 1000 - (Date.now() - state.currentQuestionStart)) / 1000
@@ -108,8 +81,8 @@ export const QuestionStudent = ({
                   state.answers[state.currentQuestionNumber][context.userId] !==
                     state.currentQuestionOrder[index]
                 }
-                label={<Text size="xlarge">{icons[index]}</Text>}
-                color={colors[index]}
+                label={<Text size="xlarge">{questionIcons[index]}</Text>}
+                color={questionColors[index]}
                 primary
                 fill
                 onClick={() => {
@@ -124,10 +97,12 @@ export const QuestionStudent = ({
             </Box>
           ))}
       </Grid>
-      <Box direction="row" justify="between" align="center">
+      <Box direction="row" fill="horizontal" justify="between" align="center">
         <Text margin="medium">
-          {"Question "} {state.currentQuestionNumber + 1} /{" "}
-          {params.questions.params.choices.length}
+          {tOpts("current-question", {
+            "%current": state.currentQuestionNumber + 1,
+            "%total": params.questions.params.choices.length,
+          })}
         </Text>
         <Box margin="medium">
           <Timer left={timeLeft} max={maxTime} />
@@ -170,7 +145,7 @@ export const QuestionStudent = ({
           justify="center"
         >
           <Text textAlign="center" size="xlarge">
-            You haven't given an answer.
+            {t("review-no-answer")}
           </Text>
         </Box>
       )}

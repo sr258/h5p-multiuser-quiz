@@ -17,58 +17,22 @@
     "common": true,
     "fields": [
       {
-        "name": "deleted",
+        "name": "connecting",
         "type": "text",
-        "label": "Text shown when content was deleted while user was active",
+        "label": "Text shown when connecting to server",
+        "default": "Connecting to server..."
+      },
+      {
+        "name": "deleted-message",
+        "type": "text",
+        "label": "Message shown when content was deleted while user was active",
         "default": "The content was deleted or updated. Please refresh this page to try reloading it."
       },
       {
         "name": "connection-error",
         "type": "text",
-        "label": "Text when there was a connection error",
+        "label": "Message shown when there was a connection error",
         "default": "There was an error connecting to the shared state server:"
-      },
-      {
-        "name": "final-score-title",
-        "type": "text",
-        "label": "Label for the final score",
-        "default": "Final Score"
-      },
-      {
-        "name": "final-score-not-played",
-        "type": "text",
-        "label": "Text in final score screen when user hasn't played",
-        "default": "You haven't played in this quiz!"
-      },
-      {
-        "name": "final-score-table-place",
-        "type": "text",
-        "label": "Label for 'Place' in the final score table",
-        "default": "Place"
-      },
-      {
-        "name": "final-score-table-name",
-        "type": "text",
-        "label": "Label for 'Name' in the final score table",
-        "default": "Name"
-      },
-      {
-        "name": "final-score-table-score",
-        "type": "text",
-        "label": "Label for 'Score' in the final score table",
-        "default": "Score"
-      },
-      {
-        "name": "final-score-play-again",
-        "type": "text",
-        "label": "Label for the 'Play again' button in the final score",
-        "default": "Play again"
-      },
-      {
-        "name": "connecting",
-        "type": "text",
-        "label": "Label for the 'Connecting to server'",
-        "default": "Connecting to server..."
       },
       {
         "name": "preparing-student",
@@ -79,7 +43,7 @@
       {
         "name": "preparing-teacher-no-participants",
         "type": "text",
-        "label": "Text shown when the quiz has not begun and there are no participants",
+        "label": "Text shown to the teacher when the quiz has not begun and there are no participants",
         "default": "No participants have joined yet."
       },
       {
@@ -97,8 +61,86 @@
       {
         "name": "preparing-teacher-start",
         "type": "text",
-        "label": "Label of the \"Start\" button",
+        "label": "Label of the \"Start\" button shown before the quiz has started",
         "default": "Start"
+      },
+      {
+        "name": "current-question",
+        "type": "text",
+        "label": "A textual representation of the current question number",
+        "default": "Question %current/%total"
+      },
+      {
+        "name": "question-show-answer-button",
+        "type": "text",
+        "label": "Label of the \"Show answer\" button when displaying a question (teacher)",
+        "default": "Show answer"
+      },
+      {
+        "name": "question-show-scores-button",
+        "type": "text",
+        "label": "Label of the \"Show scores\" button when display question's answer (teacher)",
+        "default": "Show scores"
+      },
+      {
+        "name": "review-no-answer",
+        "type": "text",
+        "label": "Text shown to student when the question answer is being shown, but student hasn't given an answer",
+        "default": "You haven't given an answer."
+      },
+      {
+        "name": "scores-title-student",
+        "type": "text",
+        "label": "Title of the scores screen for students",
+        "default": "Current score"
+      },
+      {
+        "name": "scores-not-played",
+        "type": "text",
+        "label": "Text in score screen when student hasn't played yet",
+        "default": "You have not played in this quiz yet."
+      },
+      {
+        "name": "scores-title-teacher",
+        "type": "text",
+        "label": "Title of the scores screen for teachers",
+        "default": "Current scores"
+      },
+      {
+        "name": "final-score-title",
+        "type": "text",
+        "label": "Label for the final score",
+        "default": "Final Score"
+      },
+      {
+        "name": "final-score-not-played",
+        "type": "text",
+        "label": "Text in final score screen when student hasn't played",
+        "default": "You haven't played in this quiz!"
+      },
+      {
+        "name": "scores-table-place",
+        "type": "text",
+        "label": "Label for 'Place' in the final score table",
+        "default": "Place"
+      },
+      {
+        "name": "scores-table-name",
+        "type": "text",
+        "label": "Label for 'Name' in the (final) score table",
+        "default": "Name"
+      },
+      {
+        "name": "scores-table-score",
+        "type": "text",
+        "label": "Label for 'Score' in the (final) score table",
+        "default": "Score"
+      },
+      {
+        "name": "final-score-play-again",
+        "type": "text",
+        "label": "Label for the 'Play again' button in the final score screen",
+        "default": "Play again"
       }
     ]
   }

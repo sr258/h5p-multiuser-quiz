@@ -2,6 +2,7 @@ import { Box, Heading, Text } from "grommet";
 import React from "react";
 
 import { IContext, IParams, IState } from "../types";
+import { useTranslation } from "use-h5p";
 
 export const ScoresStudent = ({
   context,
@@ -12,9 +13,11 @@ export const ScoresStudent = ({
   params: IParams;
   state: IState;
 }) => {
+  const { t } = useTranslation();
+
   return (
     <Box>
-      <Heading alignSelf="center">Current score</Heading>
+      <Heading alignSelf="center">{t("scores-title-student")}</Heading>
       {state.scores[context.userId] !== undefined ? (
         <React.Fragment>
           <Box
@@ -34,7 +37,7 @@ export const ScoresStudent = ({
         </React.Fragment>
       ) : (
         <Text alignSelf="center" size="xlarge" textAlign="center">
-          You have not played in this quiz yet.
+          {t("scores-not-played")}
         </Text>
       )}
     </Box>

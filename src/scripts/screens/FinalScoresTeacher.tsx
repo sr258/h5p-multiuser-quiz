@@ -37,13 +37,13 @@ export const FinalScoresTeacher = ({
           <TableRow>
             <TableCell scope="col" border="bottom"></TableCell>
             <TableCell scope="col" border="bottom">
-              {t("final-score-table-place")}
+              {t("scores-table-place")}
             </TableCell>
             <TableCell scope="col" border="bottom">
-              {t("final-score-table-name")}
+              {t("scores-table-name")}
             </TableCell>
             <TableCell scope="col" border="bottom">
-              {t("final-score-table-score")}
+              {t("scores-table-score")}
             </TableCell>
           </TableRow>
         </TableHeader>

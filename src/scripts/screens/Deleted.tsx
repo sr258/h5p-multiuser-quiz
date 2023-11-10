@@ -17,7 +17,7 @@ export const Deleted = ({
       <Heading textAlign="center">{title}</Heading>
       <Box direction="row">
         <Text margin="small" textAlign="center">
-          {t("deleted")}          
+          {t("deleted-message")}
         </Text>
       </Box>
     </Box>

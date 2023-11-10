@@ -12,6 +12,7 @@ import {
 import React from "react";
 
 import { IActions, IContext, IParams, IState } from "../types";
+import { useTranslation } from "use-h5p";
 
 export const ScoresTeacher = ({
   context,
@@ -24,17 +25,19 @@ export const ScoresTeacher = ({
   state: IState;
   actions?: IActions;
 }) => {
+  const { t, tOpts } = useTranslation();
+
   return (
     <Box>
-      <Heading alignSelf="center">Current scores</Heading>
+      <Heading alignSelf="center">{t("scores-title-teacher")}</Heading>
       <Table alignSelf="center">
         <TableHeader>
           <TableRow>
             <TableCell scope="col" border="bottom">
-              Name
+              {t("scores-table-name")}
             </TableCell>
             <TableCell scope="col" border="bottom">
-              Score
+              {t("scores-table-score")}
             </TableCell>
           </TableRow>
         </TableHeader>
@@ -53,8 +56,10 @@ export const ScoresTeacher = ({
       </Table>
       <Box direction="row" justify="between" margin={{ top: "medium" }}>
         <Text margin="medium">
-          {"Question "} {state.currentQuestionNumber + 1} /{" "}
-          {params.questions.params.choices.length}
+          {tOpts("current-question", {
+            "%current": state.currentQuestionNumber + 1,
+            "%total": params.questions.params.choices.length,
+          })}
         </Text>
         <Button
           margin="medium"

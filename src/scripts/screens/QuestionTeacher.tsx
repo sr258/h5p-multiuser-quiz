@@ -1,43 +1,14 @@
 import Color from "color";
 import { Box, Text, Button, Grid, Stack, Tag } from "grommet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircle,
-  faHeart,
-  faStar,
-  faSquare,
-  faCertificate,
-  faTimes,
-  faCoffee,
-  faCube,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 import { IParams, IState, IContext, IActions, IOtherUser } from "../types";
 import { useEffect, useState } from "react";
 import { Timer } from "../components/Timer";
-
-const colors = [
-  "#DA4453",
-  "#FFCE54",
-  "#4FC1E9",
-  "#A0D468",
-  "#37BC9B",
-  "#D770AD",
-  "#967ADC",
-  "#AAB2BD",
-];
-
-const icons = [
-  <FontAwesomeIcon icon={faCircle} />,
-  <FontAwesomeIcon icon={faHeart} />,
-  <FontAwesomeIcon icon={faStar} />,
-  <FontAwesomeIcon icon={faSquare} />,
-  <FontAwesomeIcon icon={faCertificate} />,
-  <FontAwesomeIcon icon={faTimes} />,
-  <FontAwesomeIcon icon={faCoffee} />,
-  <FontAwesomeIcon icon={faCube} />,
-];
+import { useTranslation } from "use-h5p";
+import { questionColors } from "../helpers/colors";
+import { questionIcons } from "../helpers/icons";
 
 const maxTime = 20;
 
@@ -54,6 +25,8 @@ export const QuestionTeacher = ({
   actions?: IActions;
   users: IOtherUser[];
 }) => {
+  const { t, tOpts } = useTranslation();
+
   const calculateTimeLeft = () => {
     return Math.round(
       (maxTime * 1000 - (Date.now() - state.currentQuestionStart)) / 1000
@@ -139,12 +112,12 @@ export const QuestionTeacher = ({
                 color:
                   state.phase === "review" &&
                   currQuestion.answers.indexOf(q) !== 0
-                    ? new Color(colors[index])
+                    ? new Color(questionColors[index])
                         .alpha(0.4)
                         .lighten(0.1)
                         .rgb()
                         .string()
-                    : colors[index],
+                    : questionColors[index],
               }}
             >
               <Stack fill guidingChild={1} margin={{ vertical: "small" }}>
@@ -154,7 +127,7 @@ export const QuestionTeacher = ({
                   justify="center"
                   margin={{ left: "medium" }}
                 >
-                  {icons[index]}
+                  {questionIcons[index]}
                 </Box>
                 <Box
                   fill="vertical"
@@ -191,8 +164,10 @@ export const QuestionTeacher = ({
       </Grid>
       <Box direction="row" justify="between" align="center">
         <Text margin="medium">
-          {"Question "} {state.currentQuestionNumber + 1} /{" "}
-          {params.questions.params.choices.length}
+          {tOpts("current-question", {
+            "%current": state.currentQuestionNumber + 1,
+            "%total": params.questions.params.choices.length,
+          })}
         </Text>
         {state.phase === "question" && (
           <Box margin="medium">
@@ -202,7 +177,7 @@ export const QuestionTeacher = ({
         {state.phase === "question" && (
           <Button
             margin="medium"
-            label="Show answer"
+            label={t("question-show-answer-button")}
             onClick={() => {
               actions?.showAnswerAndScore(context, state, params);
             }}
@@ -211,7 +186,7 @@ export const QuestionTeacher = ({
         {state.phase === "review" && (
           <Button
             margin="medium"
-            label="Show scores"
+            label={t("question-show-scores-button")}
             onClick={() => {
               actions?.showScores(context, state, params);
             }}
