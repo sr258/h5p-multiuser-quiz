@@ -1,3 +1,6 @@
+typings
+.storybook
+.vscode
 .babelrc
 .dccache
 .eslintignore
