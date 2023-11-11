@@ -3,7 +3,7 @@ import { Root, createRoot } from "react-dom/client";
 import { H5PIntegrationObject } from "h5p-types";
 
 import QuizDoc from "./QuizDoc";
-import { Main } from "./screens/Main";
+import { Main } from "./Main";
 import {
   IContext,
   IMe,

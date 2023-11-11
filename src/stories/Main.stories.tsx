@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Main } from "../screens/Main";
+import { Main } from "../Main";
 
 import { sampleParams } from "./testData/sampleParams";
 import { teacherContext } from "./testData/teacherContext";

@@ -1,16 +1,16 @@
 import { Box } from "grommet";
 
-import { Deleted } from "./Deleted";
-import { Error } from "./Error";
-import { FinalScoresStudent } from "./FinalScoresStudent";
-import { FinalScoresTeacher } from "./FinalScoresTeacher";
-import { Initializing } from "./Initializing";
-import { PreparingStudent } from "./PreparingStudent";
-import { PreparingTeacher } from "./PreparingTeacher";
-import { QuestionStudent } from "./QuestionStudent";
-import { QuestionTeacher } from "./QuestionTeacher";
-import { ScoresStudent } from "./ScoresStudent";
-import { ScoresTeacher } from "./ScoresTeacher";
+import { Deleted } from "./screens/Deleted";
+import { Error } from "./screens/Error";
+import { FinalScoresStudent } from "./screens/FinalScoresStudent";
+import { FinalScoresTeacher } from "./screens/FinalScoresTeacher";
+import { Initializing } from "./screens/Initializing";
+import { PreparingStudent } from "./screens/PreparingStudent";
+import { PreparingTeacher } from "./screens/PreparingTeacher";
+import { QuestionStudent } from "./screens/QuestionStudent";
+import { QuestionTeacher } from "./screens/QuestionTeacher";
+import { ScoresStudent } from "./screens/ScoresStudent";
+import { ScoresTeacher } from "./screens/ScoresTeacher";
 
 import {
   IParams,
@@ -19,7 +19,7 @@ import {
   IActions,
   IMetadata,
   IOtherUser,
-} from "../types";
+} from "./types";
 
 const getScreen = ({
   context,
