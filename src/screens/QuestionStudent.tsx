@@ -6,8 +6,8 @@ import { IParams, IState, IContext, IActions } from "../types";
 import { useEffect, useState } from "react";
 import { Timer } from "../components/Timer";
 import { useTranslation } from "use-h5p";
-import { questionColors } from "../helpers/colors";
-import { questionIcons } from "../helpers/icons";
+import { questionColors } from "../theme";
+import { questionIcons } from "../theme";
 
 const maxTime = 20;
 
@@ -79,8 +79,7 @@ export const QuestionStudent = ({
                     state.currentQuestionOrder[index]
                 }
                 label={<Text size="xlarge">{questionIcons[index]}</Text>}
-                color={questionColors[index]}
-                primary
+                color={questionColors[index]}                
                 fill
                 onClick={() => {
                   actions?.answer(

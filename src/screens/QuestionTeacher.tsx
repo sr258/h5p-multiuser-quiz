@@ -7,8 +7,8 @@ import { IParams, IState, IContext, IActions, IOtherUser } from "../types";
 import { useEffect, useState } from "react";
 import { Timer } from "../components/Timer";
 import { useTranslation } from "use-h5p";
-import { questionColors } from "../helpers/colors";
-import { questionIcons } from "../helpers/icons";
+import { questionColors } from "../theme";
+import { questionIcons } from "../theme";
 
 const maxTime = 20;
 
@@ -177,6 +177,7 @@ export const QuestionTeacher = ({
         {state.phase === "question" && (
           <Button
             margin="medium"
+            primary
             label={t("question-show-answer-button")}
             onClick={() => {
               actions?.showAnswerAndScore(context, state, params);
@@ -186,6 +187,7 @@ export const QuestionTeacher = ({
         {state.phase === "review" && (
           <Button
             margin="medium"
+            primary
             label={t("question-show-scores-button")}
             onClick={() => {
               actions?.showScores(context, state, params);

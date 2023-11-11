@@ -21,7 +21,7 @@ export const ScoresStudent = ({
       {state.scores[context.userId] !== undefined ? (
         <React.Fragment>
           <Box
-            background="#48CFAD"
+            background="graph-3"
             round
             margin={{ horizontal: "medium", bottom: "medium" }}
             alignSelf="center"

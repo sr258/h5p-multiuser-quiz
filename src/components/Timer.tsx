@@ -10,16 +10,16 @@ export const Timer = ({ left, max }: { left: number; max: number }) => {
           size="40"
           values={[
             {
-              value: max - left,
+              value: left,
               label: left.toString(),
-              color: left <= 3 ? "status-critical" : "status-ok",
+              color: left <= 5 ? "status-critical" : "status-ok",
             },
           ]}
           max={max}
         />
       </Box>
       <Box fill align="center" justify="center">
-        <Text size="small">{left}s</Text>
+        <Text size="small">{left}</Text>
       </Box>
     </Stack>
   );

@@ -25,16 +25,23 @@ export const Half: Story = {
   },
 };
 
-export const Empty: Story = {
+export const End: Story = {
   args: {
     left: 0,
     max: 20,
   },
 };
 
-export const Full: Story = {
+export const Start: Story = {
   args: {
     left: 20,
+    max: 20,
+  },
+};
+
+export const NearlyEnd: Story = {
+  args: {
+    left: 3,
     max: 20,
   },
 };

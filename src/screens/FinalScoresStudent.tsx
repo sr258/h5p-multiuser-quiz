@@ -4,7 +4,7 @@ import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
 import { IContext, IState } from "../types";
-import { rankToColor } from "../helpers/colors";
+import { rankToColor } from "../theme";
 import { useTranslation } from "use-h5p";
 
 export const FinalScoresStudent = ({

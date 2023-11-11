@@ -11,3 +11,4 @@
 - Überprüfung von Property-Namen usw.
 - Reihenfolge imports
 - Kommentierung
+- Vollbild

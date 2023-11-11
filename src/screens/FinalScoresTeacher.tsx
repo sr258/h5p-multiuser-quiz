@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 
 import { IActions, IContext, IParams, IState } from "../types";
-import { rankToColor } from "../helpers/colors";
+import { rankToColor } from "../theme";
 import { useTranslation } from "use-h5p";
 
 export const FinalScoresTeacher = ({

@@ -1,6 +1,8 @@
 import React from "react";
 import { Root, createRoot } from "react-dom/client";
 import { H5PIntegrationObject } from "h5p-types";
+import { L10nContext } from "use-h5p";
+import { Grommet } from "grommet";
 
 import QuizDoc from "./QuizDoc";
 import { Main } from "./Main";
@@ -13,9 +15,8 @@ import {
   IQuizPresence,
 } from "./types";
 import ShareDBActions from "./ShareDBActions";
-import { Grommet } from "grommet";
 import { triggerActions } from "./triggers";
-import { L10nContext } from "use-h5p";
+import { grommetTheme } from "./theme";
 
 declare const H5PIntegration: H5PIntegrationObject;
 
@@ -178,7 +179,7 @@ export default class MultiuserQuiz {
 
   private renderRoot = () => {
     this.root.render(
-      <Grommet plain>
+      <Grommet theme={grommetTheme}>
         <L10nContext.Provider value={this.params.l10n}>
           <Main
             context={{
