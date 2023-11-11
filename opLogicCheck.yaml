@@ -1,0 +1,29 @@
+- $or:
+    - $defined:
+        $query: $.create
+    - $and:
+        - $or:
+            - "$.op[5].p":
+                - phase
+            - "$.op[0].p":
+                - phase
+            - "$.op[3].p":
+                - phase
+            - "$.op[2].p":
+                - phase
+        - $.context.permission: privileged
+    - $and:
+        - "$.op[0].p[0]": users
+        - $.context.permission: user
+        - "$.op[0].p[1]":
+            $query: $.context.user.id
+        - "$.op[0].oi":
+            $query: $.context.user.name
+    - $and:
+        - "$.op[0].p[0]": answers
+        - "$.op[0].p[1]":
+            $query: $.snapshot.currentQuestionNumber
+        - "$.op[0].p[2]":
+            $in:
+              $query: $.snapshot.users.*~
+        - $.context.permission: user

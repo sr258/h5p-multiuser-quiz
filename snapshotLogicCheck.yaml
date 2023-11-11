@@ -1,0 +1,12 @@
+- $.snapshot.answers.length:
+    $lte:
+      $query: $.params.questions.params.choices.length
+- $.snapshot.currentQuestionNumber:
+    $lt:
+      $query: $.params.questions.params.choices.length
+- $.snapshot.scores.*~:
+    $in:
+      $query: $.snapshot.users.*~
+- "$.answers[*].~":
+    $in:
+      $query: $.snapshot.users.*~

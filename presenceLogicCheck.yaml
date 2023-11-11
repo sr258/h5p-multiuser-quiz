@@ -1,0 +1,6 @@
+- $.presence.userId:
+    $query: $.context.user.id
+- $.presence.name:
+    $query: $.context.user.name
+- $.presence.level:
+    $query: $.context.permission
