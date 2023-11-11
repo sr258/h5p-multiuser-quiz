@@ -1,7 +1,10 @@
-$schema: 'https://json-schema.org/draft/2020-12/schema'
-title: Test op schema
+# Describes the structure of the allowed operations in JSON schema.
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Multiuser Quiz op schema
 type: object
 properties:
+  # The initial operation to create the state. It is sent by the first client
+  # that connects to the server.
   create:
     type: object
     properties:
@@ -38,10 +41,12 @@ properties:
             maxItems: 0
   op:
     oneOf:
+      # 'reset' action (by teacher)
       - type: array
         minItems: 3
         maxItems: 3
         prefixItems:
+          # Clear answers
           - type: object
             properties:
               p:
@@ -60,6 +65,7 @@ properties:
                 prefixItems:
                   - type: object
                     properties: {}
+          # Clear scores
           - type: object
             properties:
               p:
@@ -74,6 +80,7 @@ properties:
               oi:
                 type: object
                 properties: {}
+          # Move phase to "preparing"
           - type: object
             properties:
               p:
@@ -88,10 +95,12 @@ properties:
               oi:
                 type: string
                 pattern: ^preparing$
+      # "start" action (by teacher)
       - type: array
         minItems: 6
         maxItems: 6
         prefixItems:
+          # Clear answers
           - type: object
             properties:
               p:
@@ -110,6 +119,7 @@ properties:
                 prefixItems:
                   - type: object
                     properties: {}
+          # Clear scores
           - type: object
             properties:
               p:
@@ -124,6 +134,7 @@ properties:
               oi:
                 type: object
                 properties: {}
+          # Set the current question number
           - type: object
             properties:
               p:
@@ -139,6 +150,8 @@ properties:
                 type: integer
                 minimum: 0
                 maximum: 0
+          # Set the current question start time (received from the teacher
+          # client)
           - type: object
             properties:
               p:
@@ -152,6 +165,8 @@ properties:
                 type: integer
               oi:
                 type: integer
+          # Set the order of the options of the current question
+          # This order is randomized by the teacher client.
           - type: object
             properties:
               p:
@@ -168,6 +183,7 @@ properties:
                 items:
                   type: integer
                   minimum: 0
+          # Sets the phase to 'question'.
           - type: object
             properties:
               p:
@@ -182,6 +198,7 @@ properties:
               oi:
                 type: string
                 pattern: ^question$
+      # 'answer' action (by student)
       - type: array
         minItems: 1
         maxItems: 1
@@ -200,10 +217,12 @@ properties:
               oi:
                 type: integer
                 minimum: 0
+      # "show answer and score" action (by teacher)
       - type: array
         minItems: 2
         maxItems: 2
         prefixItems:
+          # Move phase to review
           - type: object
             properties:
               p:
@@ -219,6 +238,7 @@ properties:
               oi:
                 type: string
                 pattern: ^review$
+          # The scores received from the teacher client.
           - type: object
             properties:
               p:
@@ -238,10 +258,12 @@ properties:
                 patternProperties:
                   .*:
                     type: number
+      # 'show scores' action (by teacher)
       - type: array
         minItems: 1
         maxItems: 1
         prefixItems:
+          # Move the phase to 'score'
           - type: object
             properties:
               p:
@@ -257,10 +279,12 @@ properties:
               oi:
                 type: string
                 pattern: ^scores$
+      # 'next question' action (by teacher)
       - type: array
         minItems: 5
         maxItems: 5
         prefixItems:
+          # the new question umber
           - type: object
             properties:
               p:
@@ -275,6 +299,7 @@ properties:
               oi:
                 type: integer
                 minimum: 0
+          # the new start time of the question
           - type: object
             properties:
               p:
@@ -288,6 +313,8 @@ properties:
                 type: integer
               oi:
                 type: integer
+          # Set the current question start time (received from the teacher
+          # client)
           - type: object
             properties:
               p:
@@ -304,6 +331,7 @@ properties:
                 items:
                   type: integer
                   minimum: 0
+          # Move the phase to "question"
           - type: object
             properties:
               p:
@@ -318,6 +346,7 @@ properties:
               oi:
                 type: string
                 pattern: ^question$
+          # clear the answers object
           - type: object
             properties:
               p:
@@ -332,10 +361,12 @@ properties:
               li:
                 type: object
                 properties: {}
+      # register action (by student)
       - type: array
         minItems: 1
         maxItems: 1
         prefixItems:
+          # Add a display name for a a user id
           - type: object
             properties:
               p:

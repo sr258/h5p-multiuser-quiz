@@ -1,12 +1,24 @@
+# Describes logical conditions applying to the shared state object ("snapshot")
+# on the server.
+# Note: All conditions in this file are connecting by a logical AND.
+
+# Make sure that there are only as many objects in the answer array as there are
+# questions in the params
 - $.snapshot.answers.length:
     $lte:
       $query: $.params.questions.params.choices.length
+# Make sure the current question number is not greater than the number of
+# questions in the params
 - $.snapshot.currentQuestionNumber:
     $lt:
       $query: $.params.questions.params.choices.length
+# Make sure that there are only userIds in the scores object that are also in
+# the user-displayName map.
 - $.snapshot.scores.*~:
     $in:
       $query: $.snapshot.users.*~
+# Make sure that there are only userIds in the answer objects that are also in
+# the user-displayName map.
 - "$.answers[*].~":
     $in:
       $query: $.snapshot.users.*~

@@ -1,6 +1,12 @@
+# Describes logical conditions applying to presence objects.
+# Note: All conditions in this file are connecting by a logical AND.
+
+# Make sure that the userId is the id we received in authentication.
 - $.presence.userId:
     $query: $.context.user.id
+# Make sure that the display name is the one we received in authentication.
 - $.presence.name:
     $query: $.context.user.name
+# Make sure that the permission level is the one we received in authentication.
 - $.presence.level:
     $query: $.context.permission

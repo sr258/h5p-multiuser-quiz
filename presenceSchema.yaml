@@ -1,5 +1,7 @@
+# Describes the presence object (information about who is currently active) in
+# JSON Schema
 $schema: 'https://json-schema.org/draft/2020-12/schema'
-title: Presence schema
+title: Multiuser Quiz Presence schema
 type: object
 properties:
   userId:

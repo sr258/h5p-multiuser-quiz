@@ -1,7 +1,10 @@
-$schema: 'https://json-schema.org/draft/2020-12/schema'
-title: Test shared state schema
+# Describes the schema of the shared state object ("snapshot") on the server in
+# JSON schema.
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Multiuser Quiz shared state schema
 type: object
 properties:
+  # An array of objects containing the answers of every student.
   answers:
     type: array
     items:
@@ -10,28 +13,34 @@ properties:
         .*:
           type: number
           minimum: 0
+  # The calculated scores for every student.
   scores:
     type: object
     patternProperties:
       .*:
         type: number
         minimum: 0
+  # An object mapping userIds to display names of users.
   users:
     type: object
     patternProperties:
       .*:
         type: string
+  # The number of the question currently being displayed
   currentQuestionNumber:
     type: number
     minimum: 0
+  # The timestamp when the current question started.
   currentQuestionStart:
     type: number
     minimum: 0
+  # The order of the options. Set by the teacher client.
   currentQuestionOrder:
     type: array
     items:
       type: number
       minimum: 0
+  # The current phase
   phase:
     type: string
     pattern: ^(preparing)|(question)|(review)|(scores)$

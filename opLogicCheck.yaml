@@ -1,6 +1,10 @@
+# Describes logical conditions applying to operations.
+
 - $or:
+    # Always all create ops
     - $defined:
         $query: $.create
+    # Make sure that only teachers can perform operations with a phase change
     - $and:
         - $or:
             - "$.op[5].p":
@@ -12,6 +16,10 @@
             - "$.op[2].p":
                 - phase
         - $.context.permission: privileged
+    # Make sure that only students (= level `user`) (not teachers and anonymous)
+    # can add their name to the object that resolves userIds to display names.
+    # We also make sure that the userId and display name they submit match the
+    # data we have from authentication.
     - $and:
         - "$.op[0].p[0]": users
         - $.context.permission: user
@@ -19,6 +27,9 @@
             $query: $.context.user.id
         - "$.op[0].oi":
             $query: $.context.user.name
+    # Make sure that only students submit answers, that the answers are for the
+    # current question number and the the user has put their name into the
+    # userId - display name table.
     - $and:
         - "$.op[0].p[0]": answers
         - "$.op[0].p[1]":
