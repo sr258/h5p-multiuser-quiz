@@ -1,5 +1,8 @@
 import { Text, Box, Meter, Stack } from "grommet";
 
+/**
+ * A timer component that visualizes a countdown
+ */
 export const Timer = ({ left, max }: { left: number; max: number }) => {
   return (
     <Stack>

@@ -1,16 +1,20 @@
+/**
+ * Client-side triggers that are used to modify the global shared state
+ * according to certain conditions.
+ */
+
 import QuizDoc from "./QuizDoc";
 import ShareDBActions from "./ShareDBActions";
-import { IContext, IMe, IOtherUser, IParams } from "./types";
+import { IContext, IOtherUser, IParams } from "./types";
 
 export const triggerActions = async (
   context: IContext,
   params: IParams,
   state: QuizDoc,
-  me: IMe,
   otherUsers: IOtherUser[],
   actions: ShareDBActions
 ) => {
-  if (me.level === "privileged") {
+  if (context.isTeacher) {
     if (state.phase === "question") {
       if (
         Object.keys(state.answers[state.currentQuestionNumber]).length ===

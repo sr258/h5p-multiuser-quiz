@@ -1,3 +1,7 @@
+/**
+ * Describes the global theme.
+ */
+
 import { ThemeType } from "grommet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

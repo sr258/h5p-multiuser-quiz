@@ -3,6 +3,10 @@ import { IParams } from "../types";
 
 import { useTranslation } from "use-h5p";
 
+/**
+ * Displayed when the content was deleted or updated on the server. We must
+ * block all interactions in this case.
+ */
 export const Deleted = ({
   params,
   title,

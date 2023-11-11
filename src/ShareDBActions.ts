@@ -3,7 +3,8 @@ import { IActions, IContext, IParams, IState, IQuizPresence } from "./types";
 
 /**
  * This class is an implementation of the global actions for the ShareDB
- * backend. Each action call emits an batch op with the required ops.
+ * backend. An action modifies the global state. Each action call emits an batch
+ * op with the required ops.
  */
 export default class ShareDBActions implements IActions {
   /**

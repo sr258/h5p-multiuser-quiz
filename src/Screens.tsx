@@ -1,3 +1,7 @@
+/**
+ * Decides which screen must be shown for the current phase and displays it.
+ */
+
 import { Box } from "grommet";
 
 import { Deleted } from "./screens/Deleted";
@@ -38,9 +42,9 @@ const getScreen = ({
   metadata: IMetadata;
   users: IOtherUser[];
 }) => {
-  switch (state.phase) {
-    case "preparing":
-      if (context.isTeacher) {
+  if (context.isTeacher) {
+    switch (state.phase) {
+      case "preparing":
         return (
           <PreparingTeacher
             context={context}
@@ -51,36 +55,22 @@ const getScreen = ({
             users={users}
           ></PreparingTeacher>
         );
-      } else {
-        return <PreparingStudent metadata={metadata}></PreparingStudent>;
-      }
-    case "question":
-    case "review":
-      if (context.isTeacher) {
-        return <QuestionTeacher
-          params={params}
-          context={context}
-          state={state}
-          actions={actions}
-          users={users}
-        ></QuestionTeacher>;
-      } else {
+      case "question":
+      case "review":
         return (
-          <QuestionStudent
+          <QuestionTeacher
             params={params}
             context={context}
             state={state}
             actions={actions}
-          ></QuestionStudent>
+            users={users}
+          ></QuestionTeacher>
         );
-      }
-      break;
-    case "scores":
-      if (
-        state.currentQuestionNumber !==
-        params.questions.params.choices.length - 1
-      ) {
-        if (context.isTeacher) {
+      case "scores":
+        if (
+          state.currentQuestionNumber !==
+          params.questions.params.choices.length - 1
+        ) {
           return (
             <ScoresTeacher
               params={params}
@@ -90,10 +80,6 @@ const getScreen = ({
             />
           );
         } else {
-          <ScoresStudent params={params} context={context} state={state} />;
-        }
-      } else {
-        if (context.isTeacher) {
           return (
             <FinalScoresTeacher
               params={params}
@@ -102,14 +88,36 @@ const getScreen = ({
               actions={actions}
             />
           );
+        }
+    }
+  } else {
+    switch (state.phase) {
+      case "preparing":
+        return <PreparingStudent metadata={metadata}></PreparingStudent>;
+      case "question":
+      case "review":
+        return (
+          <QuestionStudent
+            params={params}
+            context={context}
+            state={state}
+            actions={actions}
+          ></QuestionStudent>
+        );
+      case "scores":
+        if (
+          state.currentQuestionNumber !==
+          params.questions.params.choices.length - 1
+        ) {
+          <ScoresStudent params={params} context={context} state={state} />;
         } else {
           return <FinalScoresStudent context={context} state={state} />;
         }
-      }
+    }
   }
 };
 
-export const Main = ({
+export const Screens = ({
   context,
   state,
   params,

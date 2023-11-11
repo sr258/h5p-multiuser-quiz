@@ -2,6 +2,9 @@ import { Text, Box, Heading } from "grommet";
 import { IParams } from "../types";
 import { useTranslation } from "use-h5p";
 
+/**
+ * Displayed when an error has occurred.
+ */
 export const Error = ({
   params,
   errorMessage,

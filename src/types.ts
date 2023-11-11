@@ -152,8 +152,3 @@ export interface IQuizPresence extends H5P.PresenceData {}
 export interface IOtherUser extends IQuizPresence {
   presenceId: string;
 }
-
-export interface IMe {
-  userId: string;
-  level: "anonymous" | "user" | "privileged";
-}

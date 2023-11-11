@@ -1,3 +1,13 @@
+/**
+ * This component is the central component coordinating all others:
+ * - It creates the React root
+ * - It manages the connection to the shared state server
+ * - It manages the global state
+ * - It triggers React tree refreshes on state updates
+ * - It manages presences
+ * - It manages triggers
+ */
+
 import React from "react";
 import { Root, createRoot } from "react-dom/client";
 import { H5PIntegrationObject } from "h5p-types";
@@ -5,10 +15,9 @@ import { L10nContext } from "use-h5p";
 import { Grommet } from "grommet";
 
 import QuizDoc from "./QuizDoc";
-import { Main } from "./Main";
+import { Screens } from "./Screens";
 import {
   IContext,
-  IMe,
   IMetadata,
   IOtherUser,
   IParams,
@@ -23,7 +32,7 @@ declare const H5PIntegration: H5PIntegrationObject;
 /**
  * The H5P content type class.
  */
-export default class MultiuserQuiz {
+export default class RootComponent {
   /**
    * @param params Parameters passed by the editor.
    * @param contentId Content's id.
@@ -45,7 +54,7 @@ export default class MultiuserQuiz {
     };
     // Create render root
     this.domRoot = document.createElement("div");
-    this.root = createRoot(this.domRoot);
+    this.reactRoot = createRoot(this.domRoot);
 
     // Initialize connection to ShareDB server
     this.connector = new H5P.SharedStateClient<QuizDoc, IQuizPresence>(
@@ -63,19 +72,53 @@ export default class MultiuserQuiz {
     this.actions = new ShareDBActions(this.connector);
   }
 
+  /**
+   * H5P metadata.
+   */
   private metadata: IMetadata;
+  /**
+   * The DOM element which contains the root React element
+   */
   private domRoot: HTMLElement;
-  private root: Root;
+  /**
+   * The root React element.
+   */
+  private reactRoot: Root;
+  /**
+   * The connector object to the shared state server.
+   */
   private connector: H5P.SharedStateClient<QuizDoc, IQuizPresence>;
-  private data?: QuizDoc;
+  /**
+   * The global state shared among all users.
+   */
+  private state?: QuizDoc;
+  /**
+   * If the content was deleted or updated on the server, we need to block all
+   * user interactions and the user must fully reload the page. This property is
+   * used to notify the user of this.
+   */
   private deleted = false;
+  /**
+   * An error message
+   */
   private error?: string = undefined;
-  private userInformation: IMe = {
+  /**
+   * Information about the current user
+   */
+  private context: IContext = {
+    displayName: "",
+    isTeacher: false,
     userId: "",
-    level: "anonymous",
   };
-  private context: IContext;
+  /**
+   * Actions are performed on the global state. The object here allows access to
+   * these acitons
+   */
   private actions: ShareDBActions;
+  /**
+   * The list of other uses currently online in the content. Doesn't include the
+   * current user her/himself.
+   */
   private otherUsers: IOtherUser[] = [];
 
   /**
@@ -97,10 +140,9 @@ export default class MultiuserQuiz {
     if (!this.connector.userInformation) {
       throw new Error("Didn't get required user information.");
     }
-    this.userInformation = this.connector.userInformation;
     this.context = {
-      userId: this.userInformation.userId,
-      isTeacher: this.userInformation.level === "privileged",
+      userId: this.connector.userInformation.userId,
+      isTeacher: this.connector.userInformation.level === "privileged",
       displayName: H5PIntegration.user?.name,
     };
 
@@ -111,15 +153,15 @@ export default class MultiuserQuiz {
     }
 
     await this.connector.submitPresence({
-      userId: this.userInformation.userId,
+      userId: this.connector.userInformation.userId,
       name: H5PIntegration.user?.name,
-      level: this.userInformation.level,
+      level: this.connector.userInformation.level,
     });
   };
 
   onDeleted = async (): Promise<void> => {
     console.log("Document deleted");
-    this.data = undefined;
+    this.state = undefined;
     this.deleted = true;
     this.renderRoot();
     this.triggerResize();
@@ -127,7 +169,7 @@ export default class MultiuserQuiz {
 
   onError = async (error: string): Promise<void> => {
     console.log("Error");
-    this.data = undefined;
+    this.state = undefined;
     this.error = error;
     this.renderRoot();
     this.triggerResize();
@@ -135,19 +177,18 @@ export default class MultiuserQuiz {
 
   /**
    * This method is called when the ShareDB server has updated the shared state.
-   * React is clever enough to note replace the whole DOM when doing this. It
+   * React is clever enough to not replace the whole DOM when doing this. It
    * only rerenders the changed parts.
    */
   onRefreshData = async (data: QuizDoc): Promise<void> => {
     console.log("Refreshing data", data);
-    this.data = data;
+    this.state = data;
     this.renderRoot();
-    if (this.data) {
+    if (this.state) {
       triggerActions(
         this.context,
         this.params,
-        this.data,
-        this.userInformation,
+        this.state,
         this.otherUsers,
         this.actions
       );
@@ -155,6 +196,11 @@ export default class MultiuserQuiz {
     this.triggerResize();
   };
 
+  /**
+   * This method is called when the ShareDB server has updated the presence
+   * list. React is clever enough to not replace the whole DOM when doing this.
+   * It only rerenders the changed parts.
+   */
   onRefreshPresences = async (presences: {
     [id: string]: IQuizPresence;
   }): Promise<void> => {
@@ -164,12 +210,11 @@ export default class MultiuserQuiz {
       presenceId: k,
     }));
     this.renderRoot();
-    if (this.data) {
+    if (this.state) {
       triggerActions(
         this.context,
         this.params,
-        this.data,
-        this.userInformation,
+        this.state,
         this.otherUsers,
         this.actions
       );
@@ -178,16 +223,12 @@ export default class MultiuserQuiz {
   };
 
   private renderRoot = () => {
-    this.root.render(
+    this.reactRoot.render(
       <Grommet theme={grommetTheme}>
         <L10nContext.Provider value={this.params.l10n}>
-          <Main
-            context={{
-              userId: this.userInformation.userId,
-              isTeacher: this.userInformation.level === "privileged",
-              displayName: H5PIntegration.user.name,
-            }}
-            state={this.data}
+          <Screens
+            context={this.context}
+            state={this.state}
             deleted={this.deleted}
             params={this.params}
             error={this.error}

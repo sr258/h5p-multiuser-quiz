@@ -1,5 +1,9 @@
-import MultiuserQuiz from "./MultiuserQuiz";
-import { IMetadata } from "./types";
+/**
+ * The H5P Content Type class.
+ */
+
+import RootComponent from "./RootComponent";
+import { IMetadata, IParams } from "./types";
 
 /**
  * Global H5P namespace object.
@@ -17,7 +21,7 @@ H5P = H5P || {};
 // Add a wrapper class to the global H5P namespace.
 H5P.MultiuserQuiz = class extends H5P.ContentType(true) {
   constructor(
-    params: any,
+    params: IParams,
     contentId: string,
     extras: {
       metadata?: IMetadata;
@@ -25,7 +29,7 @@ H5P.MultiuserQuiz = class extends H5P.ContentType(true) {
     }
   ) {
     super();
-    this.multiuserQuiz = new MultiuserQuiz(
+    this.root = new RootComponent(
       params,
       contentId,
       extras,
@@ -33,14 +37,14 @@ H5P.MultiuserQuiz = class extends H5P.ContentType(true) {
     );
   }
 
-  private multiuserQuiz: MultiuserQuiz;
+  private root: RootComponent;
 
   /**
    * Attach library to DOM.
    * @param wrapper Content's container.
    */
   attach = (wrapper: JQuery) => {
-    this.multiuserQuiz.attach(wrapper);
+    this.root.attach(wrapper);
   };
 
   triggerResize = () => {
