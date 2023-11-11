@@ -112,7 +112,7 @@ export default class RootComponent {
   };
   /**
    * Actions are performed on the global state. The object here allows access to
-   * these acitons
+   * these actions.
    */
   private actions: ShareDBActions;
   /**
