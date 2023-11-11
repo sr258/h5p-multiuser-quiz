@@ -1,4 +1,4 @@
-import { IMetadata } from "../../scripts/types";
+import { IMetadata } from "../../types";
 
 export const sampleMetadata: IMetadata = {
   defaultLanguage: "en",

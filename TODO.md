@@ -1,0 +1,5 @@
+- Inhalt geändert & "deleted" gesetzt --> Presence bleibt erhalten
+- Single Choice Set ersten mit eigener Struktur
+  - Probleme: Ignorierte Optionen
+  - Mehr als 7 Optionen
+  - 

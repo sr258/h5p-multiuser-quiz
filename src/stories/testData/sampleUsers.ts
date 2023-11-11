@@ -1,4 +1,4 @@
-import { IOtherUser } from "../../scripts/types";
+import { IOtherUser } from "../../types";
 
 export const sampleUsers: IOtherUser[] = [
   {

@@ -1,5 +1,4 @@
 const path = require("path");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
 const nodeEnv = process.env.NODE_ENV || "development";
@@ -21,13 +20,9 @@ module.exports = {
       }),
     ],
   },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: "multiuser-quiz.css",
-    }),
-  ],
+  plugins: [],
   entry: {
-    dist: "./src/entries/multiuser-quiz.ts",
+    dist: "./src/H5PEntrypoint.ts",
   },
   output: {
     filename: "multiuser-quiz.js",
@@ -41,7 +36,7 @@ module.exports = {
         use: [
           {
             loader: "ts-loader",
-          }
+          },
         ],
         exclude: /node_modules/,
       },
@@ -49,21 +44,6 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: "babel-loader",
-      },
-      {
-        test: /\.(s[ac]ss|css)$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: "",
-            },
-          },
-          { loader: "css-loader" },
-          {
-            loader: "sass-loader",
-          },
-        ],
       },
       {
         test: /\.svg|\.jpg|\.png$/,

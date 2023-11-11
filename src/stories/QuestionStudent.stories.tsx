@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { QuestionStudent } from "../scripts/screens/QuestionStudent";
+import { QuestionStudent } from "../screens/QuestionStudent";
 
 import { sampleParams } from "./testData/sampleParams";
 import { sampleState } from "./testData/sampleState";

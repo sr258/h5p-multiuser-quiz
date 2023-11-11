@@ -1,6 +1,5 @@
-import "../styles/multiuser-quiz.css";
-import MultiuserQuiz from "../scripts/MultiuserQuiz";
-import { IMetadata } from "../scripts/types";
+import MultiuserQuiz from "./MultiuserQuiz";
+import { IMetadata } from "./types";
 
 /**
  * Global H5P namespace object.

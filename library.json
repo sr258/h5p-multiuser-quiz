@@ -16,11 +16,7 @@
       "path": "dist/multiuser-quiz.js"
     }
   ],
-  "preloadedCss": [
-    {
-      "path": "dist/multiuser-quiz.css"
-    }
-  ],
+  "preloadedCss": [],
   "requiredExtensions": {
     "sharedState": 1
   },

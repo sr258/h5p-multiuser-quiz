@@ -1,4 +1,4 @@
-import { IState } from "../../scripts/types";
+import { IState } from "../../types";
 
 export const sampleState: IState = {
   answers: [],

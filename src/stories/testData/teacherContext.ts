@@ -1,4 +1,4 @@
-import { IContext } from "../../scripts/types";
+import { IContext } from "../../types";
 
 export const teacherContext: IContext = {
   isTeacher: true,

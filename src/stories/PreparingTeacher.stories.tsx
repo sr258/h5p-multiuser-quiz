@@ -5,7 +5,7 @@ import { sampleState } from "./testData/sampleState";
 import { teacherContext } from "./testData/teacherContext";
 import { sampleMetadata } from "./testData/sampleMetadata";
 import { sampleUsers, sampleUsersMany } from "./testData/sampleUsers";
-import { PreparingTeacher } from "../scripts/screens/PreparingTeacher";
+import { PreparingTeacher } from "../screens/PreparingTeacher";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
